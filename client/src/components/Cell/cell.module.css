@@ -1,0 +1,99 @@
+@import '../../vars.css';
+
+/* Cell List Styling */
+
+.cell-list {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.cell-list-item {
+    cursor: pointer;
+    padding: 4px 10px;
+    margin: 0;
+    margin: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    border-radius: 4px;
+    box-shadow: 5px 5px 10px -1px rgba(120, 120, 120, 0.5) inset, -5px -5px 10px -2px rgba(0, 0, 0, 0.5) inset;
+    transition: box-shadow 0.3s ease-in-out;
+}
+.cell-list-item:hover {
+    box-shadow: 5px 5px 10px -1px rgba(0, 0, 0, 0.5) inset, -5px -5px 10px -2px rgba(120, 120, 120, 0.5) inset;
+}
+.cell-list-item.active {
+    box-shadow: inset 0 0 5px black;
+}
+.cell-list-item-text {
+    margin: 4px;
+}
+.about-skill-cell {
+    padding: 6px 16px;
+    display: flex;
+    justify-content: left !important;
+    align-items: center !important;
+    margin: 0;
+}
+.about-skill-text {
+    margin: 4px;
+}
+.about-skill-cell:hover {
+    box-shadow: inset 0 0 5px black;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/*
+@import './vars.css';
+
+.cellList {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.cellListItem {
+    cursor: pointer;
+    padding: 4px 10px;
+    margin: 0;
+    margin: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    border-radius: 4px;
+    box-shadow: 5px 5px 10px -1px rgba(120, 120, 120, 0.5) inset, -5px -5px 10px -2px rgba(0, 0, 0, 0.5) inset;
+    transition: box-shadow 0.3s ease-in-out;
+}
+.cellListItem:hover {
+    box-shadow: 5px 5px 10px -1px rgba(0, 0, 0, 0.5) inset, -5px -5px 10px -2px rgba(120, 120, 120, 0.5) inset;
+}
+.cellListItem.active {
+    box-shadow: inset 0 0 5px black;
+}
+.cellListItemText {
+    margin: 4px;
+}
+.about-skill-cell {
+    padding: 6px 16px;
+    display: flex;
+    justify-content: left !important;
+    align-items: center !important;
+    margin: 0;
+}
+.about-skill-text {
+    margin: 4px;
+}
+.about-skill-cell:hover {
+    box-shadow: inset 0 0 5px black;
+    transition: box-shadow 0.3s ease-in-out;
+}
+.cellListFilter {
+    padding: 1.25rem 2px 1.25rem 4px;
+}
+.cellListData {
+    padding: 1.25rem 2px 1.25rem 4px;
+}
+*/

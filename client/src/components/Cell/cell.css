@@ -1,0 +1,49 @@
+@import '../../vars.css';
+
+/* Cell List Styling */
+
+.cell-list-container {
+    padding-top: 1.25rem;
+}
+.cell-list {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.cell-list-item {
+    cursor: pointer;
+    padding: 0.125rem 0.50rem;
+    margin: 0.125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    border-radius: 4px;
+    box-shadow: inset 5px 5px 10px -1px #78787880, inset -5px -5px 10px -2px #00000080;
+    box-shadow: inset 2px 2px 4px -1px #78787880, inset -4px -4px 4px -2px #00000080;
+    box-shadow: inset 2px 2px 2px 0px #000000bb, inset -2px -2px 2px 0px #787878bb;
+    box-shadow: inset 2px 2px 2px -1px #888888bb, inset -2px -2px 2px -1px #000000bb;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: var(--color_quaternary);
+}
+.cell-list-item:hover {
+    box-shadow: inset 5px 5px 10px -1px #00000080, inset -5px -5px 10px -2px #31313180;
+    box-shadow: inset 2px 2px 2px 0px #00000055, inset -2px -2px 2px 0px #78787855;
+    background-color: var(--color_quinary);
+}
+.cell-list-item:focus {
+    box-shadow: inset 5px 5px 10px -1px #00000080, inset -5px -5px 10px -2px #78787880;
+}
+.cell-list-item.active {
+    box-shadow: inset 0 0 5px #000000;
+    box-shadow: inset 0 0 2px 1px #000000AA;
+    box-shadow: inset 2px 2px 4px -1px #00000080, inset -4px -4px 4px -2px #78787880;
+    box-shadow: inset 2px 2px 2px -1px #000000bb, inset -2px -2px 2px -1px #888888bb;
+}
+.cell-list-item-text {
+    margin: 2px;
+    user-select: none;
+    color: var(--color-text);
+    text-shadow: 0px 0.05rem 0.05rem #000000bb;
+}

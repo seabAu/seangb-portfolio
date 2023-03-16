@@ -1,0 +1,38 @@
+export const experiences = [
+    {
+        _id: "6758345968234",
+        company: "Sibylline, Ltd.",
+        location: "London, UK (Remote)",
+        title: "Technical Developer",
+        period: "June 2020 - Present",
+        duties: [ "Duty1", "Duty2", "Duty3" ],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit exercitationem voluptate voluptatibus quasi tempora harum at ratione commodi, assumenda adipisci voluptas sit a quos tempore totam quo, eligendi eaque dignissimos dolores magni. Recusandae quod odit sunt accusamus, nam aliquid blanditiis ipsam ullam labore ex distinctio cupiditate ipsa, suscipit debitis quaerat.",
+    },
+    {
+        _id: "6758345968233",
+        company: "Industrial TurnAround Corporation",
+        location: "Raleigh, NC",
+        title: "Electrical Engineering Design Associate II",
+        period: "March 2018 - May 2020",
+        duties: [],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit exercitationem voluptate voluptatibus quasi tempora harum at ratione commodi, assumenda adipisci voluptas sit a quos tempore totam quo, eligendi eaque dignissimos dolores magni. Recusandae quod odit sunt accusamus, nam aliquid blanditiis ipsam ullam labore ex distinctio cupiditate ipsa, suscipit debitis quaerat.",
+    },
+    {
+        _id: "6758345968232",
+        company: "Industrial Tests, Inc.",
+        location: "Rocklin, CA",
+        title: "Field Engineer",
+        period: "June 2017 - August 2017",
+        duties: [],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit exercitationem voluptate voluptatibus quasi tempora harum at ratione commodi, assumenda adipisci voluptas sit a quos tempore totam quo, eligendi eaque dignissimos dolores magni. Recusandae quod odit sunt accusamus, nam aliquid blanditiis ipsam ullam labore ex distinctio cupiditate ipsa, suscipit debitis quaerat.",
+    },
+    {
+        _id: "6758345968231",
+        company: "Aerotek - Contract with HDR, Inc.",
+        location: "Sacramento, CA",
+        title: "Hydropower EIT Electrical Engineer",
+        period: "January 2016 - June 2017",
+        duties: [],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit exercitationem voluptate voluptatibus quasi tempora harum at ratione commodi, assumenda adipisci voluptas sit a quos tempore totam quo, eligendi eaque dignissimos dolores magni. Recusandae quod odit sunt accusamus, nam aliquid blanditiis ipsam ullam labore ex distinctio cupiditate ipsa, suscipit debitis quaerat.",
+    },
+];
