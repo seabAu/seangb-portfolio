@@ -1,5 +1,11 @@
 import React from "react";
-import { isArray, isJSON, isObject, isString, isValidArray } from "./Val";
+import {
+    isArray,
+    isJSON,
+    isObject,
+    isString,
+    isValidArray
+} from "./Val";
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
@@ -7,18 +13,18 @@ import { isArray, isJSON, isObject, isString, isValidArray } from "./Val";
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 // INPUT SANITATION
-export const cleanInvalid = (val, replace) =>
+export const cleanInvalid = ( val, replace ) =>
     val === null ||
     val === undefined ||
     val === "" ||
-    val === " "
-        ? replace
-        : val;
+    val === " " ?
+    replace :
+    val;
 
-export const SanitizeObj = (obj) => {
-    console.log("SanitizeObj :: obj = ", obj);
-    return Object.keys(obj).forEach((key) => {
-        console.log("SanitizeObj :: key = ", key, " :: obj[key] = ", obj[key]);
+export const SanitizeObj = ( obj ) => {
+    console.log( "SanitizeObj :: obj = ", obj );
+    return Object.keys( obj ).forEach( ( key ) => {
+        console.log( "SanitizeObj :: key = ", key, " :: obj[key] = ", obj[ key ] );
 
         // Sanitize the value if it's null or undefined.
         // if (
@@ -30,35 +36,34 @@ export const SanitizeObj = (obj) => {
         //     obj[key] = "-";
         // }
         obj[ key ] = cleanInvalid( obj[ key ], "-" );
-        if (obj[key]) {
-            if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+        if ( obj[ key ] ) {
+            if ( typeof obj[ key ] === "object" && !Array.isArray( obj[ key ] ) ) {
                 console.log(
                     "SanitizeObj :: obj has a nested object :: key = ",
                     key,
                     " :: obj[key] = ",
-                    obj[key],
+                    obj[ key ],
                 );
-                obj[key] = SanitizeObj(obj[key]);
-            } else if (Array.isArray(obj[key])) {
+                obj[ key ] = SanitizeObj( obj[ key ] );
+            } else if ( Array.isArray( obj[ key ] ) ) {
                 console.log(
                     "SanitizeObj :: obj has a nested array :: key = ",
                     key,
                     " :: obj[key] = ",
-                    obj[key],
+                    obj[ key ],
                 );
-                obj[key] = SanitizeObjArray(obj[key]);
+                obj[ key ] = SanitizeObjArray( obj[ key ] );
             }
-        } else {
-        }
-    });
+        } else {}
+    } );
 };
 
 // This runs through an object array and replaces any null, undefined, empty, or otherwise invalid values with a placeholder, to avoid errors.
-export const SanitizeObjArray = (objArray) => {
-    console.log("SanitizeObjectArray() :: objArray = ", objArray);
-    let sanitized = objArray.map((object, index) => {
-        console.log("SanitizeObjArray() :: object = ", object);
-        return SanitizeObj(object);
+export const SanitizeObjArray = ( objArray ) => {
+    console.log( "SanitizeObjectArray() :: objArray = ", objArray );
+    let sanitized = objArray.map( ( object, index ) => {
+        console.log( "SanitizeObjArray() :: object = ", object );
+        return SanitizeObj( object );
         // Object.entries(object).map(
         //     (objProperty, index) => {
         //         let objKey = objProperty[0];
@@ -81,25 +86,25 @@ export const SanitizeObjArray = (objArray) => {
         //         }
         //     },
         // )
-    });
-    console.log("sanitized = ", sanitized);
+    } );
+    console.log( "sanitized = ", sanitized );
     return sanitized;
 };
-export const getObjKeys = ( inputObj ) =>
-{
+export const getObjKeys = ( inputObj ) => {
     try {
-        return Object.keys(inputObj).map((key, index) => {
+        return Object.keys( inputObj ).map( ( key, index ) => {
             return {
                 id: index,
                 key: key,
                 value: key,
-                label:
-                    key.replace("_", " ").charAt(0).toUpperCase() +
-                    key.replace("_", " ").slice(1),
+                label: key.replace( "_", " " ).charAt( 0 ).toUpperCase() +
+                    key.replace( "_", " " ).slice( 1 ),
             };
-        });
-    } catch (error) {
-        return [{no_data: "No data"}];
+        } );
+    } catch ( error ) {
+        return [ {
+            no_data: "No data"
+        } ];
     }
 };
 ///////////////////////////////////////////////////
@@ -107,11 +112,11 @@ export const getObjKeys = ( inputObj ) =>
 ///////////////////////////////////////////////////
 // OBJECT & OBJECT-ARRAY MANIPULATION
 // This applies the properties of spliceObj to each object in the objArray.
-export const SpliceObjArray = (objArray, spliceObj) => {
-    if (Array.isArray(objArray)) {
-        return objArray.map((obj) => {
-            return Object.assign(obj, spliceObj);
-        });
+export const SpliceObjArray = ( objArray, spliceObj ) => {
+    if ( Array.isArray( objArray ) ) {
+        return objArray.map( ( obj ) => {
+            return Object.assign( obj, spliceObj );
+        } );
     } else {
         console.log(
             "OBJUTILS.JS :: SpliceObjArray :: objArray = ",
@@ -130,12 +135,12 @@ export const SpliceObjArray = (objArray, spliceObj) => {
 // Array.prototype.flatten = function () {
 export const flatten = function () {
     let flatArray = [];
-    for (let index = 0; index < this.length; index++) {
-        const element = this[index];
-        if (Array.isArray(element)) {
-            flatArray = flatArray.concat(this.flatten.call(element));
+    for ( let index = 0; index < this.length; index++ ) {
+        const element = this[ index ];
+        if ( Array.isArray( element ) ) {
+            flatArray = flatArray.concat( this.flatten.call( element ) );
         } else {
-            flatArray.push(element);
+            flatArray.push( element );
         }
     }
     return flatArray;
@@ -159,63 +164,63 @@ export const flatten = function () {
 // Declare a flatten function that takes
 // object as parameter and returns the
 // flatten object
-export const flattenObj = (obj) => {
+export const flattenObj = ( obj ) => {
     // The object which contains the
     // final result
     let result = {};
 
     // loop through the object "ob"
     // for (const key in obj) {
-    Object.keys(obj).forEach((key) => {
+    Object.keys( obj ).forEach( ( key ) => {
         // Sanitize the value if it's null or undefined.
-        if (obj[key] === null || obj[key] === undefined || obj[key] === "") {
-            obj[key] = "-";
+        if ( obj[ key ] === null || obj[ key ] === undefined || obj[ key ] === "" ) {
+            obj[ key ] = "-";
         }
-        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
-            const temp = flattenObj(obj[key]);
-            for (const j in temp) {
+        if ( typeof obj[ key ] === "object" && !Array.isArray( obj[ key ] ) ) {
+            const temp = flattenObj( obj[ key ] );
+            for ( const j in temp ) {
                 // Store temp in result
-                result[key + "_" + j] = temp[j];
+                result[ key + "_" + j ] = temp[ j ];
             }
         }
 
         // Else store obj[key] in result directly
         else {
-            result[key] = obj[key];
+            result[ key ] = obj[ key ];
         }
-    });
+    } );
     return result;
 };
 
 // This flattens an object into HTML elements.
-export const flattenObjArray = (objArray) => {
+export const flattenObjArray = ( objArray ) => {
     // console.log("flattenObjArray(): ", objArray);
-    return objArray.map((obj, index) => {
-        if (typeof obj === "object") {
-            return flattenObj(obj);
-        } else if (Array.isArray(obj)) {
-            return [...flattenObjArray(obj)];
+    return objArray.map( ( obj, index ) => {
+        if ( typeof obj === "object" ) {
+            return flattenObj( obj );
+        } else if ( Array.isArray( obj ) ) {
+            return [ ...flattenObjArray( obj ) ];
         } else {
             return obj;
         }
-    });
+    } );
 };
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 // OBJECT & OBJECT-ARRAY FLATTENING INTO HTML ELEMENTS
 // This flattens an object into HTML elements.
-export const flatMapObjText = (obj) => {
+export const flatMapObjText = ( obj ) => {
     // console.log("flatMapObjText(): ", obj);
-    return Object.entries(obj)
-        .map((objProperty) => {
-            if (typeof objProperty[1] === "object" && objProperty[1] !== null) {
+    return Object.entries( obj )
+        .map( ( objProperty ) => {
+            if ( typeof objProperty[ 1 ] === "object" && objProperty[ 1 ] !== null ) {
                 return `${flatMapObjText(objProperty[1])}`;
             } else {
                 return `${objProperty[0]}: ${objProperty[1]}`;
             }
-        })
-        .join("");
+        } )
+        .join( "" );
 };
 
 ///////////////////////////////////////////////////
@@ -224,46 +229,46 @@ export const flatMapObjText = (obj) => {
 // DEEP NESTED OBJECT / ARRAY FILTERING & SORTING
 
 // Sorting function from https://blog.logrocket.com/creating-react-sortable-table/
-export const sortDataByKey = (data, key, order = "asc") => {
+export const sortDataByKey = ( data, key, order = "asc" ) => {
     // console.log( "sortDataByKey :: ", data, key, order );
-    if (key) {
+    if ( key ) {
         // console.log( "sortDataByKey :: key is valid :: ", data, key, order );
-        const sortedData = [...data].sort((a, b) => {
+        const sortedData = [ ...data ].sort( ( a, b ) => {
             // console.log( "sortDataByKey :: key is valid :: sorting now :: ", data, key, order, a, b, a[key], b[key] );
-            if (a[key] === null) return 1;
-            if (b[key] === null) return -1;
-            if (a[key] === null && b[key] === null) return 0;
+            if ( a[ key ] === null ) return 1;
+            if ( b[ key ] === null ) return -1;
+            if ( a[ key ] === null && b[ key ] === null ) return 0;
             if ( !a.hasOwnProperty.call( key ) && !b.hasOwnProperty.call( key ) ) return 0;
             return (
-                a[key].toString().localeCompare(b[key].toString(), "en", {
+                a[ key ].toString().localeCompare( b[ key ].toString(), "en", {
                     numeric: true,
-                }) * (order === "asc" ? 1 : -1)
+                } ) * ( order === "asc" ? 1 : -1 )
             );
-        });
+        } );
         return sortedData;
     }
 };
 
-export const sortDataByKey2 = (data, key, order = "asc") => {
+export const sortDataByKey2 = ( data, key, order = "asc" ) => {
     console.log( "sortDataByKey :: ", data, key, order );
-    if (key) {
+    if ( key ) {
         console.log( "sortDataByKey :: key is valid :: ", data, key, order );
-        const sortedData = [...data].sort((a, b) => {
-            console.log( "sortDataByKey :: key is valid :: sorting now :: ", data, key, order, a, b, a[key], b[key] );
-            if (a[key] === null) return 1;
-            if (b[key] === null) return -1;
-            if (a[key] === null && b[key] === null) return 0;
+        const sortedData = [ ...data ].sort( ( a, b ) => {
+            console.log( "sortDataByKey :: key is valid :: sorting now :: ", data, key, order, a, b, a[ key ], b[ key ] );
+            if ( a[ key ] === null ) return 1;
+            if ( b[ key ] === null ) return -1;
+            if ( a[ key ] === null && b[ key ] === null ) return 0;
             return (
-                a[key].toString().localeCompare(b[key].toString(), "en", {
+                a[ key ].toString().localeCompare( b[ key ].toString(), "en", {
                     numeric: true,
-                }) * (order === "asc" ? 1 : -1)
+                } ) * ( order === "asc" ? 1 : -1 )
             );
-        });
+        } );
         return sortedData;
     }
 };
 
-export const filterData = (data, filters) => {
+export const filterData = ( data, filters ) => {
     // Data is an array of objects.
     // Filters is an array of objects consisting only of single key value pairs.
     // console.log(
@@ -275,43 +280,43 @@ export const filterData = (data, filters) => {
     //     "elements.",
     // );
     // console.log( "FilterData :: ", filters.length );
-    if (filters.length > 0) {
+    if ( filters.length > 0 ) {
         let filteredData = data;
         // Filters in the format {key: key, value: filterString}.
-        filters.forEach((element) => {
-            if (element.key && element.value) {
+        filters.forEach( ( element ) => {
+            if ( element.key && element.value ) {
                 // Run for each filter.
                 let filterKey = element.key;
                 let filterValue = element.value.toLowerCase();
-                filteredData = filteredData.filter((obj, index) => {
+                filteredData = filteredData.filter( ( obj, index ) => {
                     // Filter for each object in the array.
-                    if (obj) {
+                    if ( obj ) {
                         // Object is valid. Check if it contains the key of the filter we're currently filtering for.
-                        if (obj.hasOwnProperty(filterKey)) {
+                        if ( obj.hasOwnProperty( filterKey ) ) {
                             // Object contains the key we're filtering for.
-                            if (obj[filterKey]) {
+                            if ( obj[ filterKey ] ) {
                                 // Object has a valid value.
-                                if (typeof obj[filterKey] === "object") {
+                                if ( typeof obj[ filterKey ] === "object" ) {
                                     // The value contained in this key is a nested object. Rather than run through each key value pair recursively, just convert to a string and see if it has the substring we're looking for.
                                     // return JSON.stringify(obj[filterKey]).toLowerCase().includes(filterValue);
                                     // return obj[ filterKey ].toString().toLowerCase().includes( filterValue );
-                                    return Object.values(obj[filterKey])
+                                    return Object.values( obj[ filterKey ] )
                                         .toString()
                                         .toLowerCase()
-                                        .includes(filterValue);
-                                } else if (Array.isArray(obj[filterKey])) {
+                                        .includes( filterValue );
+                                } else if ( Array.isArray( obj[ filterKey ] ) ) {
                                     // The value contained in this key is an array. Have to see if any of its elements contains the value we're looking for.
-                                    return obj[filterKey].some((item) => {
+                                    return obj[ filterKey ].some( ( item ) => {
                                         return item
                                             .toLowerCase()
-                                            .includes(filterValue);
-                                    });
+                                            .includes( filterValue );
+                                    } );
                                 } else {
                                     // The value contained in this key is anything else; a scalar;
-                                    return obj[filterKey]
+                                    return obj[ filterKey ]
                                         .toString()
                                         .toLowerCase()
-                                        .includes(filterValue);
+                                        .includes( filterValue );
                                 }
                             } else {
                                 // Object does not have a valid value.
@@ -326,9 +331,9 @@ export const filterData = (data, filters) => {
                         // Object is invalid.
                         return true;
                     }
-                });
+                } );
             }
-        });
+        } );
         // console.log(
         //     "FilterData() :: AFTER :: ",
         //     "\nfilteredData", filteredData,
@@ -341,7 +346,7 @@ export const filterData = (data, filters) => {
     }
 };
 
-export const filterDataFast = (data, filters) => {
+export const filterDataFast = ( data, filters ) => {
     // Data is an array of objects.
     // Filters is an array of objects consisting only of single key value pairs.
     // console.log(
@@ -353,36 +358,35 @@ export const filterDataFast = (data, filters) => {
     //     "elements.",
     // );
     // console.log( "FilterData :: ", filters.length );
-    if (filters.length > 0) {
+    if ( filters.length > 0 ) {
         let filteredData = data;
         // Filters in the format {key: key, value: filterString}.
-        filters.forEach((element) => {
-            if (element.key && element.value) {
+        filters.forEach( ( element ) => {
+            if ( element.key && element.value ) {
                 // Run for each filter.
                 let filterKey = element.key;
                 let filterValue = element.value.toLowerCase();
-                filteredData = filteredData.filter((obj, index) => {
+                filteredData = filteredData.filter( ( obj, index ) => {
                     // Filter for each object in the array.
-                    if (obj) {
+                    if ( obj ) {
                         // Object is valid. Check if it contains the key of the filter we're currently filtering for.
                         // To do this quick, just turn the whole object into a string and see if it contains the filter value as a substring.
                         // Lol.
                         // console.log( "filtering '''''fast''''' :: ", filterKey, filterValue, obj, JSON.stringify(obj) );
-                        if (obj.hasOwnProperty(filterKey)) {
-                            return JSON.stringify(obj[filterKey])
+                        if ( obj.hasOwnProperty( filterKey ) ) {
+                            return JSON.stringify( obj[ filterKey ] )
                                 .toLowerCase()
-                                .includes(filterValue);
-                        } else
-                        {
+                                .includes( filterValue );
+                        } else {
                             return false;
                         }
                     } else {
                         // Object is invalid.
                         return true;
                     }
-                });
+                } );
             }
-        });
+        } );
         // console.log(
         //     "FilterData() :: AFTER :: ",
         //     "\nfilteredData", filteredData,
@@ -426,166 +430,163 @@ export const filterDataFast = (data, filters) => {
 ///////////////////////////////////////////////////
 // DEEP NESTED OBJECT / ARRAY SEARCHING
 // Searches through an object and checks if it has the desired key(s).
-export const has = (input, search = "") => {
-    if (input) {
-        if (isObject(input)) {
+export const has = ( input, search = "" ) => {
+    if ( input ) {
+        if ( isObject( input ) ) {
             // Input is an object.
-            if (search === "") {
+            if ( search === "" ) {
                 // If search is left blank, just return obj-is-valid check results.
                 return true;
             }
-            return input.hasOwnProperty(search);
-        } else if (isArray(input)) {
+            return input.hasOwnProperty( search );
+        } else if ( isArray( input ) ) {
             // Input is an array.
-            if (input.length > 0) {
+            if ( input.length > 0 ) {
                 // Arr has at least one element.
-                if (input[0] !== undefined) {
+                if ( input[ 0 ] !== undefined ) {
                     // return input.indexOf(search) >= 0;
-                    return input.includes(search);
+                    return input.includes( search );
                 }
             }
         } else {
             // Input is anything else.
-            return valContains(input, search);
+            return valContains( input, search );
         }
     }
     return false;
 };
 
 // Lodash implementation of object-has:
-export function lodash_has(object, key) {
+export function lodash_has( object, key ) {
     // hasOwnProperty = Object.prototype.hasOwnProperty
-    return object ? hasOwnProperty.call(object, key) : false;
+    return object ? hasOwnProperty.call( object, key ) : false;
 }
 // https://github.com/lodash/lodash/blob/master/hasIn.js
-export function hasIn(object, key) {
-    return object != null && key in Object(object);
+export function hasIn( object, key ) {
+    return object != null && key in Object( object );
 }
 
-export const _has = (input, search) => {
+export const _has = ( input, search ) => {
     // Trying a simpler method - get all keys of input, and use array.includes.
-    if (isValidArray(search, true)) {
-        return search.every( ( str ) => isString(str) ? _has(input, str) : false);
+    if ( isValidArray( search, true ) ) {
+        return search.every( ( str ) => isString( str ) ? _has( input, str ) : false );
     } else {
-        if (isValidArray(input)) {
-            return input.every((obj) => (isObject(obj)) ? _has(obj, search) : false);
-        } else if (isObject(input)) {
-            return input ? hasOwnProperty.call(input, search) : false;
+        if ( isValidArray( input ) ) {
+            return input.every( ( obj ) => ( isObject( obj ) ) ? _has( obj, search ) : false );
+        } else if ( isObject( input ) ) {
+            return input ? hasOwnProperty.call( input, search ) : false;
         }
     }
     return false;
 };
 
 // Searches through an array of objects and checks if each has the desired key(s).
-export const Has = ( input, search ) =>
-{
-    function _has ( object, key )
-    {
+export const Has = ( input, search ) => {
+    function _has( object, key ) {
         // hasOwnProperty = Object.prototype.hasOwnProperty
-        return object ? hasOwnProperty.call(object, key) : false;
+        return object ? hasOwnProperty.call( object, key ) : false;
     }
-    function eachHas ( input, search )
-    {
-        if (isObject(input)) {
+
+    function eachHas( input, search ) {
+        if ( isObject( input ) ) {
             // Input is an object.
-            return input.hasOwnProperty(search);
-        } else if (isArray(input)) {
+            return input.hasOwnProperty( search );
+        } else if ( isArray( input ) ) {
             // Input is an array.
-            if (isValidArray(input, true)) {
+            if ( isValidArray( input, true ) ) {
                 // Arr has at least one element.
                 // return input.includes(search);
                 // let _found = [];
-                input.forEach((value, index) => {
-                    if (isObject(value)) {
+                input.forEach( ( value, index ) => {
+                    if ( isObject( value ) ) {
                         // Value is an object. Check if it contains the key we're looking for.
-                        if (!_has(value, search)) {
+                        if ( !_has( value, search ) ) {
                             return false;
                         }
                     }
-                });
+                } );
                 // If we get to this point, every value in [search] was found in the input.
                 return true;
             }
             return false;
         } else {
             // Input is anything else.
-            let inputstr = isJSON(input)
-                ? JSON.stringify(input)
-                : input.toString();
-            let searchstr = isJSON(search)
-                ? JSON.stringify(search)
-                : search.toString();
-            return inputstr.toLowerCase().includes(searchstr.toLowerCase());
+            let inputstr = isJSON( input ) ?
+                JSON.stringify( input ) :
+                input.toString();
+            let searchstr = isJSON( search ) ?
+                JSON.stringify( search ) :
+                search.toString();
+            return inputstr.toLowerCase().includes( searchstr.toLowerCase() );
             // return valContains(input, search);
         }
     };
 
     // First see what kind of input we're given for the search parameter.
     // It can either be an array of strings or just a string.
-    if (isArray(search)) {
-        search.forEach((str, index) => {
-            if (!eachHas(input, str)) {
+    if ( isArray( search ) ) {
+        search.forEach( ( str, index ) => {
+            if ( !eachHas( input, str ) ) {
                 return false;
             }
         } );
         // If we get to this point, every value in [search] was found in the input. 
         return true;
-    } else if (isString(search)) {
-        return eachHas(input, search);
-    } else
-    {
+    } else if ( isString( search ) ) {
+        return eachHas( input, search );
+    } else {
         // Given nothing, return error.
         // return false;
-        throw new Error('ERR :: Has(', input, ', ', search, ') was given invalid arguments.');
+        throw new Error( 'ERR :: Has(', input, ', ', search, ') was given invalid arguments.' );
     }
 };
-export const valContains = (input, search) => {
+export const valContains = ( input, search ) => {
     // console.log(`valContains(${JSON.stringify(input)}, ${search}) :: `);
-    let inputstr = JSON.stringify(input);
-    let searchstr = JSON.stringify(search);
-    return inputstr.toLowerCase().includes(searchstr.toLowerCase());
+    let inputstr = JSON.stringify( input );
+    let searchstr = JSON.stringify( search );
+    return inputstr.toLowerCase().includes( searchstr.toLowerCase() );
 };
-export const objContains = (input, filter) => {
-    if (typeof input === "object") {
+export const objContains = ( input, filter ) => {
+    if ( typeof input === "object" ) {
         // Input is an object
-        Object.keys(input).forEach((key) => {
-            if (input[key]) {
-                let val = input[key];
-                if (val.toLowerCase().includes(filter)) {
+        Object.keys( input ).forEach( ( key ) => {
+            if ( input[ key ] ) {
+                let val = input[ key ];
+                if ( val.toLowerCase().includes( filter ) ) {
                     return true;
                 }
             }
-        });
+        } );
         return false;
-    } else if (Array.isArray(input)) {
+    } else if ( Array.isArray( input ) ) {
         // Input is an array.
-        return arrayContains(input, filter);
+        return arrayContains( input, filter );
     } else {
         // Input is anything else.
-        return input.toString().toLowerCase().includes(filter);
+        return input.toString().toLowerCase().includes( filter );
     }
 };
-export const arrayContains = (input, filter) => {
-    if (typeof input === "object") {
+export const arrayContains = ( input, filter ) => {
+    if ( typeof input === "object" ) {
         // Input is an object
-        return objContains(input, filter);
-    } else if (Array.isArray(input)) {
+        return objContains( input, filter );
+    } else if ( Array.isArray( input ) ) {
         // Input is an array.
-        input.forEach((value, index) => {
-            if (typeof value === "object") {
+        input.forEach( ( value, index ) => {
+            if ( typeof value === "object" ) {
                 // Input is an object
-                return objContains(value, filter);
-            } else if (Array.isArray(value)) {
+                return objContains( value, filter );
+            } else if ( Array.isArray( value ) ) {
                 // Input is an array.
-                return arrayContains(value, filter);
+                return arrayContains( value, filter );
             } else {
                 // Input is anything else.
-                return value.toString().toLowerCase().includes(filter);
+                return value.toString().toLowerCase().includes( filter );
             }
-        });
+        } );
     } else {
         // Input is anything else.
-        return input.toString().toLowerCase().includes(filter);
+        return input.toString().toLowerCase().includes( filter );
     }
 };
 
@@ -743,33 +744,30 @@ export const arrayContains = (input, filter) => {
 // or;
 // var result = deepSearch(myObject, "title", (k, v) => v === "Some Recommends");
 
-export function deepGetKey ( object, key )
-{
-    return deepSearch(object, key, (k, v) => k === key, false);
+export function deepGetKey( object, key ) {
+    return deepSearch( object, key, ( k, v ) => k === key, false );
 }
-export function deepSearch(object, key, predicate, getParent = false) {
-    if (object.hasOwnProperty(key) && predicate(key, object[key]) === true) {
+export function deepSearch( object, key, predicate, getParent = false ) {
+    if ( object.hasOwnProperty( key ) && predicate( key, object[ key ] ) === true ) {
         // If the object has a key present, return the parent object containing that key and its value?
-        if ( getParent )
-        {
+        if ( getParent ) {
             // Return the object containing the key we're looking for.
             return object;
-        } else
-        {
+        } else {
             // Return the value contained in the key we're looking for.
-            return object[key];
+            return object[ key ];
         }
     }
-    for (let i = 0; i < Object.keys(object).length; i++) {
-        let value = object[Object.keys(object)[i]];
-        if (typeof value === "object" && value != null) {
+    for ( let i = 0; i < Object.keys( object ).length; i++ ) {
+        let value = object[ Object.keys( object )[ i ] ];
+        if ( typeof value === "object" && value != null ) {
             let o = deepSearch(
-                object[Object.keys(object)[i]],
+                object[ Object.keys( object )[ i ] ],
                 key,
                 predicate,
                 getParent,
             );
-            if (o != null) {
+            if ( o != null ) {
                 // console.log( "Deepsearch :: o = ", o );
                 return o;
             }
@@ -780,22 +778,22 @@ export function deepSearch(object, key, predicate, getParent = false) {
 
 // Here is the demo: http://jsfiddle.net/a21dx6c0/
 // In the same way you can find more than one object
-export function deepSearchItems(object, key, predicate) {
+export function deepSearchItems( object, key, predicate ) {
     let ret = [];
-    if (object.hasOwnProperty(key) && predicate(key, object[key]) === true) {
-        ret = [...ret, object];
+    if ( object.hasOwnProperty( key ) && predicate( key, object[ key ] ) === true ) {
+        ret = [ ...ret, object ];
     }
-    if (Object.keys(object).length) {
-        for (let i = 0; i < Object.keys(object).length; i++) {
-            let value = object[Object.keys(object)[i]];
-            if (typeof value === "object" && value != null) {
+    if ( Object.keys( object ).length ) {
+        for ( let i = 0; i < Object.keys( object ).length; i++ ) {
+            let value = object[ Object.keys( object )[ i ] ];
+            if ( typeof value === "object" && value != null ) {
                 let o = this.deepSearchItems(
-                    object[Object.keys(object)[i]],
+                    object[ Object.keys( object )[ i ] ],
                     key,
                     predicate,
                 );
-                if (o != null && o instanceof Array) {
-                    ret = [...ret, ...o];
+                if ( o != null && o instanceof Array ) {
+                    ret = [ ...ret, ...o ];
                 }
             }
         }
@@ -941,7 +939,7 @@ export function deepSearchItems(object, key, predicate) {
     };
     */
 
-    /*  // https://dev.to/jonrandy/comment/24ojn // 
+/*  // https://dev.to/jonrandy/comment/24ojn // 
     Sort by Truthy/Falsy value
     Avoiding Number is considerably better for performance:
     // for true/false
@@ -987,44 +985,84 @@ export function deepSearchItems(object, key, predicate) {
     };
 */
 
-export const updateObjArray = ( input ) => { };
+export const updateObjArray = ( input ) => {};
 
-export const varToString = (varObj) => Object.keys(varObj)[0];
+export const varToString = ( varObj ) => Object.keys( varObj )[ 0 ];
 
-export const formatObjArray = (array, split = "_", join = " ") => {
-    if (isValidArray(array, true)) {
-        return array.map((element, index) => {
-            if (isObject(element)) {
+export const formatObjArray = ( array, split = "_", join = " " ) => {
+    if ( isValidArray( array, true ) ) {
+        return array.map( ( element, index ) => {
+            if ( isObject( element ) ) {
                 // Element is an object.
-                Object.keys(element).forEach((key) => {
-                    element[key] = element[key].split(split).join(join);
-                });
+                Object.keys( element ).forEach( ( key ) => {
+                    element[ key ] = element[ key ].split( split ).join( join );
+                } );
                 return element;
-            } else if (isArray(element)) {
+            } else if ( isArray( element ) ) {
                 // Element is an array.
-                return element.map((val) => {
-                    return val.split(split).join(join);
-                });
+                return element.map( ( val ) => {
+                    return val.split( split ).join( join );
+                } );
             } else {
                 // Element is a scalar value.
-                return element.split(split).join(join);
+                return element.split( split ).join( join );
             }
-        });
+        } );
     }
 };
 
 // Will remove all falsy values: undefined, null, 0, false, NaN and "" (empty string)
-export const cleanArray = (actual) => {
+export const cleanArray = ( actual ) => {
     var newArray = new Array();
-    for (var i = 0; i < actual.length; i++) {
-        if (actual[i]) {
-            newArray.push(actual[i]);
+    for ( var i = 0; i < actual.length; i++ ) {
+        if ( actual[ i ] ) {
+            newArray.push( actual[ i ] );
         }
     }
     return newArray;
 };
 
 // Filters out invalid entries. From antd.
-export function filter(items) {
-    return items.filter((item) => item);
+export function filter( items ) {
+    return items.filter( ( item ) => item );
 }
+
+// From Lodash.
+// export function ownKeys( object, enumerableOnly ) {
+//     var keys = Object.keys( object );
+//     if ( Object.getOwnPropertySymbols ) {
+//         var symbols = Object.getOwnPropertySymbols( object );
+//         enumerableOnly && ( symbols = symbols.filter( function ( sym ) {
+//             return Object.getOwnPropertyDescriptor( object, sym ).enumerable;
+//         } ) ), keys.push.apply( keys, symbols );
+//     }
+//     return keys;
+// }
+// 
+// // From Lodash.
+// export function _objectSpread( target ) {
+//     for ( var i = 1; i < arguments.length; i++ ) {
+//         var source = null != arguments[ i ] ? arguments[ i ] : {};
+//         i % 2 ? ownKeys( Object( source ), !0 ).forEach( function ( key ) {
+//             _defineProperty( target, key, source[ key ] );
+//         } ) : Object.getOwnPropertyDescriptors ? Object.defineProperties( target, Object.getOwnPropertyDescriptors( source ) ) : ownKeys( Object( source ) ).forEach( function ( key ) {
+//             Object.defineProperty( target, key, Object.getOwnPropertyDescriptor( source, key ) );
+//         } );
+//     }
+//     return target;
+// }
+// 
+// // From Lodash.
+// export function _defineProperty( obj, key, value ) {
+//     if ( key in obj ) {
+//         Object.defineProperty( obj, key, {
+//             value: value,
+//             enumerable: true,
+//             configurable: true,
+//             writable: true
+//         } );
+//     } else {
+//         obj[ key ] = value;
+//     }
+//     return obj;
+// }

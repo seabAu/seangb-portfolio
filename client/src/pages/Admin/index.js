@@ -6,7 +6,6 @@ import AdminEducations from "./AdminEducations";
 import AdminProjects from "./AdminProjects";
 import AdminExperiences from "./AdminExperiences";
 import AdminContact from "./AdminContact";
-import { useSelector } from "react-redux";
 
 // Ant components
 // import { Tabs } from "antd";
@@ -15,19 +14,14 @@ import AdminMessages from "./AdminMessages";
 import SectionTitle from "../../components/SectionTitle";
 // import { TabsProps } from "antd";
 // const { TabPane } = Tabs;
+import { useDispatch, useSelector } from "react-redux";
+import API from "../../api/api.js";
+import { message } from "antd";
+import { deepGetKey } from "../../components/Utilities/AO";
+import { Navigate } from "react-router-dom";
 
 function Admin() {
-    const { portfolioData } = useSelector( ( state ) => state.root );
-    
-    // Make sure a visitor is successfully logged in before letting them access any page other than "/admin-login".
-    useEffect( () =>
-    {
-        if ( !localStorage.getItem( "token" ) )
-        {
-            window.location.href = "/admin-login";
-        }
-    }, [] );
-
+    const { portfolioData, loggedIn, token, role, } = useSelector( ( state ) => state.root );
     const items = [
         {
             key: "1",
@@ -66,6 +60,11 @@ function Admin() {
         },
     ];
 
+    // if ( role !== "admin" )
+    // {
+    //     console.log( "ADMIN.JS :: role = ", role );
+    //     return <Navigate to="/" replace />;
+    // }
     return (
         <div className="page-container">
             <Header></Header>

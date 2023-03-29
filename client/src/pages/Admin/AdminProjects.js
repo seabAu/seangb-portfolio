@@ -3,6 +3,7 @@ import { Form, Button, Input, Modal, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 import SectionTitle from "../../components/SectionTitle";
 // import { Form, Button, Row, Col } from "react-bootstrap";
 function AdminProjects() {
@@ -21,22 +22,31 @@ function AdminProjects() {
             console.log(values);
             dispatch(SetLoading(true));
             let response;
+            console.log(
+                "AdminProjects :: Before API response :: API.defaults = ",
+                API.defaults,
+            );
             if (selectedItemForEdit) {
                 // Update operation
-                response = await axios.post("/api/portfolio/update-project", {
+                response = await API.post("/api/portfolio/update-project", {
                     ...values,
                     _id: selectedItemForEdit._id,
                 });
             } else {
                 // Add operation
-                response = await axios.post(
-                    "/api/portfolio/add-project",
-                    values,
-                );
+                response = await API.post("/api/portfolio/add-project", values);
             }
 
+            console.log(
+                "AdminProjects :: After API response :: response = ",
+                response,
+            );
             dispatch(SetLoading(false));
             if (response.data.success) {
+                console.log(
+                    "AdminProjects :: After API response :: response.data.success = ",
+                    response.data.success,
+                );
                 message.success(response.data.message);
                 setShowAddEditModal(false);
                 setSelectedItemForEdit(null);

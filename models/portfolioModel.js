@@ -385,6 +385,11 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    timestamp: {
+        type: Date,
+        required: false,
+        default: Date.now,
+    },
 });
 messageSchema.plugin(require("mongoose-autopopulate"));
 

@@ -35,7 +35,13 @@
     /* * Box Shadow Vars * */
     /*  box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]; 
         box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
+    --boxshadow: -2px -2px 2px 0px rgba(255, 255, 255, 0.05), 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
+    --boxshadowInset: inset -2px -2px 3px 0px rgba(255, 255, 255, 0.1), inset 2px 2px 3px 0px rgba(0, 0, 0, 0.8);
     */
+    --boxshadow: -2px -2px 2px 0px rgba(255, 255, 255, 0.05), 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
+    --boxshadowSmooth: -1px -1px 2px 1px #ffffff11, 1px 1px 2px 1px #00000088, -2px -2px 4px 1px #ffffff11, 2px 2px 4px 1px #00000088;
+    --boxshadowInset: inset -2px -2px 3px 0px rgba(255, 255, 255, 0.1), inset 2px 2px 3px 0px rgba(0, 0, 0, 0.8);
+    --boxshadowFlat: 0px 0px 1px 1px #22222288;
     --color_box_shadow_primary: #2d2d2d44;
     --color_box_shadow_secondary: #2d2d2d44;
     --color_box_shadow_hover: #2d2d2daa;
@@ -48,10 +54,7 @@
     --text-shadow-params: 0px 0.05rem 0.05rem #000000bb;
     --box-shadow-outset-small-smooth-fade: -2px -2px 14px rgba(0, 0, 0, 0.7), -2px -2px 10px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.075), 2px 2px 10px rgba(0, 0, 0, 0.15);
     --box-shadow-outset-sharp-fade: -1px -1px 14px rgba(0, 0, 0, 0.7), -1px -1px 10px rgba(0, 0, 0, 0.5), 1px 1px 8px rgba(0, 0, 0, 0.075), 1px 1px 10px rgba(0, 0, 0, 0.15);
-    --box-shadow-outset-large-smooth-fade: -6px -6px 14px rgba(0, 0, 0, 0.7), 
-                                            -6px -6px 10px rgba(0, 0, 0, 0.5), 
-                                            6px 6px 8px rgba(0, 0, 0, 0.075), 
-                                            6px 6px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-large-smooth-fade: -6px -6px 14px rgba(0, 0, 0, 0.7), -6px -6px 10px rgba(0, 0, 0, 0.5), 6px 6px 8px rgba(0, 0, 0, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
     --bshadow-xl: 0px 0px 4px 1px #0000003d, 1px -1px 50px -25px #000000cc;
     /* * Media Size Vars * */
     --media-size-sm: 300px;
@@ -85,6 +88,7 @@
     --sidepanel-width: 16rem;
     --header-height: 40px;
     --footer-height: 60px;
+    --icon-size: 0.9rem;
 }
 html[data-theme='light'], .page-container.theme-light {
     --color_primary: #cecece;

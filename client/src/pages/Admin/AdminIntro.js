@@ -3,6 +3,7 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 
 function AdminIntro() {
     const dispatch = useDispatch();
@@ -14,13 +15,13 @@ function AdminIntro() {
     // const { firstName, lastName, welcomeText, description, caption } = intros[ 0 ];
 
     const onFinish = async (values) => {
+        // axios.defaults.baseURL = `http://147.182.184.250:4000`;
         try {
             dispatch( SetLoading(true) );
-            const response = await axios.post( "/api/portfolio/update-intro",
-                {
-                    ...values,
-                    _id: portfolioData.intro._id,
-                } );
+            const response = await API.post("/api/portfolio/update-intro", {
+                ...values,
+                _id: portfolioData.intro._id,
+            });
             dispatch( SetLoading(false) );
             if ( response.data.success )
             {

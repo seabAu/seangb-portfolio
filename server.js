@@ -4,8 +4,9 @@ const dotenv = require("dotenv").config();
 const dbConfig = require("./config/dbConfig");
 const port = process.env.PORT || 4000;
 // const cors = require( "cors" );
-const { createProxyMiddleware } = require("http-proxy-middleware");
-// Get portfolio route endpoint for getting data from the database.
+const { createProxyMiddleware } = require( "http-proxy-middleware" );
+
+// Initialize the server.
 const app = express();
 const cors = require("cors");
 app.use(express.json());
@@ -15,8 +16,14 @@ app.use(
         origin: "*",
     }),
 );
-const portfolioRoute = require("./routes/portfolioRoute");
-app.use( "/api/portfolio", portfolioRoute );
+
+// Get portfolio route endpoint for getting data from the database.
+// const portfolioRoute = require("./routes/portfolioRoute");
+app.use( "/api/portfolio", require("./routes/portfolioRoute") );
+app.use( "/api/users", require( "./routes/userRoute" ) );
+
+
+
 // app.use( "/api/portfolio", createProxyMiddleware( { target: 'localhost', changeOrigin: true } ) );
 // Set up measures to avoid CORS issues.
 // const cors = require("cors");
@@ -50,20 +57,40 @@ app.use( "/api/portfolio", portfolioRoute );
 if (process.env.NODE_ENV === "production") {
     // After building production folder ("build"), tell the server where the production environment files are.
     app.use(express.static(path.join(__dirname, "./client/build")));
-    app.get("*", (req, res) => {
+    // app.get("*", (req, res) => {
+    //     res.sendFile(
+    //         path.join(__dirname, "./client/build/index.html"),
+    //         // path.resolve(__dirname, "../", "client", "build", "index.html"),
+    //     );
+    // });
+    app.get( "*", ( req, res ) =>
+    {
+        // console.log( `Server.js :: app.get(*) :: environment variables are currently: `, process.env, ", req = ", req, ", res = ", res, ", __dirname = ",  __dirname, );
+        
         res.sendFile(
-            path.join(__dirname, "./client/build/index.html"),
-            // path.resolve(__dirname, "../", "client", "build", "index.html"),
+            path.resolve( __dirname, "./", "client", "build", "index.html" ),
         );
     });
 } else {
-    // app.get("/", (req, res) => {
-    //     res.send("Please set to production");
-    // });
+    app.get( "/", ( req, res ) =>
+    {
+        // console.log( `Server.js :: app.get(//) :: environment variables are currently: `, process.env );
+        res.send(
+            `Server currently running in the "${process.env.NODE_ENV}" environment. Please set to "production"`,
+        );
+    });
 }
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}.`);
+    console.log(
+        `Server.js :: app.listen(port, ()) :: environment variables are currently: `,
+        // process.env,
+        ", port = ",
+        port,
+        ", __dirname = ",
+        __dirname,
+    );
 });
 
 /*

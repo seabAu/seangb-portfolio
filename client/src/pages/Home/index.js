@@ -12,7 +12,7 @@ import Education from "./Education";
 import Contact from "./Contact";
 // import { Tabs } from "antd";
 import Tabs from "../../components/Tabs/Tabs";
-import { arrayIsValid, has } from "../../components/Utilities/AO";
+import Blog from "./Blog";
 
 // Import UI components
 // import 'bootstrap/dist/css/bootstrap.css';
@@ -48,50 +48,48 @@ function Home() {
     ];
     
     return (
-        <>
-            {portfolioData && (
-                <div className="page-container">
-                    <Header></Header>
-                    <div className="page-content">
-                        <Tabs
-                            defaultActiveKey="2"
-                            items={items}
-                            tabPosition={"top"}
-                            size={"large"}
-                            style={{ margin: 10 }}
-                            type="top"
-                            centered={true}
-                            padContent={false}
-                            fillArea={true}
-                            roundedNav={false}
-                            contentBoxShadow={false}
-                            navBoxShadow={false}
-                            // onChange={onChange}
-                        >
-                            <div className="tab-item" label="About" key="1">
-                                <About />
-                            </div>
-                            <div className="tab-item" label="Projects" key="2">
-                                <Projects />
-                            </div>
-                            <div
-                                className="tab-item"
-                                label="Experience"
-                                key="3">
-                                <Experiences />
-                            </div>
-                            <div className="tab-item" label="Education" key="4">
-                                <Education />
-                            </div>
-                            <div className="tab-item" label="Contact" key="5">
-                                <Contact />
-                            </div>
-                        </Tabs>
-                    </div>
-                    <Footer></Footer>
+        portfolioData && (
+            <div className="page-container">
+                <Header></Header>
+                <div className="page-content">
+                    <Tabs
+                        defaultActiveKey="2"
+                        items={items}
+                        tabPosition={"top"}
+                        size={"large"}
+                        style={{ margin: 4 }}
+                        type="top"
+                        centered={true}
+                        padContent={false}
+                        fillArea={true}
+                        roundedNav={false}
+                        contentBoxShadow={false}
+                        navBoxShadow={false}
+                        // onChange={onChange}
+                    >
+                        <div className="tab-item" label="About" key="1">
+                            <About />
+                        </div>
+                        <div className="tab-item" label="Projects" key="2">
+                            <Projects />
+                        </div>
+                        <div className="tab-item" label="Experience" key="3">
+                            <Experiences />
+                        </div>
+                        <div className="tab-item" label="Education" key="4">
+                            <Education />
+                        </div>
+                        <div className="tab-item" label="Blog" key="5">
+                            <Blog />
+                        </div>
+                        <div className="tab-item" label="Contact" key="6">
+                            <Contact />
+                        </div>
+                    </Tabs>
                 </div>
-            )}
-        </>
+                <Footer></Footer>
+            </div>
+        )
     );
 }
 

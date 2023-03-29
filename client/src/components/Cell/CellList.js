@@ -127,7 +127,7 @@ function CellList(props) {
             )}
             {dataListEnabled && dataList && filterActiveList && (
                 <div className="cell-list-data">
-                    <hr className="pt-2 pb-2" />
+                    <hr className="hr-neumorphic" />
                     {getCellList(
                         dataList,
                         dataDisplayKey,

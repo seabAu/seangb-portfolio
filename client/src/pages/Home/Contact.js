@@ -4,6 +4,7 @@ import SectionTitle from "../../components/SectionTitle";
 import { Form, Button, Input, Modal, message } from "antd";
 import { SetLoading, ReloadData } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 
 function Contact() {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function Contact() {
             console.log("Contact(): values => ", values);
             dispatch(SetLoading(true));
             let response;
-            response = await axios.post("/api/portfolio/send-message", values);
+            response = await API.post("/api/portfolio/send-message", values);
             console.log( "Contact(): response => ", response );
             // dispatch(SetLoading(false));
             if (response.data.success) {

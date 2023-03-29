@@ -3,6 +3,7 @@ import { Form, Button, Input, Modal, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 import SectionTitle from "../../components/SectionTitle";
 // import { Form, Button, Row, Col } from "react-bootstrap";
 function AdminMessages() {
@@ -13,7 +14,7 @@ function AdminMessages() {
     const onDelete = async (item) => {
         try {
             dispatch(SetLoading(true));
-            const response = await axios.post("/api/portfolio/delete-message", {
+            const response = await API.post("/api/portfolio/delete-message", {
                 _id: item._id,
             });
             dispatch(SetLoading(false));

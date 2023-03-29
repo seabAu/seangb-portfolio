@@ -232,14 +232,16 @@ const Tabs = ( props ) =>
         gap: `${padContent ? "0.125rem" : "0rem"}`,
         padding: `${padContent ? "2rem" : "0rem"}`,
         boxShadow: `${contentBoxShadow ? "0 0 5px black" : "none"}`,
+        minHeight: `${fillArea ? "100% !important" : "auto"}`,
+        // height: `${fillArea ? "100% !important" : "auto"}`,
     };
 
-    console.log(
-        "Tabs.js :: props = ",
-        props,
-        " :: tabChildren = ",
-        tabChildren,
-    );
+    // console.log(
+    //     "Tabs.js :: props = ",
+    //     props,
+    //     " :: tabChildren = ",
+    //     tabChildren,
+    // );
 
     return (
         <div

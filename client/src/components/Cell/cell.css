@@ -4,6 +4,8 @@
 
 .cell-list-container {
     padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    width: 100%;
 }
 .cell-list {
     display: flex;
@@ -11,6 +13,9 @@
     align-items: center !important;
     flex-wrap: wrap;
     flex-direction: row;
+    width: 100%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
 }
 .cell-list-item {
     cursor: pointer;

@@ -1,4 +1,5 @@
 @import '../../vars.css';
+
 /* Tab Component Styling */
 
 .tabs-container {
@@ -107,7 +108,7 @@
     padding: 0.25rem 0.5rem;
     background-color: var(--color_secondary);
     transition: 0.3s all cubic-bezier(0.645, 0.045, 0.355, 1);
-    border-bottom: 3px solid transparent;
+    /* border-bottom: 3px solid transparent; */
 }
 .tab-nav-item:hover {
     background-color: #454545;
@@ -136,11 +137,19 @@
     margin: 0;
     margin-left: 0.25rem;
     width: fit-content;
+    border-width: 0px;
+    border-bottom-width: 3px;
+    border-color: transparent;
+    border-style: solid;
 }
 .tabs-left .tabs-nav-list .tab-nav-item {
     margin: 0;
     margin-bottom: 0.25rem;
     width: auto;
+    border-width: 0px;
+    border-left-width: 3px;
+    border-color: transparent;
+    border-style: solid;
 }
 .tabs-top .tabs-nav-list .tab-nav-item.tab-nav-rounded {
     border-radius: 8px 8px 0 0;
@@ -156,10 +165,16 @@
 .tabs-left .tabs-nav-list .tab-nav-item.tab-active {
     border-width: 0px;
     border-left-width: 3px;
+    color: var(--color_highlightColor2);
+    border-left-color: var(--color_highlightColor2);
+    background-color: var(--color_tertiary);
 }
 .tabs-top .tabs-nav-list .tab-nav-item.tab-active {
     border-width: 0px;
     border-bottom-width: 3px;
+    color: var(--color_highlightColor2);
+    border-bottom-color: var(--color_highlightColor2);
+    background-color: var(--color_tertiary);
 }
 .tab-nav-item .tab-nav-item-label, .tab-nav-item .tab-nav-item-sublabel {
     margin: 0;

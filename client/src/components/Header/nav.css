@@ -100,7 +100,7 @@
     }
     .nav-button {
         margin: 0;
-        padding: 0.5rem 0.5rem;
+        padding: 0.125rem 0.125rem;
         height: 100%;
         width: 100%;
         color: #d7d7d7;
@@ -133,7 +133,7 @@
     }
     .nav-button-icon {
         color: #7c7c7c;
-        font-size: 1.75rem;
+        font-size: 1.25rem;
         cursor: pointer;
         text-decoration: none;
         outline: none;
@@ -141,6 +141,20 @@
     }
     .nav-button:hover .nav-button-icon {
         transform: scale(0.9);
+    }
+    .icon {
+        height: auto;
+        width: auto;
+        max-height: 100%;
+        max-width: 100%;
+        min-height: var(--icon-size);
+        min-width: var(--icon-size);
+        transition: 0.2s;
+        color: var(--color-text);
+        text-align: center;
+        line-height: auto;
+        letter-spacing: normal;
+        padding-inline: 0.25rem;
     }
     .nav-button-text {
         text-align: center;
@@ -150,6 +164,9 @@
         font-size: var(--font-size-button);
         line-height: auto;
         letter-spacing: normal;
+        font-size: 0.65rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     /* https://codepen.io/elitsa_dimitrova/pen/eGVXaJ */
     /* Nav */

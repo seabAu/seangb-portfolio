@@ -160,7 +160,9 @@ router.post("/update-experience", async (req, res) => {
 });
 
 // Add project
-router.post("/add-project", async (req, res) => {
+router.post( "/add-project", async ( req, res ) =>
+{
+    console.log( "portfolioRoute.js :: /add-project :: ", req, res );
     try {
         const project = new Project(req.body);
         await project.save();
@@ -320,6 +322,7 @@ router.post("/delete-message", async (req, res) => {
     }
 });
 
+/*
 // Admin login
 router.post("/login", async (req, res) => {
     try {
@@ -347,5 +350,5 @@ router.post("/login", async (req, res) => {
         res.status(500).send(error);
     }
 });
-
+*/
 module.exports = router;

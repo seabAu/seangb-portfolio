@@ -3,6 +3,7 @@ import { Form, Input, Button, Checkbox, Modal, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 
 function AdminEducations() {
     const dispatch = useDispatch();
@@ -12,6 +13,8 @@ function AdminEducations() {
     const [selectedItemForEdit, setSelectedItemForEdit] = React.useState(null);
     const [type, setType] = React.useState("add");
     const [ form ] = Form.useForm();
+
+    // axios.defaults.baseURL = `http://147.182.184.250:4000`;
     const onFinish = async (values) => {
         try {
             const tempSubjects = values.subjects?.split(/[\s,]+/) || [];
@@ -19,22 +22,27 @@ function AdminEducations() {
             console.log(values);
             dispatch(SetLoading(true));
             let response;
+            console.log(
+                "AdminEducations :: Before API response :: API.defaults = ",
+                API.defaults,
+            );
             if (selectedItemForEdit) {
                 // Update operation
-                response = await axios.post("/api/portfolio/update-education", {
+                response = await API.post("/api/portfolio/update-education", {
                     ...values,
                     _id: selectedItemForEdit._id,
                 });
             } else {
                 // Add operation
-                response = await axios.post(
+                response = await API.post(
                     "/api/portfolio/add-education",
                     values,
                 );
             }
-
+            console.log( "AdminEducations :: After API response :: response = ", response );
             dispatch(SetLoading(false));
             if (response.data.success) {
+                console.log( "AdminEducations :: After API response :: response.data.success = ", response.data.success );
                 message.success(response.data.message);
                 setShowAddEditModal(false);
                 setSelectedItemForEdit(null);
@@ -53,7 +61,7 @@ function AdminEducations() {
     const onDelete = async (item) => {
         try {
             dispatch(SetLoading(true));
-            const response = await axios.post("/api/portfolio/delete-education", {
+            const response = await API.post("/api/portfolio/delete-education", {
                 _id: item._id,
             });
             dispatch(SetLoading(false));

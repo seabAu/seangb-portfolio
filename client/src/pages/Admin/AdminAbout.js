@@ -3,6 +3,7 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
+import API from "../../api/api.js";
 
 function AdminAbout() {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function AdminAbout() {
             values.skills = tempSkills;
 
             dispatch(SetLoading(true));
-            const response = await axios.post("/api/portfolio/update-about", {
+            const response = await API.post("/api/portfolio/update-about", {
                 ...values,
                 _id: portfolioData.about._id,
             });

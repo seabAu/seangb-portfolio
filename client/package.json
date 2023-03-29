@@ -1,6 +1,4 @@
 {
-    "homepage": "https://seabAu.github.io/sgb-portfolio-mern",
-    "repository": "github.com:seabAu/sgb-portfolio-mern",
     "author": {
         "name": "Sean Brown",
         "url": "https://seabAu.github.com/"
@@ -21,6 +19,7 @@
         "axios": "^1.3.3",
         "axios-https-proxy-fix": "^0.17.1",
         "bootstrap": "^5.2.3",
+        "env-cmd": "^10.1.0",
         "gh-pages": "^5.0.0",
         "react": "^18.2.0",
         "react-bootstrap": "^2.7.0",
@@ -40,10 +39,10 @@
         "eject": "react-scripts eject",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "client-start-dev": "env-cmd -f ./.env.dev react-scripts start",
-        "client-build-dev": "env-cmd -f ./.env.dev react-scripts build",
-        "client-start-prod": "env-cmd -f ./.env.prod react-scripts start",
-        "client-build-prod": "env-cmd -f ./.env.prod react-scripts build"
+        "client-start-dev": "env-cmd -f ./.env.development react-scripts start",
+        "client-build-dev": "env-cmd -f ./.env.development react-scripts build",
+        "client-start-prod": "env-cmd -f ./.env.production react-scripts start",
+        "client-build-prod": "env-cmd -f ./.env.production react-scripts build"
     },
     "eslintConfig": {
         "extends": [

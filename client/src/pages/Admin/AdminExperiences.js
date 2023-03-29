@@ -2,10 +2,11 @@ import React from "react";
 import { Form, Input, Button, Checkbox, Modal, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
-import axios from "axios";
 import { isArray, isString } from "../../components/Utilities/Val";
 import { cleanArray } from "../../components/Utilities/AO";
 import * as util from "../../components/Utilities/index.js";
+import axios from "axios";
+import API from "../../api/api.js";
 
 function AdminExperiences() {
     const dispatch = useDispatch();
@@ -52,24 +53,21 @@ function AdminExperiences() {
             );
             if (selectedItemForEdit) {
                 // Update operation
-                response = await axios.post(
-                    "/api/portfolio/update-experience",
-                    {
-                        ...values,
-                        _id: selectedItemForEdit._id,
-                        duties: cleanArray(
-                            values.duties
-                                .toString()
-                                .replaceAll(",", "%^(*&)")
-                                .replaceAll("%^(*&) ", ", ")
-                                .replaceAll("%^(*&)", "|")
-                                .split("|"),
-                        ),
-                    },
-                );
+                response = await API.post("/api/portfolio/update-experience", {
+                    ...values,
+                    _id: selectedItemForEdit._id,
+                    duties: cleanArray(
+                        values.duties
+                            .toString()
+                            .replaceAll(",", "%^(*&)")
+                            .replaceAll("%^(*&) ", ", ")
+                            .replaceAll("%^(*&)", "|")
+                            .split("|"),
+                    ),
+                });
             } else {
                 // Add operation
-                response = await axios.post(
+                response = await API.post(
                     "/api/portfolio/add-experience",
                     // values
                     {
@@ -108,7 +106,7 @@ function AdminExperiences() {
     const onDelete = async (item) => {
         try {
             dispatch(SetLoading(true));
-            const response = await axios.post(
+            const response = await API.post(
                 "/api/portfolio/delete-experience",
                 {
                     _id: item._id,

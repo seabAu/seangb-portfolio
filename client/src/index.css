@@ -376,6 +376,18 @@
         background-color: rgb(55, 65, 81, 1.0);
         margin: 1rem auto;
     }
+    .hr-neumorphic {
+        margin: 0px 0px;
+        width: 100%;
+        height: 8px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
+        border-radius: 4px;
+        box-sizing: border-box;
+        box-shadow: rgba(255, 255, 255, 0.0784314) 0px 1px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 1px;
+        background: linear-gradient(var(--color_quaternary), var(--color_tertiary));
+    }
     .admin-page-content-header {
         padding: 1rem 2rem;
         gap: 2.5rem;
@@ -399,94 +411,6 @@
         width: 100%;
         height: 100%;
     }
-    .section-title {
-        padding: 1rem;
-        padding-left: 0 !important;
-        margin: 0;
-        gap: 0 2.5rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center !important;
-        justify-content: flex-start;
-        width: 100%;
-        max-width: 100%;
-    }
-    .section-title-text {
-        margin: auto 0;
-    }
-    .section-title-bar {
-        margin: 4px;
-        width: 25vw;
-        height: 1px !important;
-        background-color: white;
-    }
-    /* Smaller screens */
-    
-    @media only screen and (max-width: 767px) {
-        .section-title {
-            margin: 0;
-            flex: 1 1 auto;
-            gap: 0.5rem;
-            flex-direction: column;
-            justify-content: center !important;
-        }
-        .section-title-bar {
-            width: 90%;
-            justify-content: center !important;
-        }
-    }
-    /* Bigger screens */
-    
-    @media only screen and (min-width: 768px) {
-        .section-title {
-            flex-direction: row;
-        }
-        .section-title-bar {
-            width: 25vw;
-        }
-    }
-    .section-text {
-        padding: 0.25rem;
-    }
-    .section-text-container {
-        padding: 0.25rem;
-    }
-    /*
-    @media (min-width: 300px) {
-        .section-title {
-            flex-direction: column;
-            margin: 0;
-            gap: 1.5rem;
-        }
-        .section-title-bar {
-            width: 90%;
-        }
-    }
-    @media (min-width: 600px) {
-        .section-title {
-            flex-direction: column;
-        }
-        .section-title-bar {
-            width: 90%;
-        }
-    }
-    @media (min-width: 900px) {
-        .section-title {
-            flex-direction: row;
-        }
-        .section-title-bar {
-            width: 25vw;
-        }
-    }
-    @media (min-width: 1200px) {
-        .section-title {
-            flex-direction: row;
-        }
-        .section-title-bar {
-            width: 25vw;
-        }
-    }
-    */
     /* width */
     
      ::-webkit-scrollbar {
@@ -598,9 +522,6 @@
         padding: 4px !important;
         font-size: var(--font-size-button);
     }
-    .icon {
-        transition: 0.2s;
-    }
     .button:hover .icon {
         transform: scale(0.9);
     }
@@ -655,7 +576,7 @@
     .grid-card-container {
         display: grid;
         grid-template-rows: auto 1fr auto;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-gap: 1rem;
         grid: repeat(auto-fit, 1fr) / auto-flow 1fr;
     }
@@ -741,12 +662,12 @@
     }
     @media (min-width: 1200px) {
         .grid-card-container {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
         }
         .grid-card {
             padding: 1rem;
             height: auto;
-            min-width: 250px;
+            min-width: calc(100% / 3);
         }
     }
     /* Table Styling */
@@ -983,3 +904,31 @@
     .file-tree li:last-child::before {
         content: "\2514\2500\2500\0020";
     }
+    .glass-button {
+        border: 0;
+        text-decoration: none;
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(30px);
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-transform: uppercase;
+        background: linear-gradient(rgb(80, 84, 91), rgb(53, 56, 61)) rgb(70, 74, 79) !important;
+        transition: all 1s ease-in-out;
+    }
+    .glass-button:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+    .glass-panel {
+        max-width: 600px;
+    }
+    /*
+    .glass-button {
+        display: inline-block;
+        margin: 15px;
+        margin-top: 40px;
+    }
+    */
