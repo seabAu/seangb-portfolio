@@ -63,6 +63,8 @@ function CellList(props) {
                                     filterList={filterList}
                                     dataFilterKey={dataFilterKey}
                                     parentIndex={parentIndex}
+                                    key={`cell-list-item-${parentIndex}-${dataDisplayKey}`}
+                                    id={`cell-list-item-${parentIndex}-${dataDisplayKey}`}
                                 />
                             );
                         }
@@ -98,6 +100,8 @@ function CellList(props) {
                             // onclickEnabled={onclickEnabled}
                             filteringEnabled={filteringEnabled}
                             parentIndex={parentIndex}
+                            key={`filter-cell-list-item-${parentIndex}-${filterLabel}`}
+                            id={`filter-cell-list-item-${parentIndex}-${filterLabel}`}
                         />
                     ))}
                 </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { isObject, isValidArray } from "../Utilities/Val";
 import * as utils from "../Utilities/index.js";
 
 function SectionImage(props) {
@@ -17,9 +16,16 @@ function SectionImage(props) {
         classes = "",
         containerStyles = {},
         elementStyles = {},
-        containerClasses = '',
-        elementClasses = '',
+        containerClasses = "",
+        elementClasses = "",
+        debug = false,
     } = props;
+
+    useEffect( () =>
+    {
+        if (debug)
+        console.log(`SectionImage.js :: onmount :: props = `, props);
+    }, []);
 
     const imageContainerStyles = {
         // display: "grid",
@@ -125,22 +131,15 @@ function SectionImage(props) {
                     img.includes("http")
                 );
             });
-            // console.log(
-            //     `SectionImage.js :: Useeffect for Content :: Original Content array = `,
-            //     content,
-            //     ` :: cleaned Content array = `,
-            //     filteredContent,
-            // );
+            if(debug)console.log(
+                `SectionImage.js :: Useeffect for Content :: Original Content array = `,
+                content,
+                ` :: cleaned Content array = `,
+                filteredContent,
+            );
             setImageSet(filteredContent);
         }
     }, [content]);
-
-    // useEffect(() => {
-    //     console.log(
-    //         `SectionImage.js :: currentContent is now = `,
-    //         currentContent,
-    //     );
-    // }, [currentContent]);
 
     const changeCurrentContent = (i) => {
         if (i !== currentContent) {
@@ -156,7 +155,7 @@ function SectionImage(props) {
     };
     const buildContent = (input, displayType) => {
         let displayContent = [];
-        if (isValidArray(input, true)) {
+        if (utils.val.isValidArray(input, true)) {
             // TODO :: Later, create standardized a way to verify that all elements in an array is a certain type.
             // input = input.filter((img, index) => {
             //     // if ( utils.val.isString( img ) )
@@ -164,12 +163,13 @@ function SectionImage(props) {
             //         return ( utils.val.isString( img ) ) && (img !== '' && img.includes( "http" )); //  && img.includes("http");
             //     // }
             // });
-            console.log(
-                `SectionImage.js :: Original array = `,
-                content,
-                ` :: cleaned image array = `,
-                input,
-            );
+            if (debug)
+                console.log(
+                    `SectionImage.js :: Original array = `,
+                    content,
+                    ` :: cleaned image array = `,
+                    input,
+                );
             // Input is valid.
             if (displayType === "default") {
                 // If type is 'default', just render all of them at once.
@@ -236,8 +236,8 @@ function SectionImage(props) {
                         justifyContent: `${"center"}`,
                         alignItems: `${"center"}`,
                         flexDirection: `${"row"}`,
-                        alignContent: `${ "center" }`,
-                        overflow: `${'hidden'}`,
+                        alignContent: `${"center"}`,
+                        overflow: `${"hidden"}`,
                         ...imageContainerStyles,
                     }}>
                     {displayContent}
@@ -264,11 +264,12 @@ function SectionImage(props) {
     return (
         showParent && (
             <div className={`${classes}`} style={imageContainerStyles}>
-                {isValidArray(imageSet, true) && buildContent(imageSet, type)}
+                {utils.val.isValidArray(imageSet, true) &&
+                    buildContent(imageSet, type)}
                 {
                     // Child components were passed in instead of a content array.
                     // Pass child components.
-                    !isValidArray(imageSet, true) &&
+                    !utils.val.isValidArray(imageSet, true) &&
                         children &&
                         children !== false &&
                         children
@@ -279,44 +280,3 @@ function SectionImage(props) {
 }
 
 export default SectionImage;
-
-// displayContent.push(
-//     <div
-//         className={`button-group slideshow-buttons-container`}
-//         style={{
-//         }}>
-//         <button
-//             className={`back-button glass-button image-slideshow-button`}
-//             style={{
-//                 position: `relative`,
-//                 // height: `100%`,
-//                 left: `0`,
-//             }}
-//             onClick={(event) => {
-//                 changeCurrentContent(currentContent - 1);
-//             }}>
-//             {"<"}
-//         </button>
-//         <button
-//             className={`next-button glass-button image-slideshow-button`}
-//             style={{
-//                 position: `relative`,
-//                 // height: `100%`,
-//                 right: `0`,
-//             }}
-//             onClick={(event) => {
-//                 changeCurrentContent(currentContent + 1);
-//             }}>
-//             {">"}
-//         </button>
-//     </div>,
-// );
-/*
-    return (
-        showParent && (
-            <div className="section-img" style={styles}>
-                {showChildren && children && children !== false && children}
-            </div>
-        )
-    );
-*/

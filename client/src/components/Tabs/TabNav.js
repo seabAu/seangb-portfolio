@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const TabNav = ( props ) => {
     const {
         tabIndex,
+        defaultActiveIndex,
         activeTabIndex,
         id,
         label,
@@ -11,11 +12,12 @@ const TabNav = ( props ) => {
         onClick,
         rounded = false,
         navBoxShadow = false,
+        boxShadow = "0px 0px 6px 1px #00000077",
     } = props;
 
     const tabNavItemStyles = {
         // borderRadius: `${rounded ? "8px" : "0px"}`,
-        boxShadow: `${navBoxShadow ? "0 0 5px black" : "none"}`,
+        boxShadow: `${navBoxShadow ? boxShadow : "none"}`,
         // padding: `${spinnerPadding}px`,
         // textAlign: "right",
         // transition: "width 1s ease-in-out",

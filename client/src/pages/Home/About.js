@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Section from "../../components/Section";
+import SectionContent from "../../components/Section/SectionContent";
+import SectionImage from "../../components/Section/SectionImage";
+import SectionPane from "../../components/Section/SectionPane";
+import SectionText from "../../components/Section/SectionText";
+import SectionTitle from "../../components/Section/SectionTitle";
+import SectionCollection from "../../components/Section/SectionCollection";
 import CellList from "../../components/Cell/CellList";
-import SectionTitle from "../../components/SectionTitle";
-import { has } from "../../components/Utilities/AO";
-import { isValidArray } from "../../components/Utilities/Val";
+import * as utils from "../../components/Utilities/index.js";
 
 function About() {
     const { portfolioData } = useSelector((state) => state.root);
-    // Destructure data.
-    const { about } = portfolioData;
+
+    const { about, projects } = portfolioData;
     const {
         _id,
         firstName,
@@ -24,6 +29,8 @@ function About() {
         summary,
         social,
     } = about; // = abouts[0];
+
+    // State for skills cell list.
     const [skillsList, setSkillsList] = useState([]);
     const [skillCategories, setSkillCategories] = useState([]);
     const [skillCategoryFilter, setSkillCategoryFilter] = useState([]);
@@ -43,15 +50,16 @@ function About() {
             "years": 6
         }
     */
+    // Hooks for skills cell list.
     useEffect(() => {
         // On load, get all skills listed, for the filters. Doing it other ways results in an infinite loop??
-        if (isValidArray(skills)) {
+        if (utils.val.isValidArray(skills)) {
             // Case of being given all projects.
             let s = [];
             let names = [];
             let categories = [];
             skills.forEach((skill) => {
-                if (has(skill, "name")) {
+                if (utils.ao.has(skill, "name")) {
                     if (!names.includes(skill.name)) {
                         if (!categories.includes(skill.category)) {
                             categories.push(skill.category);
@@ -70,349 +78,305 @@ function About() {
         }
     }, []);
 
-    // Debug.
-    // useEffect(() => {
-    //     console.log(
-    //         `About.js :: Debug :: `,
-    //         "\n",
-    //         "portfolioData = ",
-    //         portfolioData,
-    //         "\n",
-    //         "about = ",
-    //         about,
-    //         "\n",
-    //         "skills = ",
-    //         skills,
-    //         "\n",
-    //         "skillsList = ",
-    //         skillsList,
-    //         "\n",
-    //         "skillCategories = ",
-    //         skillCategories,
-    //         "\n",
-    //         "skillCategoryFilter = ",
-    //         skillCategoryFilter,
-    //     );
-    // });
+    const getDataList = (data, key = "") => {
+        let list = [];
+        if (utils.val.isValidArray(data, true)) {
+            projects.forEach((item, index) => {
+                if (utils.val.isObject(item)) {
+                    let val = utils.ao.deepGetKey(item, key);
+                    if (val && val !== "") {
+                        list.push(val);
+                    }
+                }
+            });
+        }
+        return list;
+    };
 
-    // Accepts an individial skill object and returns an individual cell-list-item.
+    // Fetches specific keys from an object array.
+    const extractDataList = (data, keys = []) => {
+        let list = [];
+        if (utils.val.isValidArray(data, true)) {
+            // Run for each element in the array.
+            data.forEach((item, index) => {
+                if (utils.val.isObject(item)) {
+                    // Run for each key given.
+                    let res = {};
+                    let skip = false;
+                    keys.forEach((key, i) => {
+                        let val = utils.ao.deepGetKey(item, key);
+                        if (val && val !== "" && val !== "''") {
+                            // && !isBlank(val)) {
+                            res[key] = val;
+                        } else {
+                            skip = true;
+                        }
+                    });
+                    if (!skip) {
+                        list.push(res);
+                    }
+                    skip = false; // Reset skip temp value.
+                }
+            });
+        }
+        // console.log(
+        //     "extractDataList :: data = ",
+        //     data,
+        //     " :: keys = ",
+        //     keys,
+        //     " :: list results = ",
+        //     list,
+        // );
+        return list;
+    };
+
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+    const updateDimensions = () => {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+    };
+    useEffect(() => {
+        window.addEventListener("resize", updateDimensions);
+        return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
 
     return (
         <>
-            <SectionTitle title="About"></SectionTitle>
-            <div className="flex-set">
-                <div className="flex-col-shrink">
-                    <lottie-player
-                        src={/*lottieURL*/ "" || ""}
-                        background="transparent"
-                        speed="1"
-                        loop
-                        autoplay></lottie-player>
-                </div>
-                <div className="flex-col-shrink">
-                    {isValidArray(description)
-                        ? description.map((section, index) => {
-                              return (
-                                  <div className={`section-text-container`} key={`about-section-description-${index}`}>
-                                      <h1
-                                          className={`section-text ${
+            <Section
+                showSection={true}
+                showChildren={true}
+                responsive={true}
+                responsiveBreakpoints={768}
+                // Style settings
+                display={'block'}
+                flexDirection={"row"}
+                fillArea={true}
+                height={"100%"}
+                minHeight={"auto"}
+                maxHeight={"100%"}
+                width={"100%"}
+                minWidth={"auto"}
+                maxWidth={"100%"}
+                padding={"0.25rem 1.0rem"}
+                margin={"0.0rem"}
+                border={"none"}
+                borderRadius={"0%"}
+                boxShadowEnabled={false}
+                styles={{}}>
+                <SectionTitle title="About Me" scale={`3`}></SectionTitle>
+                <SectionContent
+                    type={"default"}
+                    responsive={true}
+                    responsiveBreakpoints={768}
+                    styles={{}}>
+                    <SectionPane
+                        key={`section-pane-${"collection-container"}`}
+                        type={"default"}
+                        responsive={true}
+                        responsiveBreakpoints={768}
+                        // Style settings
+                        // flexDirection={"column"}
+                        // alignContent={"center"}
+                        // justifyContent={"flex-start"}
+                        height={"100%"}
+                        // minHeight={"auto"}
+                        // maxHeight={"100%"}
+                        width={"100%"}
+                        minWidth={"40%"}
+                        // maxWidth={"100%"}
+                        padding={"0.0rem"}
+                        margin={"0.0rem"}
+                        border={"none"}
+                        borderRadius={"0%"}
+                        boxShadowEnabled={false}
+                        styles={{}}>
+                        <SectionCollection
+                            content={extractDataList(projects, [
+                                "image",
+                                "link",
+                            ])}
+                            datakeys={["image", "link"]}
+                            data={projects}
+                            type={`slideshow`}
+                            key={ `section-img-collection-mosaic` }
+                            lockHeight={ true }
+                            setLockHeight={ `500px` }
+                            scrollTimer={20000}
+                            classes={`section-img-collection-mosaic`}
+                            styles={{
+                                border: `1px solid green`,
+                            }}></SectionCollection>
+                    </SectionPane>
+                    <SectionPane
+                        type={"default"}
+                        responsive={true}
+                        responsiveBreakpoints={768}
+                        // Style settings
+                        // flexDirection={"column"}
+                        // alignContent={"center"}
+                        // justifyContent={"flex-start"}
+                        height={"100%"}
+                        // minHeight={"auto"}
+                        // maxHeight={"100%"}
+                        width={"auto"}
+                        minWidth={"40%"}
+                        // maxWidth={"100%"}
+                        padding={"0.25rem 1.0rem"}
+                        margin={"0.0rem"}
+                        border={"none"}
+                        borderRadius={"0%"}
+                        boxShadowEnabled={false}
+                        overflowX={`auto`}
+                        overflowY={`auto`}
+                        styles={
+                            {
+                                // border: `1px solid white`,
+                            }
+                        }>
+                        {utils.val.isValidArray(about.description)
+                            ? about.description.map((section, index) => {
+                                  return (
+                                      <SectionText
+                                          key={`section-text-${index}`}
+                                          classes={`section-text ${
                                               [
                                                   "text-highlightColor",
                                                   "text-highlightColor2",
                                                   "text-white",
                                               ][index % 3]
-                                          }`}>
+                                          }`}
+                                          styles={
+                                              {
+                                                  // border: `1px solid green`,
+                                              }
+                                          }>
                                           {section}
-                                      </h1>
-                                  </div>
-                              );
-                          })
-                        : ""}
-                </div>
-            </div>
-
-            <CellList
-                dataLabel={
-                    "Here are a few of my skills and the technologies i've been working with:"
-                }
-                dataLabelSize={"1"}
-                dataList={skillsList}
-                dataDisplayKey={"name"}
-                hoverPopupEnabled={false}
-                progressDisplayEnabled={true}
-                progressDisplayKey={"proficiency"}
-                filterOptionsList={skillCategories}
-                filterActiveList={skillCategoryFilter}
-                filteringEnabled={true}
-                dataFilterKey={"category"}
-                dataFilterFunction={setSkillCategoryFilter}
-            />
+                                      </SectionText>
+                                  );
+                              })
+                            : ""}
+                    </SectionPane>
+                </SectionContent>
+            </Section>
+            <Section
+                showSection={true}
+                showChildren={true}
+                responsive={true}
+                responsiveBreakpoints={768}
+                // Style settings
+                flexDirection={"row"}
+                fillArea={true}
+                height={"100%"}
+                width={"100%"}
+                padding={"0.25rem 1.0rem"}
+                margin={"0.0rem"}
+                border={"none"}
+                borderRadius={"0%"}
+                boxShadowEnabled={false}
+                styles={{}}>
+                <SectionContent
+                    type={"default"}
+                    responsive={true}
+                    responsiveBreakpoints={768}
+                    styles={{}}>
+                    <SectionPane
+                        key={`section-pane-${"cell-list-container"}`}
+                        type={"default"}
+                        responsive={true}
+                        responsiveBreakpoints={768}
+                        // Style settings
+                        // flexDirection={"column"}
+                        // alignContent={"center"}
+                        // justifyContent={"flex-start"}
+                        height={"100%"}
+                        // minHeight={"auto"}
+                        // maxHeight={"100%"}
+                        width={"100%"}
+                        minWidth={"40%"}
+                        // maxWidth={"100%"}
+                        padding={"0.25rem 1.0rem"}
+                        margin={"0.0rem"}
+                        border={"none"}
+                        borderRadius={"0%"}
+                        boxShadowEnabled={false}
+                        overflowX={`unset`}
+                        overflowY={`unset`}
+                        styles={{}}>
+                        <CellList
+                            dataLabel={
+                                "Here are a few of my skills and the technologies i've been working with:"
+                            }
+                            dataLabelSize={"1"}
+                            dataList={skillsList}
+                            dataDisplayKey={"name"}
+                            hoverPopupEnabled={false}
+                            progressDisplayEnabled={true}
+                            progressDisplayKey={"proficiency"}
+                            filterOptionsList={skillCategories}
+                            filterActiveList={skillCategoryFilter}
+                            filteringEnabled={true}
+                            dataFilterKey={"category"}
+                            dataFilterFunction={setSkillCategoryFilter}
+                        />
+                    </SectionPane>
+                </SectionContent>
+            </Section>
         </>
     );
 }
 
 export default About;
 
-/*
-    return (
-        <div>
-            <SectionTitle title="About"></SectionTitle>
-            <div className="flex w-full items-center justify-between sm:flex-col ">
-                <div className="w-1/2 md:w-full">
-                    <lottie-player
-                        src={" || ""}
-                        background="transparent"
-                        speed="1"
-                        loop
-                        autoplay></lottie-player>
-                </div>
-                <div className="flex flex-col gap-5 w-1/2 sm:w-full px-10">
-                    <p className="">
-                        {isValidArray(description)
-                            ? description.map((section, index) => {
-                                  return (
-                                      <div className={`section-text-container`}>
-                                          <h1
-                                              className={`section-text ${
-                                                  [
-                                                      "text-highlightColor",
-                                                      "text-highlightColor2",
-                                                      "text-white",
-                                                  ][index % 3]
-                                              }`}>
-                                              {section}
-                                          </h1>
-                                      </div>
-                                  );
-                              })
-                            : ""}
-                    </p>
-                </div>
-            </div>
-
-*/
-
-/*
-    const getSkills = (data) => {
-        // console.log("getSkills :: data = ", data, portfolioData);
-        if (isValidArray(data, true)) {
-            return (
-                <div className="cell-list flex flex-wrap">
-                    {data.map((item, index) => {
-                        // console.log(
-                        //     "getSkills :: data = ",
-                        //     data,
-                        //     item,
-                        //     portfolioData,
-                        // );
-                        return (
-                            <div
-                                className="cell-list-item border border-tertiary"
-                                id={`skill-${index}`}>
-                                <h1 className="cell-list-item-text text-white">
-                                    {has(item, "name") ? item.name : ""}
-                                </h1>
-                            </div>
-                        );
-                    })}
-                </div>
-            );
-        }
-    };
-
-    // Accepts an individial skill object and returns an individual cell-list-item.
-    const getCell = (parentIndex, skill, onclickEnabled) => {
-        if (has(skill, "name")) {
-            // console.log(
-            //     "Projects.JS :: getTechnologyCell :: Cell data = ",
-            //     parentIndex,
-            //     tech,
-            //     onclickEnabled,
-            //     portfolioData,
-            //     "Tech.name = ", tech.name
-            // );
-            return (
-                <div
-                    className={`cell-list-item border border-tertiary ${
-                        skillCategoryFilter.includes(skill.name) ? "active" : ""
-                    }`}
-                    key={`item-${parentIndex}-${skill.name}-${skill.index}`}
-                    id={`item-${parentIndex}-${skill.name}-${skill.index}`}
-                    onClick={
-                        onclickEnabled
-                            ? (event) => {
-                                  if (
-                                      skillCategoryFilter.indexOf(skill.name) >
-                                      -1
-                                  ) {
-                                      // Already in filters list, remove it.
-                                      setSkillCategoryFilter(
-                                          skillCategoryFilter.filter(
-                                              (filter) =>
-                                                  filter !== skill.category,
-                                          ),
-                                      );
-                                  } else {
-                                      // Not in filters list, add it.
-                                      setSkillCategoryFilter([
-                                          ...skillCategoryFilter,
-                                          skill.category,
-                                          // tech,
-                                      ]);
-                                  }
-                              }
-                            : () => {}
-                    }>
-                    <h1 className={`cell-list-item-text text-white`}>
-                        {skill.name}
-                    </h1>
-                </div>
-            );
-        }
-        return "";
-    };
-
-    // Accepts an individial skill object and returns an individual cell-list-item.
-    const getFilterCell = (parentIndex, filterElement, onclickEnabled) => {
-        // if (has(filterElement, "name")) {
-        if (filterElement && filterElement !== "") {
-            // console.log(
-            //     "Projects.JS :: getTechnologyCell :: Cell data = ",
-            //     parentIndex,
-            //     tech,
-            //     onclickEnabled,
-            //     portfolioData,
-            //     "Tech.name = ", tech.name
-            // );
-            return (
-                <div
-                    className={`cell-list-item border border-tertiary ${
-                        onclickEnabled &&
-                        skillCategoryFilter.includes(filterElement)
-                            ? "active"
-                            : ""
-                    }`}
-                    key={`item-${parentIndex}-${filterElement}`}
-                    id={`item-${parentIndex}-${filterElement}`}
-                    onClick={
-                        onclickEnabled
-                            ? (event) => {
-                                  if (
-                                      skillCategoryFilter.indexOf(
-                                          filterElement,
-                                      ) > -1
-                                  ) {
-                                      // Already in filters list, remove it.
-                                      setSkillCategoryFilter(
-                                          skillCategoryFilter.filter(
-                                              (filter) =>
-                                                  filter !== filterElement,
-                                          ),
-                                      );
-                                  } else {
-                                      // Not in filters list, add it.
-                                      setSkillCategoryFilter([
-                                          ...skillCategoryFilter,
-                                          filterElement,
-                                      ]);
-                                  }
-                              }
-                            : () => {}
-                    }>
-                    <h1 className={`cell-list-item-text text-white`}>
-                        {filterElement}
-                    </h1>
-                </div>
-            );
-        }
-        return "";
-    };
-
-    const getCellList = (data) => {
-        console.log(
-            "Projects.JS :: getAllTechnologies :: Project data = ",
-            data,
-            portfolioData,
-        );
-        if (isValidArray(skillsList, true)) {
-            return (
-                <div className="cell-list flex flex-wrap">
-                    {skillsList.map((skill, index) => {
-                        if (has(skill, "category")) {
-                            if (skillCategoryFilter.includes(skill.category)) {
-                                return "";
+/* // Old iteration of the image slideshow:
+                    <SectionPane
+                        key={`section-pane-${"img-container"}`}
+                        type={"default"}
+                        responsive={true}
+                        responsiveBreakpoints={768}
+                        // Style settings
+                        // flexDirection={"column"}
+                        // alignContent={"center"}
+                        // justifyContent={"flex-start"}
+                        height={"100%"}
+                        // minHeight={"auto"}
+                        // maxHeight={"100%"}
+                        width={"auto"}
+                        // minWidth={"auto"}
+                        // maxWidth={"100%"}
+                        padding={"0.25rem 1.0rem"}
+                        margin={"0.0rem"}
+                        border={"none"}
+                        borderRadius={"0%"}
+                        boxShadowEnabled={false}
+                        overflowX={`hidden`}
+                        overflowY={`hidden`}
+                        styles={
+                            {
+                                // border: `1px solid white`,
                             }
-                        }
-                        return getCell(index, skill, false);
-                    })}
-                </div>
-            );
-        }
-    };
-    const getFilterCellList = (data) => {
-        console.log(
-            "Projects.JS :: getAllTechnologies :: Project data = ",
-            data,
-            portfolioData,
-        );
-        if (isValidArray(skillCategories, true)) {
-            return (
-                <div className="cell-list flex flex-wrap">
-                    {skillCategories.map((category, index) => {
-                        return getFilterCell(index, category, true);
-                    })}
-                </div>
-            );
-        }
-    };
-
-import React from "react";
-import { useSelector } from "react-redux";
-import SectionTitle from "../../components/SectionTitle";
-
-function About() {
-    const { portfolioData } = useSelector((state) => state.root);
-    // Destructure data.
-    const { about } = portfolioData;
-    const { skills, lottieURL, description1, description2 } = about; // = abouts[0];
-
-    return (
-        <div>
-            <SectionTitle title="About"></SectionTitle>
-            <div className="flex w-full items-center justify-between sm:flex-col ">
-                <div className="w-1/2 sm:w-full">
-                    <lottie-player
-                        src={lottieURL || ""}
-                        background="transparent"
-                        speed="1"
-                        loop
-                        autoplay></lottie-player>
-                </div>
-                <div className="flex flex-col gap-5 w-1/2 sm:w-full px-10">
-                    <p className="text-white">{description1 || ""}</p>
-                    <p className="">{description2 || ""}</p>
-                </div>
-            </div>
-
-            <div className="py-5">
-                <h1 className="text-highlightColor text-2xl">
-                    Here are a few of my skills and the technologies i've been
-                    working with:
-                </h1>
-                <div className="cell-list flex flex-wrap gap-5 mt-5">
-                    {skills.map((skill, index) => (
-                        <div className="cell-list-item border border-tertiary">
-                            <h1 className="cell-list-item-text text-white">
-                                {skill}
-                            </h1>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-}
-
-export default About;
-
-*/
+                        }>
+                        <SectionImage
+                            content={getDataList(projects, "image")}
+                            type={"slideshow"}
+                            key={`section-img-${""}`}
+                            classes={`section-img-collection ${""}`}
+                            containerStyles={{
+                                height: `${"min-content"}`,
+                                // minHeight: `${"100%"}`,
+                                minHeight: `${"100%"}`,
+                                width: `${"auto"}`,
+                                minWidth: `${"min-content"}`,
+                                // verticalAlign: `top`,
+                                // height: `100%`,
+                                // width: `100%`,
+                                // position: `relative`,
+                                // overflowX: `auto`,
+                            }}
+                            elementStyles={
+                                {
+                                    // border: `1px solid green`,
+                                }
+                            }></SectionImage>
+                    </SectionPane>
+*/ 

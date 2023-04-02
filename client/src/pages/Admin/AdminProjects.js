@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
 import API from "../../api/api.js";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../components/Section/SectionTitle";
 // import { Form, Button, Row, Col } from "react-bootstrap";
 function AdminProjects() {
     const dispatch = useDispatch();

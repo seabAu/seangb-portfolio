@@ -1,0 +1,448 @@
+// Catch-all component for content collections. Primarily, this will be for image collections, rendering them either as a static group in a grid or mosiac, or in a dynamic group as a carousel, slideshow, or some other user-friendly browsing method.
+
+import React, { useState, useEffect } from "react";
+import * as utils from "../Utilities/index.js";
+
+function SectionCollection(props) {
+    const {
+        children,
+        type = "default", //
+        content = [], // This should be an array of objects, each containing an image URL, and possibly a link if they are to be hyperlinked. Other image-specific parameters can be passed in via each object as well.
+        data = [], // Full data from parent / calling component/
+        datakeys = [], // The specific keys from the full data that this component is to be concerned with.
+        scrollTimer = 3000,
+        boxShadowEnabled = false,
+        lockHeight = true,
+        setLockHeight = `500px`,
+        paginationType = `${"0.65rem"}`,
+        paginationSize = `${"0.65rem"}`,
+        paginationGap = `${"0.65rem"}`,
+        paginationColor = `${"#00000047"}`,
+        styles = {},
+        classes = "",
+        containerStyles = {},
+        elementStyles = {},
+        containerClasses = "",
+        elementClasses = "",
+    } = props;
+
+    console.log(`SectionCollection.js :: props = `, props);
+
+    const flexStyles = {
+        display: `${"flex"}`,
+        flexDirection: `${"row"}`,
+        /// flexDirection: `${"column"}`,
+        justifyContent: `${"center"}`,
+        alignItems: `${"center"}`,
+        alignContent: `${"center"}`,
+        alignSelf: `${"center"}`,
+    };
+
+    const slideshowButtonContainerStyles = {
+        // position: `relative`,
+        // display: `flex`,
+        // flexDirection: `column`,
+        /// ^ height: `${"100%"}`,
+        // minHeight: `${"10px"}`,
+        // maxHeight: `${"100%"}`,
+        // width: `${"auto"}`,
+        /// ^ width: `${"2.0rem"}`,
+        /// ^ minWidth: `${"10px"}`,
+        /// ^ maxWidth: `${"100%"}`,
+        // backgroundColor: fillercolor,
+        // border: `${"none"}`,
+        /// ^ borderRadius: `${"0"}px`,
+        /// ^ padding: `${"0"}`,
+        /// ^ margin: `${"0"}`,
+        // transition: "all 1s ease-in-out",
+        // left: `${'0 !important'}`,
+        /// ^ boxShadow: `${`1px 1px 5px 5px rgba(0, 0, 0, 0.25)`}`,
+        /// ^ top: `${`50%`}`,
+        ...flexStyles,
+        display: `flex`,
+                    flexDirection: `row`,
+                    position: `relative`
+    };
+    const collectionPaginationStyles = {
+        borderRadius: `50%`,
+        // marginInline: `${paginationGap}`, // Between-dot-gap
+        marginInline: `${ 0 }`,
+        // width: `${ paginationSize }`, // Dot size x
+        // height: `${ paginationSize }`, // Dot size y
+        fontSize: `${ paginationSize * 0.8 }`,
+        // backgroundColor: `${ paginationColor }`,
+    };
+
+    const collectionPaginationContainerStyles = {
+        gap: `${paginationGap}`, // Between-dot-gap
+    };
+
+    const slideshowButtonStyles = {
+        // position: `relative`,
+        // display: `flex`,
+        // flexDirection: `column`,
+        /// ^ height: `${"100%"}`,
+        // minHeight: `${"10px"}`,
+        // maxHeight: `${"100%"}`,
+        // width: `${"auto"}`,
+        /// ^ width: `${"2.0rem"}`,
+        /// ^ minWidth: `${"10px"}`,
+        /// ^ maxWidth: `${"100%"}`,
+        // backgroundColor: fillercolor,
+        // border: `${"none"}`,
+        /// ^ borderRadius: `${"0"}px`,
+        /// ^ padding: `${"0"}`,
+        /// ^ margin: `${"0"}`,
+        // transition: "all 1s ease-in-out",
+        // left: `${'0 !important'}`,
+        /// ^ boxShadow: `${`1px 1px 5px 5px rgba(0, 0, 0, 0.25)`}`,
+        /// ^ top: `${`50%`}`,
+        height: `${"50px"}`,
+        width: `${ "50px" }`,
+        
+    };
+
+    const collectionContainerStyles = {
+        ...flexStyles,
+        flexDirection: `column`,
+        // height: `${"100%"}`,
+        // maxHeight: `${"100%"}`,
+        // width: `${"100%"}`,
+        // minWidth: `${"100%"}`,
+        // maxWidth: `${"100%"}`,
+    };
+    const collectionContentStyles = {
+        ...flexStyles,
+        // flexDirection: `row`,
+        // height: `${"100%"}`,
+        // maxHeight: `${"100%"}`,
+        // width: `${"100%"}`,
+        // minWidth: `${"100%"}`,
+        // maxWidth: `${"100%"}`,
+    };
+
+    const collectionItemStyles = {
+        height: `${lockHeight ? setLockHeight : `100%`}`,
+    };
+    const [imageSet, setImageSet] = useState([]);
+    const [contentIndex, setContentIndex] = useState(0);
+
+    useEffect(() => {
+        // On content mount, load imageSet data.
+        setImageSet(content);
+    }, [content, type]);
+
+    useEffect(() => {
+        // Allow timed scrolling of the slideshow / carousel.
+        if (type === "carousel" || type === "slideshow") {
+            const interval = setInterval(() => {
+                handleScroll();
+            }, scrollTimer);
+            // Clean up function.
+            return () => clearInterval(interval);
+        }
+    });
+    
+
+    const handleScroll = () => {
+        // Simply ++ the index.
+        const newIndex = contentIndex + 1;
+        changeContentIndex(newIndex);
+    };
+
+    const changeContentIndex = (i) => {
+        if ( utils.val.isValidArray( imageSet, true ) )
+        {
+            if ( i < 0 )
+            {
+                i = imageSet.length - 1;
+            }
+            else if ( i > imageSet.length - 1 )
+            {
+                i = 0;
+            }
+            setContentIndex(i);
+        }
+    };
+
+    const buildContent = (input, displayType) => {
+        let displayContent = [];
+        let indicators = [];
+        if (utils.val.isValidArray(input, true)) {
+            // TODO :: Later, create standardized a way to verify that all elements in an array is a certain type.
+            // input = input.filter((img, index) => {
+            //     // if ( utils.val.isString( img ) )
+            //     // {
+            //         return ( utils.val.isString( img ) ) && (img !== '' && img.includes( "http" )); //  && img.includes("http");
+            //     // }
+            // });
+            console.log(
+                `SectionImage.js :: Original array = `,
+                content,
+                ` :: cleaned image array = `,
+                input,
+            );
+            // Input is valid.
+            if ( displayType === "slideshow" || displayType === 'carousel' ) {
+                // If type is 'slideshow', render only one at a time. Constrain all of them to the same space to avoid jitter.
+                input.forEach( ( item, index ) =>
+                {
+                    let imageUrl = utils.ao.has( item, "image" ) ? item.image : '';
+                    let linkUrl = utils.ao.has( item, "link" ) ? item.link : "";
+                    // let isHover = false;
+                    indicators.push(
+                        <div
+                            className={`collection-pagination-bullet collection-pagination-control ${
+                                index === contentIndex // || isHover
+                                    ? "collection-pagination-active"
+                                    : ""
+                            }`}
+                            style={
+                                index === contentIndex
+                                    ? {
+                                          ...collectionPaginationStyles,
+                                          // width: `${paginationSize * 1.1}`,
+                                          // height: `${paginationSize * 1.1}`,
+                                      }
+                                    : { ...collectionPaginationStyles }
+                            }
+                            // onMouseEnter={() => (isHover = true)}
+                            // onMouseLeave={() => (isHover = false)}
+                            id={`section-collection-item-${index}`}
+                            onClick={(e) => {
+                                changeContentIndex(index);
+                            }}>
+                            {index === contentIndex // || isHover
+                                ? index
+                                : ""}
+                        </div>,
+                    );
+                    displayContent.push(
+                        <a
+                            id={`collection-item-${index}`}
+                            href={`${linkUrl}`}
+                            className={`section-collection-item ${
+                                index === contentIndex
+                                    ? "section-collection-item-visible"
+                                    : ""
+                            }`}
+                            // className={`section-img section-img-link ${elementClasses} ${index === contentIndex ? "" : "hidden-img"}`}
+                            style={
+                                {}
+                                // index === contentIndex
+                                //     ? {
+                                //           height: `100% !important`,
+                                //           width: `0% !important`,
+                                //       }
+                                //     : {
+                                //           height: `100% !important`,
+                                //           width: `100% !important`,
+                                //       }
+                                // {
+                                // height: `100% !important`,
+                                // left: `${(index === contentIndex) ? 0 : index * 100}vw`,
+                                // ...contentStyles,
+                                // width: `${
+                                //     index === contentIndex ? `100%` : `0%`
+                                // }`,
+                                // // minWidth: `${
+                                // //     index === contentIndex ? `auto` : `0%`
+                                // // }`,
+                                // display: `${
+                                //     index === contentIndex ? `block` : `none`
+                                // }`,
+                                // opacity: `${
+                                //     index === contentIndex ? `1` : `0`
+                                // }`,
+                                // }
+                            }>
+                            <img
+                                className="collection-img"
+                                style={collectionItemStyles}
+                                // onLoad={(event) => {
+                                //     setSize({
+                                //         height: event.target.naturalHeight,
+                                //         width: event.target.naturalWidth,
+                                //     });
+                                // }}
+                                // className={`section-img ${elementClasses} ${
+                                //     index === contentIndex ? "" : "" // "hidden"
+                                // }`}
+                                // style={{
+                                //     // left: `${(index === contentIndex) ? 0 : index * 100}vw`,
+                                //     ...imageStyles,
+                                //     width: `${
+                                //         index === contentIndex ? `100%` : `0%`
+                                //     }`,
+                                //     minWidth: `${
+                                //         index === contentIndex ? `auto` : `0%`
+                                //     }`,
+                                // }}
+                                src={`${imageUrl}`}
+                                alt={`${imageUrl}`}
+                            />
+                        </a>,
+                    );
+                });
+            }
+        }
+
+        // Render a NEXT and BACK button, and utilize the state.
+        return (
+            <div
+                // className={`section-img-slideshow-container ${""}`}
+                // style={imageSlideshowContainerStyles}
+                className={`section-collection-container`}
+                style={collectionContainerStyles}>
+                <div
+                    className={`section-collection-content`}
+                    style={collectionContentStyles}>
+                    {displayContent}
+                </div>
+                <div
+                    className={`collection-pagination`}
+                    style={slideshowButtonContainerStyles}>
+                    <button
+                        className={`collection-pagination-button prev glassmorphic-button image-slideshow-button`}
+                        style={slideshowButtonStyles}
+                        onClick={(e) => {
+                            changeContentIndex(contentIndex - 1);
+                        }}>
+                        {"<"}
+                    </button>
+                    <button
+                        className={`collection-pagination-button next glassmorphic-button image-slideshow-button`}
+                        style={slideshowButtonStyles}
+                        onClick={(e) => {
+                            changeContentIndex(contentIndex + 1);
+                        }}>
+                        {">"}
+                    </button>
+                </div>
+                <div
+                    className={`collection-pagination-container`}
+                    style={collectionPaginationContainerStyles}>
+                    {indicators}
+                </div>
+            </div>
+        );
+    };
+
+    return buildContent(content, type);
+}
+
+export default SectionCollection;
+
+/*
+
+                    <p
+                        className={`collection-pagination-bullet collection-pagination-indicator`}>
+                        {contentIndex}
+                    </p>
+*/ 
+
+/*
+    const componentStyles = {
+        // Default styles go here.
+        // Flex properties
+        ...flexStyles,
+        // Size properties
+        // minHeight: `${"auto"}`,
+        // minWidth: `${"50%"}`,
+        height: `${"100%"}`,
+        minHeight: `${"100%"}`,
+        maxHeight: `${"100%"}`,
+        width: `${"100%"}`,
+        minWidth: `${"100%"}`,
+        maxWidth: `${"100%"}`,
+        padding: `0.25rem 1.0rem`,
+        border: `1px dashed black`,
+        // User-set styles override default settings.
+        ...styles,
+        // Responsiveness overrides go here.
+    };
+
+    const imageContainerStyles = {
+        ...flexStyles,
+        // display: "grid",
+        // gridTemplateRows: `auto 1fr auto`,
+        // gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`,
+        // grid: `repeat(auto-fit, 1fr) / auto-flow 1fr`,
+        // height: `${"100"}%`,
+        // minHeight: `${"auto"}`,
+        // maxHeight: `${"auto"}`,
+        // width: `${"100"}%`, // `${width > 100 ? 100 : width}%`,
+        // minWidth: `${"auto"}`,
+        // maxWidth: `${"auto"}`,
+        // backgroundColor: fillercolor,
+        border: `${"none"}`,
+        borderRadius: `${"0"}px`,
+        padding: `${"0"}`,
+        margin: `${"0"}`,
+        transition: "width 1s ease-in-out",
+        boxShadow: `${`1px 1px 5px 5px rgba(0, 0, 0, 0.25)`}`,
+        // If extra styles are passed in, make sure they override the settings here.
+        // ...styles,
+        ...containerStyles,
+    };
+
+    // const imageStyles = {
+    //     height: `${"100%"}`,
+    //     minHeight: `${"100%"}`,
+    //     maxHeight: `${"100%"}`,
+    //     width: `${"auto"}`, // `${width > 100 ? 100 : width}%`,
+    //     minWidth: `${"10px"}`,
+    //     maxWidth: `${"100%"}`,
+    //     // backgroundColor: fillercolor,
+    //     border: `${"none"}`,
+    //     borderRadius: `${"0"}px`,
+    //     padding: `${"0"}`,
+    //     margin: `${"0"}`,
+    //     transition: "width 0.5s ease-in",
+    //     boxShadow: `${`1px 1px 5px 5px rgba(0, 0, 0, 0.25)`}`,
+    //     // If extra styles are passed in, make sure they override the settings here.
+    //     // ...styles,
+    //     ...elementStyles,
+    // };
+
+    const contentStyles = {
+        height: `${"100%"}`,
+        minHeight: `${"min-content"}`,
+        // maxHeight: `${"100%"}`,
+        width: `${"auto"}`, // `${width > 100 ? 100 : width}%`,
+        // minWidth: `${"10px"}`,
+        // maxWidth: `${"100%"}`,
+        // backgroundColor: fillercolor,
+        border: `${"none"}`,
+        borderRadius: `${"0"}px`,
+        padding: `${"0"}`,
+        margin: `${"0"}`,
+        transition: "all 0.5s ease-in",
+        // boxShadow: `${`1px 1px 5px 5px rgba(0, 0, 0, 0.25)`}`,
+
+        boxShadow: `${
+            boxShadowEnabled ? "1px 1px 2px 2px rgba(0, 0, 0, 0.25)" : "none"
+        }`,
+        // If extra styles are passed in, make sure they override the settings here.
+        // ...styles,
+        ...elementStyles,
+    };
+*/
+
+/*
+    const handleChangeIndex = () => {
+        const i = contentIndex + 1;
+        setContentIndex(i >= imageSet.length ? 0 : i);
+    };
+
+    const changeIndex = () => {
+        const newIndex = contentIndex - 1;
+        setContentIndex(newIndex < 0 ? length - 1 : newIndex);
+    };
+
+    return (
+        <div className={`section-collection`} styles={componentStyles}>
+            {children && children !== false && children}
+        </div>
+    );
+*/

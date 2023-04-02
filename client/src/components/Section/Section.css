@@ -1,4 +1,60 @@
-@import '../../vars.css';
+@import "../../vars.css";
+.section-container {
+    /* Style for section container. This contains header/title, content, and footer components. */
+}
+.section-content {
+    /* Style for section content areas. These contain pane and collection components. */
+}
+.section-container {
+    display: block;
+    height: 100%;
+    min-height: auto;
+    max-height: 100%;
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+    border: none;
+    padding: 0.25rem 1rem;
+    margin: 0rem;
+    transition: width 1s ease-in-out 0s;
+    box-shadow: none;
+}
+.section-content {
+    display: flex;
+    flex-direction: column;
+    place-content: center flex-start;
+    align-items: center;
+    height: auto;
+    min-height: auto;
+    width: auto;
+    min-width: auto;
+    /* padding: 0.25rem 1rem; */
+    overflow: hidden;
+}
+
+.section-pane {
+    /* display: flex;
+    place-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: auto; 
+    width: 100%;
+    min-width: 40%;
+    padding: 0rem;
+    flex-wrap: wrap !important;
+    */
+    min-height: auto;
+    width: 100%;
+    min-width: 40%;
+    padding: 0rem;
+    flex-wrap: wrap !important;
+}
+.section-text-container {
+    padding: 0.25rem;
+}
+.section-text-container .section-text {
+    padding: 0.25rem;
+}
 .section-title {
     padding: 1rem;
     padding-left: 0 !important;
@@ -11,10 +67,10 @@
     width: 100%;
     max-width: 100%;
 }
-.section-title-text {
+.section-title .section-title-text {
     margin: auto 0;
 }
-.section-title-bar {
+.section-title .section-title-bar {
     margin: 4px;
     width: 25vw;
     height: 1px !important;
@@ -27,8 +83,135 @@
 .section-img {
     max-width: 100%;
     max-height: 100%;
+    height: 100%;
+    transition: all 1s var(--transition-func-bezier);
 }
-.image-slideshow-buttons-container {
+.section-collection {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    min-width: 100% !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    height: 100% !important;
+}
+element.style {
+    right: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    /* width: min-content !important; */
+}
+
+.section-collection-container {
+    min-height: min-content !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    /* right: 50%; */
+    /* position: relative; */
+    transform: 50%, 50%;
+    /* display: flex; */
+    flex-direction: column;
+    place-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+    max-height: 100%;
+    /* width: 100%; */
+    /* min-width: 100%; */
+    max-width: 100%;
+    width: min-content !important;
+    transform: translate(0%, 0%);
+    object-position: center;
+}
+.section-collection-content {
+    display: flex;
+    /* flex-direction: row; */
+    /* place-content: center; */
+    /* align-items: center; */
+    align-self: center;
+    height: 100%;
+    width: 100% !important;
+    min-height: 100% !important;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+.section-collection-item {
+    border-radius: 0px;
+    padding: 0px;
+    margin: 0px;
+    /* min-width: 0%; */
+    /* max-width: 0%; */
+    /* height: 100%; */
+    /* max-height: 100%; */
+    /* min-height: min-content !important; */
+    opacity: 0;
+    transition: min-width 0.15s var(--transition-func-bezier), opacity 1s var(--transition-func-bezier), visibility 0.1s var(--transition-func-bezier), height 1s var(--transition-func-bezier), left 0.05s var(--transition-func-bezier);
+    transition-duration: 0.15s, 1s, 0.1s, 1s, 0.05s;
+    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier);
+    transition-delay: 0s, 0s, 0s, 0s, 0s;
+    transition-property: min-width, opacity, visibility, height, left;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px; */
+    visibility: hidden;
+    width: 0% !important;
+    /* height: max-content !important; */
+}
+
+.section-collection-item-visible {
+    min-width: auto;
+    max-width: 100%;
+    visibility: visible;
+    opacity: 1;
+    /* height: 100%; */
+    /* max-height: 100%; */
+    width: 100% !important;
+    min-height: min-content !important;
+}
+.section-collection-item .collection-img{
+    width: 0% !important;
+    transition: all 1s var(--transition-func-bezier);
+}
+
+.section-collection-item.section-collection-item-visible .collection-img {
+    width: 100% !important;
+}
+
+.collection-img {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    width: 100%;
+    object-fit: scale-down;
+}
+.section-collection-item .img {
+    height: 100% !important;
+    min-height: min-content !important;
+    max-height: 100%;
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+    /*
+        height: 0%;
+        height: 100%;
+        min-height: auto;
+        max-height: 100%;
+        visibility: hidden;
+    */
+}
+.section-img-slideshow-container {
     height: 100%;
     flex: 1 1 auto;
 }
@@ -37,7 +220,6 @@
     width: 10px;
     flex: 1 1 auto;
 }
-
 /* Smaller screens */
 
 @media only screen and (max-width: 767px) {
@@ -52,25 +234,47 @@
         width: 90%;
         justify-content: center !important;
     }
+    .section-container {
+        /* Style for section container. This contains header/title, content, and footer components. */
+        flex-direction: column !important;
+    }
+    .section-content {
+        /* Style for section content areas. These contain pane and collection components. */
+        flex-direction: column !important;
+    }
+    .section-pane {
+        /* Style for section pane. This is a flexible component for formatting content like text, images, videos, etc. */
+    }
+    .section-pane,
+    .section-text-container {
+        flex-direction: column !important;
+    }
+    .section-pane .section-text {
+        flex-direction: row !important;
+    }
 }
-
 /* Bigger screens */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
     .section-title {
         flex-direction: row;
     }
     .section-title-bar {
         width: 25vw;
     }
+    .section-container {
+        /* Style for section container. This contains header/title, content, and footer components. */
+        flex-direction: column !important;
+    }
+    .section-content {
+        /* Style for section content areas. These contain pane and collection components. */
+        flex-direction: row !important;
+    }
+    .section-pane {
+        /* Style for section pane. This is a flexible component for formatting content like text, images, videos, etc. */
+        flex-direction: column !important;
+    }
 }
-.section-text {
-    padding: 0.25rem;
-}
-.section-text-container {
-    padding: 0.25rem;
-}
-
 /*
     @media (min-width: 300px) {
         .section-title {
@@ -107,3 +311,328 @@
         }
     }
     */
+/* Collections & Carousels Styling */
+.collection-pagination {
+    /* display: flex; */
+    /* margin: auto; */
+    /* position: fixed; */
+    /* place-content: center; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* align-self: center; */
+    /* position: relative; */
+    /* flex: 0 1 auto; */
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+    /* flex-basis: 100%; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* flex-direction: row; */
+    min-width: 100% !important;
+    width: 100% !important;
+    /* min-height: 100% !important; */
+    /* height: 100% !important; */
+    /* object-position: revert; */
+    /* clear: both; */
+    /* -webkit-transform: translate(50%, 50%); */
+    left: 0%;
+    text-align: center;
+    /* display: flex; */
+    /* margin: auto; */
+    flex-direction: row;
+    position: fixed;
+    place-content: center;
+    /* align-items: center; */
+    /* align-self: center; */
+    /* position: relative; */
+    /* flex: 1 1 100%; */
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+    /* flex-basis: 100%; */
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: row;
+    /* min-width: 100% !important; */
+    /* width: 100% !important; */
+    /* min-height: 100% !important; */
+    /* height: 100% !important; */
+    /* object-position: revert; */
+    /* clear: both; */
+    /* left: 0%; */
+    /* right: 0%; */
+    /* bottom: 0%; */
+    top: 0%;
+    display: -webkit-inline-box;
+}
+.collection-pagination-container {
+    margin: 0;
+    padding: 1.0rem 2.0rem;
+    position: relative;
+    bottom: 0%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    list-style: none;
+    text-decoration: none;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+/* display: inline !important; */
+/* display: inline-block !important; */
+
+/*
+
+.collection-pagination-container {
+    bottom: 0%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.collection-pagination-container .collection-pagination {
+    width: auto;
+    min-width: auto;
+    background-color: #e2e2e2;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0.1rem;
+    margin: 0.1rem;
+    width: 2rem;
+    height: 2rem;
+}
+.collection-pagination-indicator {
+    background-color: #428bca;
+    border-radius: 50%;
+    margin: 0.1rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-grid;
+    padding-inline: 0em;
+    align-self: center;
+    vertical-align: middle;
+    flex-direction: row;
+    align-items: center !important;
+    justify-content: center;
+}
+.collection-pagination-container .collection-pagination {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    padding-inline: 0em;
+    margin-inline: 1rem;
+    background: rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    text-align: center;
+    z-index: 10;
+    overflow: hidden;
+    background-color: #428bca;
+    display: inline-grid;
+    vertical-align: middle;
+    align-items: center !important;
+    align-self: center;
+    justify-content: center;
+    flex-direction: row;
+}
+*/ 
+/*
+    transition: all 0.05s var(--transition-func-bezier);
+    transition-duration: 0.15s, 1s, 0.1s, 1s, 0.05s;
+    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier);
+    transition-delay: 0s, 0s, 0s, 0s, 0s;
+    transition-property: min-width, opacity, visibility, height, left;
+*/
+/*
+.collection-pagination-button {
+    background: rgba(0, 0, 0, 0.28);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 40px;
+    height: 40px;
+    line-height: 35px;
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    cursor: pointer;
+    text-align: center;
+    width: 40px;
+    z-index: 10;
+    text-align: center;
+    z-index: 10;
+    list-style: none;
+    text-decoration: none;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    top: 0%;
+}
+*/
+.collection-pagination-button {
+    top: 50%;
+    /* 
+    left: 0%; 
+     right: 0%; 
+     bottom: 0%; 
+     top: 0%; 
+    line-height: 35px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+     */
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0%, -50%);
+    background: rgba(0, 0, 0, 0.28);
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    position: fixed;
+    /* width: 40px; */
+    z-index: 10;
+    list-style: none;
+    text-decoration: none;
+}
+.collection-pagination-button svg {
+    height: 100%;
+    width: 100%;
+    font-size: 40px;
+    text-align: center;
+}
+.collection-pagination-button.prev {
+    left: 0%;
+}
+.collection-pagination-button.next {
+    right: 0%;
+}
+.collection-pagination-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: #aaaaaa;
+}
+.collection-pagination-bullet {
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    display: inline-grid;
+    vertical-align: middle;
+    align-items: center !important;
+    align-self: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-inline: 2.5rem;
+    font-size: 0.65rem;
+    line-height: normal;
+    z-index: 10;
+    overflow: hidden;
+    text-shadow: 0.0rem 0.0rem 0.115rem #acacacbb, 0.0rem 0.0rem 0.125rem #ffffff7f;
+    transition-duration: 0.15s, 0.15s;
+    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier);
+    transition-property: width, opacity, visibility, height, left;
+}
+.collection-pagination-bullet.collection-pagination-active {
+    background-color: #736464;
+    font-size: 0.85rem;
+    width: 0.90rem;
+    height: 0.90rem;
+}
+.collection-pagination-indicator {
+    background: #3d252547;
+    background-color: #00000047 !important;
+}
+.collection-pagination-control {
+    background-color: #428bca;
+    background-color: #00000047;
+}
+.collection-pagination-control:hover {
+    color: #736464;
+    background-color: #383838;
+    box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px;
+}
+.collection-pagination-control:focus {
+    color: #3d3131;
+}
+#carousel-1:checked
+    ~ .control-1
+    ~ .collection-pagination-container
+    li:nth-child(1)
+    .collection-pagination-bullet,
+#carousel-2:checked
+    ~ .control-2
+    ~ .collection-pagination-container
+    li:nth-child(2)
+    .collection-pagination-bullet,
+#carousel-3:checked
+    ~ .control-3
+    ~ .collection-pagination-container
+    li:nth-child(3)
+    .collection-pagination-bullet {
+    color: #428bca;
+}
+
+/**/
+/* Slideshow */
+/**/
+
+/* Styling the area of the slides */
+.slideshow-container {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+ 
+/* Style each of the sides
+with a fixed width and height */
+.slide {
+  float: left;
+  height: 100%;
+  width: 100%;
+}
+ 
+/* Add animation to the slides */
+.slide-wrapper {
+   
+/* Calculate the total width on the
+  basis of number of slides */
+  width: calc(728px * 4);
+ 
+/* Specify the animation with the
+  duration and speed */
+  animation: slide 10s ease infinite;
+}
+/* Define the animation
+for the slideshow */
+@keyframes slide {
+   
+/* Calculate the margin-left for
+  each of the slides */
+  20% {
+    margin-left: 0px;
+  }
+ 
+  40% {
+    margin-left: calc(-728px * 1);
+  }
+ 
+  60% {
+    margin-left: calc(-728px * 2);
+  }
+ 
+  80% {
+    margin-left: calc(-728px * 3);
+  }
+}

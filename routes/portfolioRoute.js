@@ -1,5 +1,7 @@
-const express = require("express");
+const express = require( "express" );
 const router = express.Router();
+const auth = require( "../middleware/auth" );
+
 const {
     Intro,
     About,
@@ -8,11 +10,23 @@ const {
     Education,
     Contact,
     Message,
-} = require("../models/portfolioModel");
+} = require( "../models/portfolioModel" );
 
-const User = require("../models/userModel");
+const User = require( "../models/userModel" );
 
-router.get("/get-portfolio-data", async (req, res) => {
+// Helper functions.
+const response = ( data, success, message, statusCode ) => {};
+const sendResponse = ( res ) => {
+    // Res will be an object. IF it contains valid values, proceed with sending it along.
+    //     response({
+    //         data: intro,
+    //         success: true,
+    //         message: "Intro updated successfully",
+    //         status: 200,
+    //     });
+};
+
+router.get( "/get-portfolio-data", async ( req, res ) => {
     // Pull the data from every collection in the database.
     // console.log( "PortfolioRoute.js received get-portfolio-data request on:",
     //     req.headers.host,
@@ -45,30 +59,30 @@ router.get("/get-portfolio-data", async (req, res) => {
         //     "Access-Control-Allow-Origin": "*",
         //     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
         // });
-        res.status( 200 ).send(
-            {
-            intro: intros[0],
-            about: abouts[0],
+        res.status( 200 ).send( {
+            intro: intros[ 0 ],
+            about: abouts[ 0 ],
             experiences: experiences,
             projects: projects,
             educations: educations,
-            contact: contacts[0],
+            contact: contacts[ 0 ],
             messages: messages,
-            }
-        );
+        } );
         // console.log( "test" );
-    } catch (error) {
-        res.status(500).send(error);
+    } catch ( error ) {
+        res.status( 500 ).send( error );
     }
-});
+} );
 
 // Update intro
-router.post("/update-intro", async (req, res) => {
+router.post( "/update-intro", auth, async ( req, res ) => {
     try {
-        const intro = await Intro.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const intro = await Intro.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
         console.log(
             "router.post(/update-intro): ",
@@ -77,254 +91,401 @@ router.post("/update-intro", async (req, res) => {
             res.success,
         );
         // If it works, throw a success message.
-        res.status(200).send({
+        // res.status(200).send({
+        //     data: intro,
+        //     success: true,
+        //     message: "Intro updated successfully",
+        // });
+        res.send( {
             data: intro,
             success: true,
             message: "Intro updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        console.log( "/update-intro :: res = ", res, " :: error = ", error );
+        // res.status(500).send(error);
+        // res.status( 500 ).send( error );
+        // res.sendStatus(500);
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Update about
-router.post("/update-about", async (req, res) => {
+router.post( "/update-about", auth, async ( req, res ) => {
     try {
-        const about = await About.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const about = await About.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: about,
             success: true,
             message: "About updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Add experience
-router.post("/add-experience", async (req, res) => {
+router.post( "/add-experience", auth, async ( req, res ) => {
     try {
-        const experience = new Experience(req.body);
+        const experience = new Experience( req.body );
         await experience.save();
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: experience,
             success: true,
             message: "Experience added successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Delete experience
-router.post("/delete-experience", async (req, res) => {
+router.post( "/delete-experience", auth, async ( req, res ) => {
     try {
-        const experience = await Experience.findOneAndDelete({
+        const experience = await Experience.findOneAndDelete( {
             _id: req.body._id,
-        });
+        } );
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: experience,
             success: true,
             message: "Experience deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Update experience
-router.post("/update-experience", async (req, res) => {
+router.post( "/update-experience", auth, async ( req, res ) => {
     try {
-        const experience = await Experience.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const experience = await Experience.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
-        res.status(200).send({
+        res.send( {
             data: experience,
             success: true,
             message: "Experience updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Add project
-router.post( "/add-project", async ( req, res ) =>
-{
+router.post( "/add-project", auth, async ( req, res ) => {
     console.log( "portfolioRoute.js :: /add-project :: ", req, res );
     try {
-        const project = new Project(req.body);
+        const project = new Project( req.body );
         await project.save();
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: project,
             success: true,
             message: "Project added successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Delete project
-router.post("/delete-project", async (req, res) => {
+router.post( "/delete-project", auth, async ( req, res ) => {
     try {
-        const project = await Project.findOneAndDelete({
+        const project = await Project.findOneAndDelete( {
             _id: req.body._id,
-        });
+        } );
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: project,
             success: true,
             message: "Project deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Update project
-router.post("/update-project", async (req, res) => {
+router.post( "/update-project", auth, async ( req, res ) => {
     try {
-        const project = await Project.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const project = await Project.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
-        res.status(200).send({
+        res.send( {
             data: project,
             success: true,
             message: "Project updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Add education
-router.post("/add-education", async (req, res) => {
+router.post( "/add-education", auth, async ( req, res ) => {
     try {
-        const education = new Education(req.body);
+        const education = new Education( req.body );
         await education.save();
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: education,
             success: true,
             message: "Education added successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Delete education
-router.post("/delete-education", async (req, res) => {
+router.post( "/delete-education", auth, async ( req, res ) => {
     try {
-        const education = await Education.findOneAndDelete({
+        const education = await Education.findOneAndDelete( {
             _id: req.body._id,
-        });
+        } );
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: education,
             success: true,
             message: "Education deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Update education
-router.post("/update-education", async (req, res) => {
+router.post( "/update-education", auth, async ( req, res ) => {
     try {
-        const education = await Education.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const education = await Education.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
-        res.status(200).send({
+        res.send( {
             data: education,
             success: true,
             message: "Education updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Update contact info
-router.post("/update-contact", async (req, res) => {
+router.post( "/update-contact", auth, async ( req, res ) => {
     try {
-        const contact = await Contact.findOneAndUpdate(
-            { _id: req.body._id },
-            req.body,
-            { new: true },
+        const contact = await Contact.findOneAndUpdate( {
+                _id: req.body._id
+            },
+            req.body, {
+                new: true
+            },
         );
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: contact,
             success: true,
             message: "Contact updated successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 // Send message
-router.post("/send-message", async (req, res) => {
+router.post( "/send-message", async ( req, res ) => {
     try {
         // console.log("router.post(/send-message): ", req, res);
         // console.log("router.post(/send-message): ", req.body, req.headers, res.success);
-        const message = new Message(req.body);
+        const message = new Message( req.body );
         await message.save();
         // If it works, throw a success message.
-        res.status(200).send({
+        res.status(200).send( {
             data: message,
             success: true,
             message: "Message sent successfully",
-        });
-    } catch (error) {
+            // status: 200,
+        } );
+    } catch ( error ) {
         res.status(500).send(error);
     }
-});
+} );
+
+// Edit / Update message
+router.post( "/edit-message", auth, async ( req, res ) => {
+    try {
+        // console.log("router.post(/send-message): ", req, res);
+        // console.log("router.post(/send-message): ", req.body, req.headers, res.success);
+        const message = new Message( req.body );
+        await message.save();
+        // If it works, throw a success message.
+        res.send( {
+            data: message,
+            success: true,
+            message: "Message sent successfully",
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
+    }
+} );
 
 // Delete message
-router.post("/delete-message", async (req, res) => {
+router.post( "/delete-message", auth, async ( req, res ) => {
     try {
-        const message = await Message.findOneAndDelete({
+        const message = await Message.findOneAndDelete( {
             _id: req.body._id,
-        });
+        } );
 
         // If it works, throw a success message.
-        res.status(200).send({
+        res.send( {
             data: message,
             success: true,
             message: "Message deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).send(error);
+            status: 200,
+        } );
+    } catch ( error ) {
+        // res.status(500).send(error);
+
+        res.send( {
+            data: error,
+            success: false,
+            message: "500 Error.",
+            status: 500,
+        } );
     }
-});
+} );
 
 /*
 // Admin login
-router.post("/login", async (req, res) => {
+router.post("/login", auth, async (req, res) => {
     try {
         const user = await User.findOne({
             username: req.body.username,
@@ -338,12 +499,14 @@ router.post("/login", async (req, res) => {
                 data: user,
                 success: true,
                 message: "Logged in successfully",
+            status: 200,
             });
         } else {
             res.status(200).send({
                 data: user,
                 success: false,
                 message: "Invalid username or password.",
+            status: 200,
             });
         }
     } catch (error) {

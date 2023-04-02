@@ -8,13 +8,14 @@ function SectionTitle ( props )
         children,
         // Style settings.
         title = "",
-        scale = "1",
+        scale = "3",
         // Style settings.
         type = "default",
-        color = "",
+        color = "highlightColor",
         // Can import extra styles.
-        classes = "",
+        classes = "text-highlightColor",
         styles = {},
+        debug = false,
     } = props;
 
     // Select the scale class based on the scale value provided.
@@ -39,39 +40,13 @@ function SectionTitle ( props )
     }
 
     return (
-        <div className="section-title">
-            <h1 className={`section-title-text ${getScale(scale)} text-highlightColor`} styles={styles}>
+        <div className={`section-title`}>
+            <h1 className={`section-title-text ${getScale(scale)} ${color !== '' ? `text-${color}` : ``}`} styles={styles}>
                 {title}
             </h1>
-            <div className="section-title-bar"></div>
+            <div className={`section-title-bar`}></div>
         </div>
     );
 }
 
 export default SectionTitle;
-
-/*
-    switch (scale) {
-        case "1":
-            scaleClass = "text-4xl";
-            break;
-        case "2":
-            scaleClass = "text-3xl";
-            break;
-        case "3":
-            scaleClass = "text-2xl";
-            break;
-        case "4":
-            scaleClass = "text-xl";
-            break;
-        case "5":
-            scaleClass = "text-lg";
-            break;
-        case "6":
-            scaleClass = "text-md";
-            break;
-        default:
-            scaleClass = "text-3xl";
-            break;
-    }
-*/

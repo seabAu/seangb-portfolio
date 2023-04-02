@@ -67,22 +67,35 @@ function Home() {
                         navBoxShadow={false}
                         // onChange={onChange}
                     >
-                        <div className="tab-item" label="About" key="1">
+                        {
+                            /*  FUTURE PAGES
+                                - Blog
+                                - Tutorials
+                                - Tools & Other Resources
+                                - Ask Me Anything
+                                    -> Very similar to Contact page, except it will post the messages directly to the front end page, and I will be able to post responses to them.
+                                    -> For obvious reasons, i'll include a feature to remove inappropriate questions. 
+                                - Updates
+
+                                Beyond its initial release as a portfolio site, my end goal is to have a personal site that doubles as a portfolio-serving front page. To do that, it should include various features that are worth me checking in on the site every day, such as a weight and exercise tracker, message board, a blog, etc. 
+                            */
+                        }
+                        <div className="tab-item" label="About" enabled={true}>
                             <About />
                         </div>
-                        <div className="tab-item" label="Projects" key="2">
+                        <div className="tab-item" label="Projects" enabled={true}>
                             <Projects />
                         </div>
-                        <div className="tab-item" label="Experience" key="3">
+                        <div className="tab-item" label="Experience" enabled={true}>
                             <Experiences />
                         </div>
-                        <div className="tab-item" label="Education" key="4">
+                        <div className="tab-item" label="Education" enabled={true}>
                             <Education />
                         </div>
-                        <div className="tab-item" label="Blog" key="5">
+                        <div className="tab-item" label="Blog" enabled={false}>
                             <Blog />
                         </div>
-                        <div className="tab-item" label="Contact" key="6">
+                        <div className="tab-item" label="Contact" enabled={true}>
                             <Contact />
                         </div>
                     </Tabs>

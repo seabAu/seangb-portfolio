@@ -5,6 +5,7 @@ const dbConfig = require("./config/dbConfig");
 const port = process.env.PORT || 4000;
 // const cors = require( "cors" );
 const { createProxyMiddleware } = require( "http-proxy-middleware" );
+const debug = false;
 
 // Initialize the server.
 const app = express();

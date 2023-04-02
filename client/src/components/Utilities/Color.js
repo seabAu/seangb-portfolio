@@ -9,3 +9,8 @@ export function hexToRGB(hex) {
           }
         : null;
 }
+
+// Source: https://github.com/phuocng/1loc/blob/master/contents/misc/convert-rgb-color-to-hex.md
+export const rgbToHex = (red, green, blue) =>
+    `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1)}`;
+// const rgbToHex = (red, green, blue) => `#${[red, green, blue].map((v) => v.toString(16).padStart(2, '0')).join('')}`;

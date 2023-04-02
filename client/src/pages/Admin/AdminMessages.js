@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
 import API from "../../api/api.js";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../components/Section/SectionTitle";
+import Table from "../../components/Table/Table";
 // import { Form, Button, Row, Col } from "react-bootstrap";
+
+import * as utils from '../../components/Utilities/index.js';
 function AdminMessages() {
     const dispatch = useDispatch();
     const { portfolioData } = useSelector((state) => state.root);
@@ -31,12 +34,11 @@ function AdminMessages() {
         }
     };
 
-    return (
-            <div className="table-container">
-                <div className="flex justify-start">
-                    <SectionTitle title="Messages"></SectionTitle>
-                </div>
-
+    const dataToTable = ( input ) =>
+    {
+        if ( utils.val.isValidArray( input, true ) )
+        {
+            return (
                 <table className="admin-table">
                     <thead className="admin-table-header">
                         <tr className="admin-table-row-labels">
@@ -99,11 +101,83 @@ function AdminMessages() {
                         ))}
                     </tbody>
                 </table>
+            );
+        }
+    }
+
+    return (
+        <div className="table-container">
+            <div className="flex justify-start">
+                <SectionTitle title="Messages"></SectionTitle>
             </div>
+            {dataToTable(messages)}
+        </div>
     );
 }
 
 export default AdminMessages;
+
+/*
+
+            <table className="admin-table">
+                <thead className="admin-table-header">
+                    <tr className="admin-table-row-labels">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Company</th>
+                        <th>Age</th>
+                        <th>Location</th>
+                        <th>Preference</th>
+                        <th>Message</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody className="admin-table-body">
+                    {messages.map((message) => (
+                        <tr className="admin-table-row" id={message._id}>
+                            <td className="admin-table-cell ">
+                                {message.name != null ? message.name : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.email != null ? message.email : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.phone != null ? message.phone : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.company != null ? message.company : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.age != null ? message.age : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.location != null
+                                    ? message.location
+                                    : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.preference != null
+                                    ? message.preference
+                                    : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                {message.message != null ? message.message : ""}
+                            </td>
+                            <td className="admin-table-cell ">
+                                <div className="flex justify-end items-end">
+                                    <button
+                                        className="button admin-button-red bg-red-500 text-white rounded-sm"
+                                        onClick={() => {}}>
+                                        Del
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+*/ 
 
 /*
                             {Object.keys(messages[0]).map((key) => {

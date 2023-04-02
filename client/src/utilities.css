@@ -1,3 +1,8 @@
+@import './vars.css';
+:root {
+    --input-text-size: 0.75rem;
+}
+*::-webkit-input-placeholder {}
 .container-left {
     float: left;
     width: 385px;
@@ -113,17 +118,6 @@
 a {
     color: #4ddbfc;
 }
-table {
-    border-collapse: collapse;
-    border-spacing: 0px;
-}
-input, textarea, select, button, label {
-    margin: 0px;
-    line-height: normal;
-    font-family: inherit;
-    font-size: 100%;
-    box-sizing: border-box;
-}
 a {
     color: rgb(238, 238, 238);
     text-decoration: underline;
@@ -131,44 +125,180 @@ a {
 a:hover {
     color: white;
 }
-input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="search"], textarea {
+#new-task-form {
+    display: flex;
+}
+.form-container {
+    padding: 4px 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.form-container * {
+    max-width: 100% !important;
+    min-width: 0% !important;
+}
+.form-container-admin {
+    padding: 4px 0;
+    margin: 0;
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.form-container-admin>* {}
+.form-row {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+}
+.form-group {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.form-input {
+    width: 100%;
+    height: 2rem;
+}
+.form-group {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: inherit;
+    box-shadow: inset 2px 2px 2px #171717, inset -2px -2px 2px rgb(68, 60, 60);
+}
+.input-field {
+    margin: 0;
+    padding: 2px 4px;
+    width: 100%;
+    flex-grow: 1;
+}
+.input-field .input-field-label input {
+    margin: 0;
+    padding: 4px 2px;
+    width: 100%;
+    outline: none;
+}
+.input-field .input-field-label {
+    margin: 0;
+    padding: 2px 0;
+    width: 100%;
+}
+.input-field .input-field-select {
+    margin: 0;
+    padding: 4px 2px;
+    width: 100%;
+}
+.input-field .input-field-text {
+    margin: 0;
+    padding: 2px 0;
+    width: 100%;
+}
+.input-field.input-field-inline .input-field-label {
+    display: inline;
+    padding: 4px 4px;
+    margin: 0;
+    width: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+.input-field.input-field-inline .input-field-label .input-field-label-text {
+    min-width: 1rem !important;
+    overflow-wrap: normal!important;
+    white-space: nowrap;
+    width: auto;
+}
+.input-field.input-field-inline .input-field-label .input-field-checkbox {
+    width: auto;
+}
+.button-form-submit {
+    width: 100%;
+    align-self: center;
+    text-align: center;
+}
+.form-submit-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Input styling */
+
+form {
+    width: 100%;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: break-spaces;
+    line-break: anywhere;
+}
+input, textarea {
+    padding: 4px 7px;
+    text-indent: 10px;
+}
+textarea {
+    width: 100%;
+    max-height: 20rem;
+    height: 5.0rem;
+}
+input, input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="search"], textarea {
     display: inline-block;
     vertical-align: top;
-    padding: 0px 7px;
-    height: 29px;
+    min-height: 1.5rem;
+    max-width: 100%;
+    width: 100%;
     color: rgb(185, 185, 185);
     text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px;
     border-width: 1px;
     border-style: solid;
     border-color: black rgb(17, 17, 17) rgb(17, 17, 17);
     border-radius: 3px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px inset, rgba(255, 255, 255, 0.0784314) 0px 1px;
     transition: 0.1s ease-out;
-    background: rgb(51, 51, 51);
-}
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, textarea:focus {
-    color: rgb(223, 223, 223);
-    border-color: #4096ff;
-    box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
-    border-inline-end-width: 1px;
-    outline: 0;
-}
-input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover, input[type="url"]:hover, input[type="search"]:hover, textarea:hover {
-    color: rgb(223, 223, 223);
-    box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
-    border-color: #3770b6;
-    border-inline-end-width: 1px;
-    outline: 0;
-}
-textarea {
-    padding: 4px 7px;
-    height: 67px;
+    background: #333333;
+    background-color: #333333;
     line-height: 19px;
-    overflow: auto;
-    resize: none;
+    resize: vertical;
+    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2), 0px 1pxrgba(255, 255, 255, 0.0784314);
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.0980392), 0px 1px 1px rgba(0, 0, 0, 0.14902);
+    background: inset linear-gradient( rgba(255, 255, 255, 0.0666667), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 51%, rgba(0, 0, 0, 0.2)) padding-box rgb(51, 55, 60);
 }
-*::-webkit-input-placeholder {
-    color: rgb(128, 128, 128);
+input:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, textarea:focus {
+    color: rgb(223, 223, 223);
+    outline: none;
+    background: #3d3d3d;
+    background-color: #3d3d3d;
+    box-shadow: inset rgba(255, 255, 255, 0.0980392) 0px 1px inset, rgba(0, 0, 0, 0.14902) 0px 1px 1px;
+    box-shadow: inset rgba(0, 0, 0, 0.2) 0px 1px 1px inset, rgba(255, 255, 255, 0.0784314) 0px 1px;
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.0980392), 0px 1px 1px 1px rgba(0, 0, 0, 0.14902);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.0980392), 0px 1px 1px 1px rgba(0, 0, 0, 0.14902);
+    /* 
+    border: 2px solid #4d3838;
+    box-shadow: inset 0 0 4px rgba(147, 147, 147, 1);
+    box-shadow: inset 0px 0px 1px 1px rgba(111, 85, 251, 1);
+    */
+}
+input:hover, input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover, input[type="url"]:hover, input[type="search"]:hover, textarea:hover {
+    color: rgb(255, 255, 255);
+    outline: none;
+    background: #626262;
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.0980392), 0px 1px 1px 1px rgba(0, 0, 0, 0.14902);
+    /* 
+    border: 2px solid #4d3838;
+    box-shadow: inset 0 0 4px rgba(147, 147, 147, 1);
+    box-shadow: inset 0px 0px 1px 1px rgba(111, 85, 251, 1);
+    */
 }
 .text-input-hint {
     display: block;
@@ -260,22 +390,6 @@ input[type="search"] {
 .lt-ie9 .search>input {
     padding: 0px 6px;
 }
-.option {
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    width: 18px;
-    height: 18px;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.option>input {
-    position: absolute;
-    left: 0px;
-    width: inherit;
-    height: inherit;
-    opacity: 0;
-}
 .checkbox, .radio {
     display: block;
     height: 100%;
@@ -331,13 +445,67 @@ input:focus+.checkbox, input:focus+.radio, input.focus+.checkbox, input.focus+.r
 .lt-ie9 .checkbox, .lt-ie9 .radio {
     display: none;
 }
+.dropdown {
+    position: relative;
+    display: block;
+    margin-top: 0.5em;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* SELECT INPUT STYLING */
+
+select {
+    /* Make sure the select is wider than the container so we can clip the arrow */
+    /* Remove select styling */
+    appearance: none;
+    -webkit-appearance: none;
+    /* Ugly Firefox way of doing it */
+    -moz-appearance: window;
+    text-indent: 0.01px;
+    text-overflow: "";
+    /* Magic font size number to prevent iOS text zoom */
+    font-size: var(--input-text-size);
+    font-weight: bold;
+    border: none;
+    color: #444;
+    outline: none;
+    /* Padding works surpringly well */
+    padding: 0.125rem 0.8rem;
+    margin: 0.2em;
+    width: 100%;
+    font-family: helvetica, sans-serif;
+    border: 1px solid #bbb;
+    border-radius: 0.3em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    background: #f3f3f3;
+    /* Old browsers */
+    background: -moz-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    /* W3C */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    /* IE6-9 */
+}
+
+/* This hides native dropdown button arrow in IE */
+
 .select {
     display: inline-block;
     vertical-align: top;
     position: relative;
-    overflow: hidden;
     width: 200px;
     height: 31px;
+    height: 1.5rem;
     border-width: 1px;
     border-style: solid;
     border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
@@ -348,6 +516,9 @@ input:focus+.checkbox, input:focus+.radio, input.focus+.checkbox, input.focus+.r
 }
 .select:hover {
     background-color: rgb(77, 81, 89);
+}
+select::-ms-expand {
+    display: none;
 }
 .select>select {
     display: block;
@@ -370,9 +541,6 @@ input:focus+.checkbox, input:focus+.radio, input.focus+.checkbox, input.focus+.r
     outline: rgb(35, 110, 171) solid 1px;
     outline-offset: -1px;
 }
-.select option {
-    text-shadow: none;
-}
 .select::before {
     content: "";
     position: absolute;
@@ -387,11 +555,246 @@ input:focus+.checkbox, input:focus+.radio, input.focus+.checkbox, input.focus+.r
     pointer-events: none;
     box-shadow: rgba(0, 0, 0, 0.498039) 0px -1px;
 }
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0.25rem 0.3rem;
+    margin: 2px 0;
+    width: 100%;
+    font-family: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
+    font-size: var(--font-size-table);
+    outline: none;
+}
+select::-ms-expand {
+    display: none;
+}
+
+/* Custom select dropdown arrow */
+
+select {
+    width: 100%;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    align-items: center;
+}
+select::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--select-arrow);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+}
+select {
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    position: relative;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: var(--font-size-table);
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+.select select, .select::after {
+    grid-area: select;
+}
+.select:not(.select--multiple)::after {
+    content: "";
+    justify-self: end;
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--select-arrow);
+    -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+select:focus+.focus {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 2px solid var(--select-focus);
+    border-radius: inherit;
+}
+select[multiple] {
+    padding-right: 0;
+    /*
+   * Safari will not reveal an option
+   * unless the select height has room to 
+   * show all of it
+   * Firefox and Chrome allow showing 
+   * a partial option
+   */
+    height: 8rem;
+    /* 
+   * Experimental - styling of selected options
+   * in the multiselect
+   * Not supported crossbrowser
+   */
+    width: 100%;
+    height: 8em;
+    resize: both;
+}
+select[multiple] option {
+    white-space: normal;
+    outline-color: var(--select-focus);
+}
+.select--disabled {
+    cursor: not-allowed;
+    background-color: #eee;
+    background-image: linear-gradient(to top, #ddd, #eee 33%);
+}
+label {
+    font-weight: 500;
+}
+.select+label {
+    margin-top: 1rem;
+}
+.select option {
+    text-shadow: none;
+}
+.option {
+    vertical-align: top;
+    width: 100%;
+    height: 18px;
+}
+.option>input {
+    left: 0px;
+    width: inherit;
+    height: inherit;
+    opacity: 0;
+}
+option {
+    background-color: #ffffff;
+}
+option:before {
+    content: ">";
+    font-size: 20px;
+    display: none;
+    padding-right: 10px;
+    padding-left: 5px;
+    color: #fff;
+}
+option.option.option-selected {
+    background-color: #9bc0ed;
+}
+
+/*
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
+    outline: none;
+}
+select::-ms-expand {
+    display: none;
+}
+.select {
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    position: relative;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+.select select, .select::after {
+    grid-area: select;
+}
+.select:not(.select--multiple)::after {
+    content: "";
+    justify-self: end;
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--select-arrow);
+    -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+select:focus+.focus {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 2px solid var(--select-focus);
+    border-radius: inherit;
+}
+select[multiple] {
+    padding-right: 0;
+
+height: 6rem;
+
+}
+select[multiple] option {
+    white-space: normal;
+    outline-color: var(--select-focus);
+}
+.select--disabled {
+    cursor: not-allowed;
+    background-color: #eee;
+    background-image: linear-gradient(to top, #ddd, #eee 33%);
+}
+label {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+.select+label {
+    margin-top: 2rem;
+}
+*/
+
+
+/*
+*
+*
+*
+*
+*/
+
 .switch {
     display: inline-block;
     vertical-align: top;
     position: relative;
     width: 32px;
+    user-select: none;
     -webkit-user-select: none;
 }
 .switch>label {
@@ -672,6 +1075,7 @@ a.button {
     color: transparent;
     border-left-width: 0px;
     border-radius: 0px 3px 3px 0px;
+    user-select: none;
     -webkit-user-select: none;
 }
 .button-dropdown>.toggle::before, .button-dropdown>.toggle::after {
@@ -698,43 +1102,6 @@ a.button {
 }
 .button-dropdown:hover>.toggle, .button-dropdown.open>.toggle {
     border-bottom-right-radius: 0px;
-}
-.dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0px;
-    right: 0px;
-    margin-top: -1px;
-    font-size: 12px;
-    border: 1px solid black;
-    border-radius: 0px 0px 3px 3px;
-    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px;
-    background: rgb(51, 51, 51);
-}
-.dropdown:hover {
-    display: block;
-}
-.dropdown>li>a {
-    display: block;
-    line-height: 30px;
-    padding: 0px 12px;
-    color: rgb(198, 198, 198);
-    text-decoration: none;
-    text-shadow: rgba(0, 0, 0, 0.8) 0px 1px;
-    box-shadow: rgba(255, 255, 255, 0.0470588) 0px 0px 0px 1px inset;
-}
-.dropdown>li>a:hover, .dropdown>li>a:focus {
-    outline: none;
-    background: rgb(61, 61, 61);
-}
-.dropdown>li+li {
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: rgb(17, 17, 17);
-}
-.dropdown>li:last-child>a {
-    border-radius: 0px 0px 2px 2px;
 }
 .button-prev, .button-next {
     position: relative;
@@ -781,6 +1148,43 @@ a.button {
 }
 .button-next::after {
     border-left-color: rgb(200, 200, 200);
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    right: 0px;
+    margin-top: -1px;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: rgb(51, 51, 51);
+}
+.dropdown:hover {
+    display: block;
+}
+.dropdown>li>a {
+    display: block;
+    line-height: 30px;
+    padding: 0px 12px;
+    color: rgb(198, 198, 198);
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.8) 0px 1px;
+    box-shadow: rgba(255, 255, 255, 0.0470588) 0px 0px 0px 1px inset;
+}
+.dropdown>li>a:hover, .dropdown>li>a:focus {
+    outline: none;
+    background: rgb(61, 61, 61);
+}
+.dropdown>li+li {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(17, 17, 17);
+}
+.dropdown>li:last-child>a {
+    border-radius: 0px 0px 2px 2px;
 }
 .lt-ie9 .button-prev::before, .lt-ie9 .button-next::before, .lt-ie9 .button-prev::after, .lt-ie9 .button-next::after {
     border-style: solid;
@@ -1037,4 +1441,103 @@ a.button {
     padding-top: 4em;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+label {
+    display: block;
+    /* margin-top: 2em; */
+    font-size: calc(var(--input-text-size) * 1.125);
+    color: #777;
+}
+
+/* Custom arrow - could be an image, SVG, icon font, etc. */
+
+.dropdown:after {
+    background: none;
+    color: #bbb;
+    content: "\25BC";
+    font-size: var(--input-text-size);
+    padding: 0;
+    position: absolute;
+    right: 1em;
+    top: 1.2em;
+    bottom: 0.3em;
+    z-index: 1;
+    /* This hack makes the select behind the arrow clickable in some browsers */
+    pointer-events: none;
+}
+
+/* Hover style - tricky because we're clipping the overflow */
+
+.dropdown:hover {
+    border: 1px solid #888;
+}
+
+/* Focus style */
+
+select:focus {
+    box-shadow: 0 0 1px 1px rgba(180, 222, 250, 0.85);
+}
+
+/* This hides focus around selected option in FF */
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+/* These are just demo button-y styles, style as you like */
+
+
+/*
+
+.button {
+    border: 1px solid #bbb;
+    border-radius: 0.3em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    background: #f3f3f3;
+    background: -moz-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+    background: -webkit-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    background: -o-linear-gradient( top, #ffffff 0%, #e5e5e5 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+}
+*/
+
+input[type='range'] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 7px;
+    background: grey;
+    border-radius: 5px;
+    background-image: linear-gradient(#d46a6a, #d46a6a);
+    background-repeat: no-repeat;
+}
+input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #d46a6a;
+    cursor: pointer;
+    box-shadow: 0 0 2px 0 #555;
+}
+input[type='range']::-webkit-slider-runnable-track {
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: #d46a6a50 0px 0px 0px 8px;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+    box-shadow: #d46a6a50 0px 0px 0px 11px;
+    transition: box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, left 350ms cubic- bezier(0.4, 0, 0.2, 1) 0ms, bottom 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+input[type='range']::-webkit-slider-thumb {
+    transition: background 0.3s ease-in-out;
 }

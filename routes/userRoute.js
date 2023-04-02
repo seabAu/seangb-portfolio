@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
-const auth = require( "../middleware/auth" );
+const auth = require("../middleware/auth");
 
-const jwt_expires = 60 * 60 * 24;
+const jwt_expires = 60 * 60 * 24 * 7; // 1 week.
 
 const debug = (
     route,
@@ -73,19 +73,18 @@ router.post("/login", async (req, res) => {
         // Blank out the password so it doesn't get saved in the localstorage token.
         user.password = "";
         debug("/login", req.body, res.status, "user", user);
-        if ( user )
-        {
+        if (user) {
             // Success. Update the last_login field.
-                    
+
             user.last_login = new Date();
             res.status(200).send({
-                data: {...user, password: ""},
+                data: { ...user, password: "" },
                 success: true,
                 message: "Logged in successfully",
             });
         } else {
             res.status(200).send({
-                data: {...user, password: ""},
+                data: { ...user, password: "" },
                 success: false,
                 message: "Invalid username or password.",
             });
@@ -186,7 +185,6 @@ router.post("/signup", async (req, res) => {
     });
 });
 
-
 // @route       POST /api/users/auth
 // @desc        Authenticate a user.
 // @access      Private
@@ -249,8 +247,7 @@ router.post("/auth", async (req, res) => {
                             token: user.token,
                         },
                         success: true,
-                        message:
-                            "Successfully authenticated.",
+                        message: "Successfully authenticated.",
                     });
 
                     // Save the token to the new user.
@@ -260,14 +257,11 @@ router.post("/auth", async (req, res) => {
     });
 });
 
-
-
 // @route       GET /api/users/auth/user
 // @desc        Send a token and receive a user, if it matches any.
 // @access      Private
 // The auth middleware transforms the token sent in the request into a User object that has a parseable id.
-router.get( "/auth/user", auth, async ( req, res ) =>
-{
+router.get("/auth/user", auth, async (req, res) => {
     console.log(
         "userRoute.js :: api/users/auth/user",
         // " :: req = ",
@@ -280,20 +274,23 @@ router.get( "/auth/user", auth, async ( req, res ) =>
     // User.findById( req.user.id ).select( '-password' ).then( ( user ) => res.json( user ) );
     User.findById(req.user.id)
         .select("-password")
-        .then( ( user ) =>
-        {
-            console.log( "res.status = ", res.status, ", user = ", user );
+        .then((user) => {
+            console.log("res.status = ", res.status, ", user = ", user);
             // res.json(user);
+            let authorized = [ "superadmin", "admin" ].includes( user.role.toString() );
             res.send({
                 user: {
                     id: user.id,
                     role: user.role,
-                    auth: user.role === "admin",
+                    token: user.token,
+                    // auth: user.role === "admin",
+                    auth: authorized,
                 },
                 success: true,
                 status: res.status,
+                message: `User ${authorized ? 'is' : 'is not'} authorized to enter admin areas`,
             });
-        } );
+        });
     // User.findById(req.user.id)
     //     .select("-password")
     //     .then( ( user ) =>
@@ -314,7 +311,6 @@ router.get( "/auth/user", auth, async ( req, res ) =>
     //         });
     //     } );
 });
-
 
 /*
     // /api/users/signup

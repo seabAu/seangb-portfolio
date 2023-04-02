@@ -1,8 +1,8 @@
 import React from "react";
-import { has } from "../Utilities/AO";
+import * as utils from "../Utilities/index.js";
 
 function Cell(props) {
-    const { dataObj, dataDisplayKey, filterList, dataFilterKey, parentIndex } =
+    const { dataObj, dataDisplayKey, filterList, dataFilterKey, parentIndex = 0 } =
         props;
 
     const getCell = (
@@ -10,7 +10,7 @@ function Cell(props) {
         dataDisplayKey,
         filterList,
         dataFilterKey,
-        parentIndex,
+        parentIndex = 0,
     ) => {
         // console.log(
         //     "CellList.JS :: getCell :: Cell data = ",
@@ -20,23 +20,23 @@ function Cell(props) {
         //     "\n", "dataFilterKey = ", dataFilterKey,
         //     "\n", "parentIndex = ", parentIndex,
         // );
-        if (has(dataObj, dataDisplayKey)) {
+        if (utils.ao.has(dataObj, dataDisplayKey)) {
             return (
                 <div
-                    className={`cell-list-item p-0 ${
-                        has(dataObj, dataFilterKey)
+                    className={`cell-list-item ${
+                        utils.ao.has(dataObj, dataFilterKey)
                             ? filterList.includes(dataObj[dataFilterKey])
                                 ? "hidden"
                                 : ""
                             : ""
                     }`}
-                    key={`item-${parentIndex}-${dataObj[dataDisplayKey]}-${
-                        dataObj.hasOwnProperty("index") ? dataObj.index : ""
-                    }`}
-                    id={`item-${parentIndex}-${dataObj[dataDisplayKey]}-${
-                        dataObj.hasOwnProperty("index") ? dataObj.index : ""
-                    }`}>
-                    <h1 className={`cell-list-item-text m-0 p-0 text-[8pt]`}>
+                    key={`cell-list-item-${parentIndex}-${
+                        dataObj[dataDisplayKey]
+                    }-${dataObj.hasOwnProperty("index") ? dataObj.index : ""}`}
+                    id={`cell-list-item-${parentIndex}-${
+                        dataObj[dataDisplayKey]
+                    }-${dataObj.hasOwnProperty("index") ? dataObj.index : ""}`}>
+                    <h1 className={`cell-list-item-text m-0 text-[8pt]`}>
                         {dataObj[dataDisplayKey]}
                     </h1>
                 </div>

@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../components/Section/SectionTitle";
 import Tabs from "../../components/Tabs/Tabs";
-import { sortDataByKey } from "../../components/Utilities/AO";
-import { dateStr2LocaleDateStr } from "../../components/Utilities/Time";
-import { isValidArray } from "../../components/Utilities/Val";
+import * as utils from "../../components/Utilities/index.js";
 // import { experiences } from "../../resources/experiences";
 
 function Experiences (){
@@ -14,26 +12,7 @@ function Experiences (){
     
     const getExperiences = (data) => {
         // console.log( "getExperiences :: data = ", data, portfolioData );
-        // // To make the update easier, add the new fields here and copy and paste.
-        // let tempExp = experiences.map((exp, index) => {
-        //     let period = exp.period.split(" - ");
-        //     return {
-        //         ...exp,
-        //         index: index,
-        //         showIndex: index,
-        //         enabled: true,
-        //         startdate: dateStr2LocaleDateStr(period[0]),
-        //         enddate: dateStr2LocaleDateStr(period[1]),
-        //     };
-        // });
-        // console.log(
-        //     "tempExp = ",
-        //     tempExp,
-        //     ", tempExp sorted by key startdate :: ",
-        //     sortDataByKey(tempExp, "startdate", "desc"),
-        // );
-        if ( isValidArray( data, true ) )
-        {
+        if (utils.val.isValidArray(data, true)) {
             return data.map((experience, index) => {
                 return (
                     <div
@@ -81,11 +60,11 @@ function Experiences (){
             {portfolioData && (
                 <Tabs
                     type={"top"}
-                    rounded={true}
+                    rounded={false}
                     centered={true}
                     padContent={true}
                     fillArea={false}
-                    roundedNav={true}
+                    roundedNav={false}
                     contentBoxShadow={true}
                     navBoxShadow={true}>
                     {getExperiences(experiences)}

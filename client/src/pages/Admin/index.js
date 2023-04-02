@@ -11,7 +11,7 @@ import AdminContact from "./AdminContact";
 // import { Tabs } from "antd";
 import Tabs from "../../components/Tabs/Tabs";
 import AdminMessages from "./AdminMessages";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../components/Section/SectionTitle";
 // import { TabsProps } from "antd";
 // const { TabPane } = Tabs;
 import { useDispatch, useSelector } from "react-redux";
@@ -77,9 +77,14 @@ function Admin() {
                 <div className="admin-page-content">
                     <div className="admin-tabs-bar">
                         <Tabs
-                            defaultActiveKey="2"
+                            // Setup & Runtime
                             items={items}
-                            type="left"
+                            type="card"
+                            navPosition="left"
+                            size={"small"}
+                            defaultActiveIndex="2"
+                            activeIndex="2"
+                            // Styling
                             centered={true}
                             padContent={true}
                             fillArea={true}
@@ -87,7 +92,7 @@ function Admin() {
                             contentBoxShadow={true}
                             navBoxShadow={true}
                             // onChange={onChange}
-                        >
+                            style={{ margin: 0 }}>
                             <div className="tab-item" label="Intro" key="1">
                                 <AdminIntro />
                             </div>

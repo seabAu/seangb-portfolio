@@ -16,10 +16,10 @@ import {
     SetUser,
 } from "../../redux/rootSlice";
 
-
 function Login() {
     // const { loading, portfolioData, reloadData, loggedIn, token, role } = useSelector((state) => state.root);
     const {
+        debug,
         loading,
         portfolioData,
         reloadData,
@@ -27,15 +27,15 @@ function Login() {
         // token,
         // role,
         user,
-    } = useSelector( ( state ) => state.root );
-    
+    } = useSelector((state) => state.root);
+
     const [credentials, setCredentials] = React.useState({
         username: "",
         password: "",
         email: "",
         display_name: "",
     });
-    const [ mode, setMode ] = React.useState( "login" );
+    const [mode, setMode] = React.useState("login");
 
     // const [ dispatch, setDispatch ] = React.useState( null );
     const dispatch = useDispatch();
@@ -43,14 +43,16 @@ function Login() {
         try {
             dispatch(SetLoading(true));
             // const response = await API.post( "/api/users/login", // user
-            const response = await API.post( "/api/users/auth", // user
+            const response = await API.post(
+                "/api/users/auth", // user
                 {
                     username: credentials.username,
-                    password: credentials.password
-                }
+                    password: credentials.password,
+                },
             );
             dispatch(SetLoading(false));
-            console.log("Login.js :: login :: response = ", response);
+            if (debug)
+                console.log("Login.js :: login :: response = ", response);
             if (response.data.success) {
                 // Successfully logged in.
                 message.success(response.data.message);
@@ -64,22 +66,30 @@ function Login() {
                     // deepGetKey(response.data, "id"),
                     token,
                 );
-                console.log("Login.js :: login :: token = ", token, ", role = ", role, ", userdata = ", userdata);
+                if (debug)
+                    console.log(
+                        "Login.js :: login :: token = ",
+                        token,
+                        ", role = ",
+                        role,
+                        ", userdata = ",
+                        userdata,
+                    );
                 dispatch(SetLoggedIn(true));
                 // dispatch(SetRole(role));
                 // dispatch( SetToken( token ) );
                 dispatch(SetUser(userdata));
                 // Check the role of the user. If guest, return to /portfolio. If admin, send to /admin.
-                console.log(
-                    "Login.js :: login :: token = ",
-                    token,
-                    ", role = ",
-                    role,
-                    ", user = ",
-                    user,
-                );
-                if ( role )
-                {
+                if (debug)
+                    console.log(
+                        "Login.js :: login :: token = ",
+                        token,
+                        ", role = ",
+                        role,
+                        ", user = ",
+                        user,
+                    );
+                if (role) {
                     // localStorage.setItem(
                     //     "token",
                     //     // JSON.stringify(response.data),
@@ -89,14 +99,11 @@ function Login() {
                         window.location.href = "/portfolio";
                     } else if (role === "admin") {
                         window.location.href = "/admin";
-                    }
-                    else
-                    {
+                    } else {
                         window.location.href = "/";
                     }
-                } else
-                {
-                    window.location.href = '/';
+                } else {
+                    window.location.href = "/";
                 }
             } else {
                 // Failed to log in. Return to homepage.
@@ -121,11 +128,12 @@ function Login() {
                     display_name: credentials.display_name,
                 },
             );
-            dispatch( SetLoading( false ) );
-            console.log( "Login.js :: signup :: response = ", response );
+            dispatch(SetLoading(false));
+            if (debug)
+                console.log("Login.js :: signup :: response = ", response);
             if (response.data.success) {
                 // Successfully logged in.
-                // Retrieve the token. 
+                // Retrieve the token.
                 message.success(response.data.message);
                 // localStorage.setItem("token", JSON.stringify(response.message));
                 // window.location.href = "/admin";
@@ -155,7 +163,10 @@ function Login() {
                         label="Username"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, username: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                username: e.target.value,
+                            })
                         }></input>
                     <input
                         name="password"
@@ -165,7 +176,10 @@ function Login() {
                         label="Password"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, password: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                password: e.target.value,
+                            })
                         }></input>
                     <div className="button-group button-row">
                         <button
@@ -195,7 +209,10 @@ function Login() {
                         label="Username"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, username: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                username: e.target.value,
+                            })
                         }></input>
                     <input
                         name="password"
@@ -205,7 +222,10 @@ function Login() {
                         label="Password"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, password: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                password: e.target.value,
+                            })
                         }></input>
                     <input
                         name="display_name"
@@ -215,7 +235,10 @@ function Login() {
                         label="Display Name"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, display_name: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                display_name: e.target.value,
+                            })
                         }></input>
                     <input
                         name="email"
@@ -225,7 +248,10 @@ function Login() {
                         label="Email"
                         className="input-field"
                         onChange={(e) =>
-                            setCredentials({ ...credentials, email: e.target.value })
+                            setCredentials({
+                                ...credentials,
+                                email: e.target.value,
+                            })
                         }></input>
                     <div className="button-group button-row">
                         <button

@@ -776,6 +776,7 @@ export function deepSearch( object, key, predicate, getParent = false ) {
     return null;
 }
 
+
 // Here is the demo: http://jsfiddle.net/a21dx6c0/
 // In the same way you can find more than one object
 export function deepSearchItems( object, key, predicate ) {
@@ -800,6 +801,28 @@ export function deepSearchItems( object, key, predicate ) {
     }
     return ret;
 }
+
+// Deep nested recursive search of object array and setting a specific value.
+export  const findAndSetObject = (obj = {}, key = "", value = "") => {
+    const result = [];
+    const recursiveSearch = (obj = {}, key, value) => {
+        if (!obj || typeof obj !== "object") {
+            return;
+        }
+        // if (obj[key] === value) {
+        if (obj.hasOwnProperty(key)) {
+            // Object has the key we're looking for.
+            obj[key] = value;
+            return;
+        }
+        Object.keys(obj).forEach((k) => {
+            return recursiveSearch(obj[k], key, value);
+        });
+    };
+    recursiveSearch(obj, key, value);
+    // return result;
+    return obj;
+};
 
 /*  // Sorting function snippet graveyard. // 
     // Abandon hope all ye who enter here. // 

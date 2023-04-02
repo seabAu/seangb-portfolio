@@ -4,9 +4,13 @@ import * as utils from "../Utilities/index.js";
 import './Section.css';
 /*
     Section
-        SectionTitle
+    {
+        SectionTitle {}
         SectionContent
+        {
             SectionPane
+            {
+                SectionTitle
                 SectionText
                 SectionImage
                 SectionPane
@@ -14,10 +18,17 @@ import './Section.css';
                     SectionText
                     ...
                 ...
+            }
             SectionPane
+            {
                 SectionText
-            ...
-        SectionFooter
+                SectionText
+                SectionText
+                SectionText
+            }
+        }
+        SectionFooter {}
+    }
 */
 
 function Section(props) {
@@ -27,16 +38,20 @@ function Section(props) {
         // Render overrides, if ever needed.
         showSection = true,
         showChildren = true,
+        // Responsive settings.
+        responsive = true,
+        responsiveBreakpoints = 768,
         // Style settings.
         type = "default",
+        display = 'block',
         flexDirection = "column",
         fillArea = true,
         height = "auto",
         width = "auto",
-        minHeight = "auto",
-        minWidth = "auto",
-        maxHeight = "100%",
-        maxWidth = "100%",
+        minHeight, //  = "auto",
+        minWidth, //  = "auto",
+        maxHeight, //  = "100%",
+        maxWidth, //  = "100%",
         padding = "0.25rem",
         margin = "0.0rem",
         border = "none",
@@ -54,22 +69,40 @@ function Section(props) {
         }
     }, [children]);
 
+    const flexStyles = {
+        display: `${"flex"}`,
+        /// flexDirection: `${"row"}`,
+        /// flexDirection: `${"column"}`,
+        flexDirection: `${flexDirection ? flexDirection : "column"}`,
+        justifyContent: `${"center"}`,
+        alignItems: `${"center"}`,
+        alignContent: `${"center"}`,
+        alignSelf: `${"center"}`,
+    };
+
     const sectionStyles = {
+        // (display === 'flex' ? ...flexStyles : ''),
         // display: "grid",
         // gridTemplateRows: `auto 1fr auto`,
         // gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`,
         // grid: `repeat(auto-fit, 1fr) / auto-flow 1fr`,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: `${flexDirection ? flexDirection : "column"}`,
-        alignContent: "center",
-        height: `${height ? (height > 100 ? 100 : height) : "auto"}%`,
+        display: `${display}`,
+        // * justifyContent: "center",
+        // * alignItems: "center",
+        // * flexDirection: `${flexDirection ? flexDirection : "column"}`,
+        // * alignContent: "center",
+        /// height: `${height ? (height > 100 ? 100 : height) : "auto"}%`,
         // minHeight: `${minHeight ? (fillArea ? "100%" : minHeight) : "auto"}`,
         // maxHeight: `${maxHeight ? maxHeight : "100%"}`,
-        width: `${width ? (width > 100 ? 100 : width) : "auto"}%`, // `${width > 100 ? 100 : width}%`,
+        /// width: `${width ? (width > 100 ? 100 : width) : "auto"}%`, // `${width > 100 ? 100 : width}%`,
         // minWidth: `${minWidth ? (fillArea ? "100%" : minWidth) : "auto"}`,
         // maxWidth: `${maxWidth ? maxWidth : "100%"}`,
+        height: `${height}`,
+        minHeight: `${minHeight}`,
+        maxHeight: `${maxHeight}`,
+        width: `${width}`,
+        minWidth: `${minWidth}`,
+        maxWidth: `${maxWidth}`,
         // backgroundColor: fillercolor,
         border: `${border}`,
         borderRadius: `${borderRadius}px`,
@@ -78,15 +111,24 @@ function Section(props) {
         textAlign: "middle",
         transition: "width 1s ease-in-out",
         boxShadow: `${
-            boxShadowEnabled ? "1px 1px 5px 5px rgba(0, 0, 0, 0.25)" : "none"
-            }`,
-        // If extra styles are passed in, make sure they override the settings here. 
+            boxShadowEnabled ? "1px 1px 2px 2px rgba(0, 0, 0, 0.25)" : "none"
+        }`,
+        // If extra styles are passed in, make sure they override the settings here.
         ...styles,
     };
 
     return (
         showSection && (
-            <div className="section-container" style={sectionStyles}>
+            <div className={ `section-container` } style={
+                {}
+                // sectionStyles
+                /// * (
+                /// *     display === 'flex' ? {
+                /// *     ...flexStyles,
+                /// *     ...sectionStyles,
+                /// * } : sectionStyles
+                /// * )
+            }>
                 {showChildren && children && children !== false && children}
             </div>
         )
@@ -99,3 +141,15 @@ Section.propTypes = {
     // children: PropTypes.object.isRequired,
     // isFetching: PropTypes.bool.isRequired,
 };
+
+
+/*
+    /// * Boilerplate functional react component return statement for parent elements.
+    return (
+        showParent && (
+            <div className="section-img" style={styles}>
+                {showChildren && children && children !== false && children}
+            </div>
+        )
+    );
+*/ 

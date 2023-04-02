@@ -3,6 +3,13 @@ import React from "react";
 import { cleanInvalid } from "./AO";
 import { isValidArray, isArray, isObject } from "./Val";
 
+// Detect Dark Mode
+// Source: https://github.com/phuocng/1loc/blob/master/contents/misc/detect-dark-mode.md
+export const isDarkMode =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+
 export function setElementValueById ( id, value )
 {
     if (id && value) {

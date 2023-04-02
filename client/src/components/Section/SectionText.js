@@ -10,10 +10,11 @@ function SectionText(props) {
         showChildren = true,
         // Style settings.
         type = "default",
-        scale = '',
+        scale = "",
         // Can import extra styles.
         classes = "",
         styles = {},
+        debug = false,
     } = props;
 
     // Select the scale class based on the scale value provided.
@@ -37,10 +38,29 @@ function SectionText(props) {
         }
     }
 
+    const componentStyles = {
+        // Default styles go here.
+        // User-set styles override default settings.
+        // display: `${"flex"}`,
+        // flexDirection: `${"row"}`,
+        // justifyContent: `${"flex-start"}`,
+        // alignItems: `${"flex-start"}`,
+        // alignContent: `${"flex-start"}`,
+        verticalAlign: `top`,
+        textAlign: `left`,
+        // height: `100%`,
+        // width: `100%`,
+        // border: `1px solid white`,
+        ...styles,
+        // Responsiveness overrides go here.
+    };
+    
     return (
         showParent && (
-            <div className="section-text-container" style={styles}>
-                <div className={`section-text ${classes} ${getScale(scale)}`} style={styles}>
+            <div className={`section-text-container`} style={styles}>
+                <div
+                    className={`section-text ${classes} ${getScale(scale)}`}
+                    style={styles}>
                     {showChildren && children && children !== false && children}
                 </div>
             </div>

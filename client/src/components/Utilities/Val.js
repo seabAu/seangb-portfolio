@@ -1,6 +1,11 @@
 import React from "react";
 
 
+    export function isBlank(str) {
+        return (
+            (!str || /^\s*$/.test(str)) && (this.length === 0 || !this.trim())
+        );
+    }
 // INPUT VALIDATION
 // https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string // 
 /**
@@ -153,7 +158,10 @@ export const isArray2 = (value) => {
 };
 export const isString = (x) => {
     return Object.prototype.toString.call(x) === "[object String]";
-}
+};
+export const isBool = (x) => {
+    return x === true || x === false;
+};
 
 // https://stackoverflow.com/questions/29312123/how-does-the-double-exclamation-work-in-javascript
 // ! is the logical negation or "not" operator. !! is ! twice. It's a way of casting a "truthy" or "falsy" value to true or false, respectively. Given a boolean, ! will negate the value, i.e. !true yields false and vice versa. Given something other than a boolean, the value will first be converted to a boolean and then negated. For example, !undefined will first convert undefined to false and then negate it, yielding true. Applying a second ! operator (!!undefined) yields false, so in effect !!undefined converts undefined to false.

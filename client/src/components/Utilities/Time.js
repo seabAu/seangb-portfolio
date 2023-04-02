@@ -104,3 +104,11 @@ export const generateDateOptions = (startYear = 2017, startMonth = 8) => {
     // dates.splice(0, 3);
     return dates;
 };
+
+export const formatDate = (date, locale = "en-US") => {
+    if (!date) return null;
+
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleDateString(locale, options);
+};

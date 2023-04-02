@@ -2,21 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const rootSlice = createSlice({
     name: "root",
     initialState: {
+        debug: false,
         loading: false,
         portfolioData: null,
         reloadData: false,
         loggedIn: false,
-        token: null,
-        role: "",
         user: null,
     },
     reducers: {
-        // SetToken: (state, action) => {
-        //     state.token = action.payload;
-        // },
-        // SetRole: (state, action) => {
-        //     state.role = action.payload;
-        // },
+        SetDebug: (state, action) => {
+            // Boolean.
+            // Toggles whether or not debug messages come through to the console, or via messages (via ANTD) in the window. 
+            state.debug = action.payload;
+        },
         SetLoading: (state, action) => {
             // Boolean.
             // Toggles loading screen on or off.
@@ -50,11 +48,10 @@ const rootSlice = createSlice({
 
 export default rootSlice.reducer;
 export const {
+    SetDebug,
     SetLoading,
     ReloadData,
     SetPortfolioData,
     SetUser,
     SetLoggedIn,
-    // SetToken,
-    // SetRole,
 } = rootSlice.actions;

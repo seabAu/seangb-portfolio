@@ -15,7 +15,7 @@ import {
 import { deepGetKey } from "../components/Utilities/AO";
 import API from "../api/api";
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const auth = async () => {
         // Get the session token from the stored token, if there is one. If there isn't one, automatically reject.
@@ -42,9 +42,9 @@ import API from "../api/api";
                     " :: role = ",
                     role,
                 );
-                dispatch(SetRole(role));
-                dispatch(SetLoggedIn(true));
-                dispatch(SetToken(token));
+                // dispatch(SetRole(role));
+                // dispatch(SetLoggedIn(true));
+                // dispatch(SetToken(token));
                 // if (role) {
                 //     if (role === "guest") {
                 //         window.location.href = "/portfolio";

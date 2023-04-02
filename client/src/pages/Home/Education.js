@@ -1,77 +1,29 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../components/Section/SectionTitle";
 import Tabs from "../../components/Tabs/Tabs";
-import { isValidArray } from "../../components/Utilities/Val";
 // import { courses } from "../../resources/courses";
+import * as utils from "../../components/Utilities/index.js";
 
 function Education() {
     // Destructure data.
     const { portfolioData } = useSelector((state) => state.root);
     const { educations } = portfolioData;
-    const {
-        _id,
-        index,
-        showIndex,
-        enabled,
-        degree,
-        major,
-        date,
-        location,
-        image,
-        link,
-        subjects,
-    } = educations;
+    // _id,
+    // index,
+    // showIndex,
+    // enabled,
+    // degree,
+    // major,
+    // date,
+    // location,
+    // image,
+    // link,
+    // subjects,
 
-    const getExperiences = (data) => {
-        if (isValidArray(data, true)) {
-            return data.map((experience, index) => {
-                return (
-                    <div
-                        label={`${experience.company}`}
-                        sublabel={`${experience.period}`}
-                        key={experience._id}
-                        id={experience._id}
-                        index={index}>
-                        <div className="flex-row-spread">
-                            <h1 className="header-section">
-                                {experience.title}
-                            </h1>
-                            <h2 className="text-highlightColor text-xl">
-                                {experience.period}
-                            </h2>
-                        </div>
-                        <div className="flex-row-spread">
-                            <h1 className="header-subsection">
-                                {experience.company}
-                            </h1>
-                            <h2 className="text-highlightColor text-xl">
-                                {experience.location}
-                            </h2>
-                        </div>
-                        <p className="text-white">{experience.description}</p>
-                    </div>
-                );
-            });
-        }
-    };
-
-    const getEducations = ( data ) =>
-    {
-        console.log( "getEducations :: data = ", data, portfolioData );
-        // _id,
-        // index,
-        // showIndex,
-        // enabled,
-        // degree,
-        // major,
-        // date,
-        // location,
-        // image,
-        // link,
-        // subjects,
-        if ( isValidArray( data, true ) )
-        {
+    const getEducations = (data) => {
+        /// * console.log( "getEducations :: data = ", data, portfolioData );
+        if (utils.val.isValidArray(data, true)) {
             return data.map((degree, index) => {
                 // console.log( degree );
                 return (
@@ -104,7 +56,7 @@ function Education() {
                                 />
                             </div>
                         </div>
-                        {isValidArray(degree.subjects, true) && (
+                        {utils.val.isValidArray(degree.subjects, true) && (
                             <div className="flex-row-shrink">
                                 <ul className="list">
                                     {degree.subjects.map((subject) => (
@@ -129,7 +81,7 @@ function Education() {
                 );
             });
         }
-    }
+    };
 
     return (
         <>
@@ -137,12 +89,12 @@ function Education() {
 
             {portfolioData && (
                 <Tabs
-                    type="top"
-                    rounded={true}
+                    type={"top"}
+                    rounded={false}
                     centered={true}
                     padContent={true}
-                    fillArea={true}
-                    roundedNav={true}
+                    fillArea={false}
+                    roundedNav={false}
                     contentBoxShadow={true}
                     navBoxShadow={true}>
                     {getEducations(educations)}

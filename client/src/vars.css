@@ -89,6 +89,8 @@
     --header-height: 40px;
     --footer-height: 60px;
     --icon-size: 0.9rem;
+    --transition-bezier-0pt2: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    --transition-func-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 html[data-theme='light'], .page-container.theme-light {
     --color_primary: #cecece;

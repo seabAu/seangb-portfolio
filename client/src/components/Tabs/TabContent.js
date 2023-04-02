@@ -13,6 +13,8 @@ const TabContent = (props) => {
         padContent,
         fillArea,
         roundedNav,
+        boxShadowEnabled = false,
+        boxShadow = "0px 0px 6px 1px #00000077",
     } = props;
     const [selectedTabIndex, setSelectedTabIndex] = React.useState(0);
     const onClickSetActiveTab = (index) => {
@@ -20,6 +22,22 @@ const TabContent = (props) => {
     };
     const tabContents = Children.toArray(children);
     // console.log("TABS :: props = ", props);
+
+    const componentStyles = {
+        // borderRadius: `${rounded ? "8px" : "0px"}`,
+        boxShadow: `${boxShadowEnabled ? boxShadow : "none"}`,
+        // padding: `${spinnerPadding}px`,
+        // textAlign: "right",
+        // transition: "width 1s ease-in-out",
+        // display: "flex",
+        // justifyContent: "flex-end",
+        // alignItems: "center",
+        // top: "50%",
+        // left: "50%",
+        // margin: "-25px 0 0 -25px",
+        // width: "50px",
+        // height: "50px",
+    };
 
     const getTabContent = (input) => {
         if (input) {
