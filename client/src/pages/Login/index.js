@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import axios from "axios";
 import API from "../../api/api.js";
-import { deepGetKey } from "../../components/Utilities/AO";
+import * as utils from "../../utilities";
 
 // Redux state management
 import {
@@ -15,6 +15,9 @@ import {
     SetLoggedIn,
     SetUser,
 } from "../../redux/rootSlice";
+import Input from "../../components/Form/Input.js";
+import Button from "../../components/Button/index.js";
+import Header from "../../components/Header/index.js";
 
 function Login() {
     // const { loading, portfolioData, reloadData, loggedIn, token, role } = useSelector((state) => state.root);
@@ -56,14 +59,14 @@ function Login() {
             if (response.data.success) {
                 // Successfully logged in.
                 message.success(response.data.message);
-                let token = deepGetKey(response.data, "token");
-                let role = deepGetKey(response.data, "role");
-                let userdata = deepGetKey(response.data, "user");
+                let token = utils.ao.deepGetKey(response.data, "token");
+                let role = utils.ao.deepGetKey(response.data, "role");
+                let userdata = utils.ao.deepGetKey(response.data, "user");
                 localStorage.setItem(
                     "token",
                     // JSON.stringify(response.data),
-                    // JSON.stringify(deepGetKey(response.data, "id")),
-                    // deepGetKey(response.data, "id"),
+                    // JSON.stringify(utils.ao.deepGetKey(response.data, "id")),
+                    // utils.ao.deepGetKey(response.data, "id"),
                     token,
                 );
                 if (debug)
@@ -93,7 +96,7 @@ function Login() {
                     // localStorage.setItem(
                     //     "token",
                     //     // JSON.stringify(response.data),
-                    //     JSON.stringify(deepGetKey(response.data, "_id")),
+                    //     JSON.stringify(utils.ao.deepGetKey(response.data, "_id")),
                     // );
                     if (role === "guest") {
                         window.location.href = "/portfolio";
@@ -150,127 +153,150 @@ function Login() {
     };
 
     return (
-        <div className="admin-login-container flex justify-center items-center h-screen bg-primary">
-            {mode === "login" && (
-                <div className="admin-login-card w-96 flex flex-col gap-5 p-5 shadow border border-gray-500 text-white bg-tertiary">
-                    <h1 className="text-2xl">Login</h1>
-                    <hr />
-                    <input
-                        name="username"
-                        type="text"
-                        value={credentials.username}
-                        placeholder="Username"
-                        label="Username"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                username: e.target.value,
-                            })
-                        }></input>
-                    <input
-                        name="password"
-                        type="password"
-                        value={credentials.password}
-                        placeholder="Password"
-                        label="Password"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                password: e.target.value,
-                            })
-                        }></input>
-                    <div className="button-group button-row">
-                        <button
-                            className="button admin-button admin-button-red"
-                            onClick={login}>
-                            Sign In
-                        </button>
-                        <button
-                            className="button admin-button admin-button-primary"
-                            onClick={() => {
-                                setMode("signup");
-                            }}>
-                            Sign Up
-                        </button>
-                    </div>
-                </div>
-            )}
-            {mode === "signup" && (
-                <div className="admin-login-card w-96 flex flex-col gap-5 p-5 shadow border border-gray-500 text-white bg-tertiary">
-                    <h1 className="text-2xl">Sign Up</h1>
-                    <hr />
-                    <input
-                        name="username"
-                        type="text"
-                        value={credentials.username}
-                        placeholder="Username"
-                        label="Username"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                username: e.target.value,
-                            })
-                        }></input>
-                    <input
-                        name="password"
-                        type="password"
-                        value={credentials.password}
-                        placeholder="Password"
-                        label="Password"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                password: e.target.value,
-                            })
-                        }></input>
-                    <input
-                        name="display_name"
-                        type="text"
-                        value={credentials.display_name}
-                        placeholder="Display Name"
-                        label="Display Name"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                display_name: e.target.value,
-                            })
-                        }></input>
-                    <input
-                        name="email"
-                        type="email"
-                        value={credentials.email}
-                        placeholder="Email"
-                        label="Email"
-                        className="input-field"
-                        onChange={(e) =>
-                            setCredentials({
-                                ...credentials,
-                                email: e.target.value,
-                            })
-                        }></input>
-                    <div className="button-group button-row">
-                        <button
-                            className="button admin-button admin-button-primary"
-                            onClick={() => {
-                                setMode("login");
-                            }}>
-                            Sign In
-                        </button>
-                        <button
-                            className="button admin-button admin-button-red"
-                            onClick={signup}>
-                            Sign Up
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
+		<div className="page-container">
+			<Header />
+			<div className="page-content">
+				<div className="admin-login-container flex justify-center items-center h-screen">
+					{mode === "login" && (
+						<div className="admin-login-card w-96 flex flex-col gap-5 p-5 shadow border border-gray-500 text-white bg-tertiary">
+							<h1 className="text-2xl">Login</h1>
+							<hr />
+							<Input.Group
+								model={[
+									{
+										name: `username`,
+										label: `Username`,
+										type: `text`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.username,
+											placeholder: `Username`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												username: e.target.value,
+											}),
+									},
+									{
+										name: `password`,
+										label: `Password`,
+										type: `password`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.password,
+											placeholder: `Password`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												password: e.target.value,
+											}),
+									},
+								]}></Input.Group>
+							<div className="button-rows">
+								<Button
+									classes={`button admin-button admin-button-red`}
+									label={`Sign In`}
+									onClick={login}
+								/>
+								<Button
+									classes={`button admin-button admin-button-primary`}
+									label={`Sign Up`}
+									onClick={() => {
+										setMode("signup");
+									}}
+								/>
+							</div>
+						</div>
+					)}
+					{mode === "signup" && (
+						<div className="admin-login-card w-96 flex flex-col gap-5 p-5 shadow border border-gray-500 text-white bg-tertiary">
+							<h1 className="text-2xl">Sign Up</h1>
+							<hr />
+							<Input.Group
+								model={[
+									{
+										name: `username`,
+										label: `Username`,
+										type: `text`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.username,
+											placeholder: `Username`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												username: e.target.value,
+											}),
+									},
+									{
+										name: `password`,
+										label: `Password`,
+										type: `password`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.password,
+											placeholder: `Password`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												password: e.target.value,
+											}),
+									},
+									{
+										name: `display_name`,
+										label: `Display Name`,
+										type: `text`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.display_name,
+											placeholder: `Display Name`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												display_name: e.target.value,
+											}),
+									},
+									{
+										name: `email`,
+										label: `Email`,
+										type: `text`,
+										layout: `inline`,
+										inputProps: {
+											value: credentials.email,
+											placeholder: `Email`,
+										},
+										onChange: (e) =>
+											setCredentials({
+												...credentials,
+												email: e.target.value,
+											}),
+									},
+								]}></Input.Group>
+							<div className="button-rows">
+								<Button
+									classes={`button admin-button admin-button-primary`}
+									label={`Sign In`}
+									onClick={() => {
+										setMode("login");
+									}}
+								/>
+								<Button
+									classes={`button admin-button admin-button-red`}
+									label={`Sign Up`}
+									onClick={signup}
+								/>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default Login;

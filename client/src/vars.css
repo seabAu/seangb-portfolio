@@ -1,23 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- :root {
+:root {
     /* * Global Color Vars * */
+    
+    /*
     --color-green: #239847;
-    --color_primary: #343434;
-    --color_secondary: #282828;
-    --color_tertiary: #3e3e3e;
-    --color_quaternary: #4a4a4a;
-    --color_quinary: #242b44;
+    --color-primary: #343434;
+    --color-secondary: #282828;
+    --color-tertiary: #3e3e3e;
+    --color-quaternary: #282828;
+    --color-quinary: #252525;
+    */
+    
+    --color-green: #239847;
+    --color-primary: #343434;
+    --color-secondary: #212121;
+    --color-tertiary: #3e3e3e;
+    --color-quaternary: #282828;
+    --color-quinary: #2e2e2e;
+    
+    --color-quaternary-alt: #4a4a4a;
+    --color-quinary-alt: #242b44;
+    --color-quaternary-highlight: #453979;
+    --color-quinary-highlight: #242b44;
     --color-error: #ff2222;
+    --color-text: #cccccc;
     /* ? Component Color Vars ? */
-    --color_header: #453979;
-    --color_body: #242b44;
+    --color-header: #453979;
+    --color-body: #242b44;
     --color-background: #202020;
-    --color_highlightColor: #fdad51;
-    --color_highlightColor2: #fef48b;
+    --color-highlightColor: #fdad51;
+    --color-highlightColor2: #fef48b;
     --color-text: #f2f4ec;
     /* ? Button Color Vars ? */
     --color-button-text: #dcdcdc;
@@ -28,7 +44,7 @@
     --secondary-color: #676767;
     --secondary-bg-color: #4a4a4a;
     --secondary-hover-color: #524524;
-    --border-color: rgba( 0, 0, 0, 0.2);
+    --border-color: rgba(0, 0, 0, 0.2);
     --color-select-border: #777777;
     --color-select-focus: #0000ff;
     --color-select-arrow: var(--color-select-border);
@@ -38,23 +54,35 @@
     --boxshadow: -2px -2px 2px 0px rgba(255, 255, 255, 0.05), 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
     --boxshadowInset: inset -2px -2px 3px 0px rgba(255, 255, 255, 0.1), inset 2px 2px 3px 0px rgba(0, 0, 0, 0.8);
     */
-    --boxshadow: -2px -2px 2px 0px rgba(255, 255, 255, 0.05), 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
-    --boxshadowSmooth: -1px -1px 2px 1px #ffffff11, 1px 1px 2px 1px #00000088, -2px -2px 4px 1px #ffffff11, 2px 2px 4px 1px #00000088;
-    --boxshadowInset: inset -2px -2px 3px 0px rgba(255, 255, 255, 0.1), inset 2px 2px 3px 0px rgba(0, 0, 0, 0.8);
+    --boxshadow: -2px -2px 2px 0px rgba(255, 255, 255, 0.05),
+        2px 2px 2px 0px rgba(0, 0, 0, 0.5);
+    --boxshadowSmooth: -1px -1px 2px 1px #ffffff11, 1px 1px 2px 1px #00000088,
+        -2px -2px 4px 1px #ffffff11, 2px 2px 4px 1px #00000088;
+    --boxshadowInset: inset -2px -2px 3px 0px rgba(255, 255, 255, 0.1),
+        inset 2px 2px 3px 0px rgba(0, 0, 0, 0.8);
     --boxshadowFlat: 0px 0px 1px 1px #22222288;
-    --color_box_shadow_primary: #2d2d2d44;
-    --color_box_shadow_secondary: #2d2d2d44;
-    --color_box_shadow_hover: #2d2d2daa;
-    --box-shadow-params-table-cell: 2px 2px 2px 1px var(--color_box_shadow_primary);
-    --box-shadow-params-table: 0px 0px 10px var(--color_box_shadow_primary);
-    --box-shadow-params-table-row-hover: inset 0px 0px 10px var(--color_box_shadow_hover);
-    --box-shadow-params-table-hover: 0px 0px 10px var(--color_box_shadow_hover);
-    --box-shadow-params-table-bg: 9px 9px 16px var(--color_box_shadow_primary), -9px -9px 16px var(--color_box_shadow_secondary);
+    --color-box-shadow-primary: #2d2d2d44;
+    --color-box-shadow-secondary: #2d2d2d44;
+    --color-box-shadow-hover: #2d2d2daa;
+    --box-shadow-params-table-cell: 2px 2px 2px 1px
+        var(--color-box-shadow-primary);
+    --box-shadow-params-table: 0px 0px 10px var(--color-box-shadow-primary);
+    --box-shadow-params-table-row-hover: inset 0px 0px 10px
+        var(--color-box-shadow-hover);
+    --box-shadow-params-table-hover: 0px 0px 10px var(--color-box-shadow-hover);
+    --box-shadow-params-table-bg: 9px 9px 16px var(--color-box-shadow-primary),
+        -9px -9px 16px var(--color-box-shadow-secondary);
     --text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px;
     --text-shadow-params: 0px 0.05rem 0.05rem #000000bb;
-    --box-shadow-outset-small-smooth-fade: -2px -2px 14px rgba(0, 0, 0, 0.7), -2px -2px 10px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.075), 2px 2px 10px rgba(0, 0, 0, 0.15);
-    --box-shadow-outset-sharp-fade: -1px -1px 14px rgba(0, 0, 0, 0.7), -1px -1px 10px rgba(0, 0, 0, 0.5), 1px 1px 8px rgba(0, 0, 0, 0.075), 1px 1px 10px rgba(0, 0, 0, 0.15);
-    --box-shadow-outset-large-smooth-fade: -6px -6px 14px rgba(0, 0, 0, 0.7), -6px -6px 10px rgba(0, 0, 0, 0.5), 6px 6px 8px rgba(0, 0, 0, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-small-smooth-fade: -2px -2px 14px rgba(0, 0, 0, 0.7),
+        -2px -2px 10px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.075),
+        2px 2px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-sharp-fade: -1px -1px 14px rgba(0, 0, 0, 0.7),
+        -1px -1px 10px rgba(0, 0, 0, 0.5), 1px 1px 8px rgba(0, 0, 0, 0.075),
+        1px 1px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-large-smooth-fade: -6px -6px 14px rgba(0, 0, 0, 0.7),
+        -6px -6px 10px rgba(0, 0, 0, 0.5), 6px 6px 8px rgba(0, 0, 0, 0.075),
+        6px 6px 10px rgba(0, 0, 0, 0.15);
     --bshadow-xl: 0px 0px 4px 1px #0000003d, 1px -1px 50px -25px #000000cc;
     /* * Media Size Vars * */
     --media-size-sm: 300px;
@@ -62,53 +90,66 @@
     --media-size-lg: 900px;
     --media-size-xl: 1200px;
     /* * Text Vars * */
-    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --bs-gradient: linear-gradient( 180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    --bs-gradient: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0)
+    );
     --bs-body-font-family: var(--bs-font-sans-serif);
     --font-family-source: "Source Sans Pro", sans-serif;
     --font-size-body: 0.85rem;
-    --font-size-button: 0.80rem;
+    --font-size-button: 0.8rem;
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.25;
     --font-size-table: 0.65rem;
     --font-size-footer: 0.65rem;
     /* * Table Vars * */
-    --color-table-body: #cdcdcd;
-    --color-table-text: #444444;
+    --color-table-body: #342e2e;
+    --color-table-text: #ffffff;
     --color-table-hover: #9d9d9d;
     --color-table-row-header: #f3f3f388;
     --color-table-row-even: #88888888;
     --color-table-row-odd: #bbbbbb88;
-    --color-table-border: #bbbbbb;
+    --color-table-border: #4a4a4a;
     --max-width-table-cell: 20rem;
     --max-width-table: 100rem;
     /* * Component Size Vars * */
     --sidebar-width: 16rem;
     --sidepanel-width: 16rem;
+    --page-height: 100vh;
+    --page-width: 100vw;
     --header-height: 40px;
     --footer-height: 60px;
+
+    --card-width: 40rem;
     --icon-size: 0.9rem;
     --transition-bezier-0pt2: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     --transition-func-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-html[data-theme='light'], .page-container.theme-light {
-    --color_primary: #cecece;
-    --color_secondary: #d0d0d0;
-    --color_tertiary: #999999;
-    --color_quaternary: #d1d1d1;
-    --color_quinary: #787878;
+html[data-theme="light"],
+.page-container.theme-light {
+    --color-primary: #cecece;
+    --color-secondary: #d0d0d0;
+    --color-tertiary: #999999;
+    --color-quaternary: #d1d1d1;
+    --color-quinary: #787878;
     --color-error: #ff2222;
-    --color_header: #cacaca;
-    --color_body: #b9b9b9;
-    --color_highlightColor: #fdad51;
-    --color_highlightColor2: #fef48b;
+    --color-header: #cacaca;
+    --color-body: #b9b9b9;
+    --color-highlightColor: #fdad51;
+    --color-highlightColor2: #fef48b;
     --color-table-hover: #9d9d9d;
     --color-button-text: #444444;
     --color-button-bg: #dcdcdc;
     --color-button-bg-hover: #f59c34;
     --color-button-bg-active: #76b3df;
-    --color-table-border: #bbbbbb;
+    --color-table-border: #4a4a4a;
     --color-table-body: #cdcdcd;
     --color-table-text: #444444;
     --color-table-hover: #9d9d9d;
@@ -116,17 +157,19 @@ html[data-theme='light'], .page-container.theme-light {
     --color-table-row-even: #88888888;
     --color-table-row-odd: #bbbbbb88;
 }
-html[data-theme='default'], html[data-theme='grey'], .page-container.theme-default {
-    --color_primary: #6f6f6f;
-    --color_secondary: #5e5e5e;
-    --color_tertiary: #343434;
-    --color_quaternary: #d1d1d1;
-    --color_quinary: #787878;
+html[data-theme="default"],
+html[data-theme="grey"],
+.page-container.theme-default {
+    --color-primary: #6f6f6f;
+    --color-secondary: #5e5e5e;
+    --color-tertiary: #343434;
+    --color-quaternary: #d1d1d1;
+    --color-quinary: #787878;
     --color-error: #ff2222;
-    --color_header: #4a4a4a;
-    --color_body: #676767;
-    --color_highlightColor: #fdad51;
-    --color_highlightColor2: #fef48b;
+    --color-header: #4a4a4a;
+    --color-body: #676767;
+    --color-highlightColor: #fdad51;
+    --color-highlightColor2: #fef48b;
     --color-table-hover: #9d9d9d;
     --color-button-text: #2b2b2b;
     --color-button-bg: #5d5d5d;
@@ -140,17 +183,18 @@ html[data-theme='default'], html[data-theme='grey'], .page-container.theme-defau
     --color-table-row-even: #88888888;
     --color-table-row-odd: #bbbbbb88;
 }
-html[data-theme='dark'], .page-container.theme-dark {
-    --color_primary: #3e3e3e;
-    --color_secondary: #282828;
-    --color_tertiary: #343434;
-    --color_quaternary: #363636;
-    --color_quinary: #252525;
+html[data-theme="dark"],
+.page-container.theme-dark {
+    --color-primary: #3e3e3e;
+    --color-secondary: #282828;
+    --color-tertiary: #343434;
+    --color-quaternary: #363636;
+    --color-quinary: #252525;
     --color-error: #ff2222;
-    --color_header: #28282b;
-    --color_body: #181818;
-    --color_highlightColor: #fdad51;
-    --color_highlightColor2: #fef48b;
+    --color-header: #28282b;
+    --color-body: #181818;
+    --color-highlightColor: #fdad51;
+    --color-highlightColor2: #fef48b;
     --color-table-hover: #524;
     --color-button-text: #e4e4e4;
     --color-button-bg: #5d5d5d;
@@ -164,19 +208,20 @@ html[data-theme='dark'], .page-container.theme-dark {
     --color-table-row-even: #4e4e4e88;
     --color-table-row-odd: #6b6b6b88;
 }
-html[data-theme='cool'], .page-container.theme-cool {
-    --color_primary: #16295c;
-    --color_secondary: #001058;
-    --color_tertiary: #001862;
-    --color_quaternary: #453979;
-    --color_quinary: #242b44;
+html[data-theme="cool"],
+.page-container.theme-cool {
+    --color-primary: #16295c;
+    --color-secondary: #001058;
+    --color-tertiary: #001862;
+    --color-quaternary: #453979;
+    --color-quinary: #242b44;
     --color-error: #ff2222;
-    --color_header: #16295c;
-    --color_body: #223874;
-    --color_highlightColor: #2084bf;
-    --color_highlightColor: #51b9f5;
-    --color_highlightColor2: #baaeae;
-    --color_highlightColor2: #debebe;
+    --color-header: #16295c;
+    --color-body: #223874;
+    --color-highlightColor: #2084bf;
+    --color-highlightColor: #51b9f5;
+    --color-highlightColor2: #baaeae;
+    --color-highlightColor2: #debebe;
     --color-button-bg: #001058;
     --color-button-bg-hover: #2084bf;
     --color-button-bg-active: #f59c34;
@@ -188,3 +233,422 @@ html[data-theme='cool'], .page-container.theme-cool {
     --color-table-row-even: #52b7f144;
     --color-table-row-odd: #dddddd88;
 }
+
+:root {
+    /* Button styling variables */
+    --button-text-color: #fff;
+    --button-font-size: 0.75rem;
+    --button-line-height: 1px;
+    --button-neumorphic-font-size: 0.8rem;
+    --button-glass-font-size: 0.8rem;
+    --button-glass-padding: 1rem 4rem;
+    --button-color-primary: #ff7979;
+    --button-color-secondary: #2bd2ff;
+    --button-color-tertiary: #1eff45;
+    --button-color-quaternary: #fffa65;
+    --button-glass-glowshadow-sm: 0px 0px 5px 0px;
+    --button-glass-glowshadow-md: 0px 0px 15px 0px;
+    --button-glass-glowshadow-lg: 0px 0px 30px 0px;
+    --button-glass-glowshadow-xl: 0px 0px 60px 0px;
+    --button-glass-border-rounding: 50px;
+    --button-group-outer-radius: 20px;
+    --box-shadow-outset-small-smooth-fade: -2px -2px 14px rgba(0, 0, 0, 0.7),
+        -2px -2px 10px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.075),
+        2px 2px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-sharp-fade: -1px -1px 14px rgba(0, 0, 0, 0.7),
+        -1px -1px 10px rgba(0, 0, 0, 0.5), 1px 1px 8px rgba(0, 0, 0, 0.075),
+        1px 1px 10px rgba(0, 0, 0, 0.15);
+    --box-shadow-outset-large-smooth-fade: -6px -6px 14px rgba(0, 0, 0, 0.7),
+        -6px -6px 10px rgba(0, 0, 0, 0.5), 6px 6px 8px rgba(0, 0, 0, 0.075),
+        6px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode-theme {
+    --color-primary: #343434;
+    --color-secondary: #282828;
+    --color-tertiary: #3e3e3e;
+    --color-quaternary: #282828;
+    --color-quinary: #363636;
+    --color-quaternary-alt: #453979;
+    --color-quinary-alt: #242b44;
+    --body-background-pattern-color-primary: var(--color-primary);
+    --body-background-pattern-color-secondary: var(--color-secondary);
+}
+
+.dark-mode-theme {
+    --color-primary: #343434;
+    --color-secondary: #282828;
+    --color-tertiary: #3e3e3e;
+    --color-quaternary: #453979;
+    --color-quinary: #242b44;
+    --body-background-pattern-color-primary: var(--color-primary);
+    --body-background-pattern-color-secondary: var(--color-secondary);
+}
+
+:root {
+    /* Pattern related variables. */
+    --body-background-pattern-size-x: 22px;
+    --body-background-pattern-size-y: 22px;
+    /*
+            
+        --body-background-pattern-dotted-navy: linear-gradient(
+                    90deg,
+                    #161122 21px,
+                    transparent 1%
+                )
+                center,
+            linear-gradient(#161122 21px, transparent 1%) center, #a799cc;
+        --body-background-pattern-dotted-azure: linear-gradient(
+                    90deg,
+                    #6997d3 8px,
+                    rgba(0, 0, 0, 0) 1%
+                )
+                95px 100px,
+            linear-gradient(#6997d3 8px, rgba(0, 0, 0, 0) 1%), snow;
+        --body-gradient-groovy: linear-gradient(
+                217deg,
+                rgba(255, 0, 0, 0.8),
+                rgba(255, 0, 0, 0) 70.71%
+            ),
+            linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+            linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+        --body-gradient-rainbow: linear-gradient(
+            to right,
+            red,
+            orange,
+            yellow,
+            green,
+            blue,
+            indigo,
+            violet
+        );
+        --body-background-pattern-hex: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='29' height='50.115' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M14.5 6.628L8.886 3.372v-6.515L14.502-6.4l5.612 3.257-.001 6.514zm0 50.06l-5.613-3.256v-6.515l5.614-3.258 5.612 3.257-.001 6.515zm14.497-25.117l-5.612-3.257v-6.515L29 18.541l5.612 3.257-.001 6.515zm-29 0l-5.612-3.257v-6.515L0 18.541l5.612 3.257v6.515zM14.5 11.82L4.36 5.967l.002-11.706 10.14-5.855L24.638-5.74l-.001 11.707zm0 50.06L4.36 56.028l.002-11.706 10.14-5.855 10.137 5.852-.001 11.707zm14.498-25.118L18.858 30.91l.002-11.707L29 13.349l10.137 5.853-.001 11.706zm-29 0l-10.139-5.852.002-11.707L0 13.349l10.138 5.853-.002 11.706zm14.501-19.905L0 8.488.002-8.257l14.5-8.374L29-8.26l-.002 16.745zm0 50.06L0 58.548l.002-16.745 14.5-8.373L29 41.8l-.002 16.744zM28.996 41.8l-14.498-8.37.002-16.744L29 8.312l14.498 8.37-.002 16.745zm-29 0l-14.498-8.37.002-16.744L0 8.312l14.498 8.37-.002 16.745z'  stroke-linecap='square' stroke-width='1' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+    */
+    /* linear-gradient(90deg, #6997d3 8px, rgba(0, 0, 0, 0) 1%) 95px 100px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(8px, #6997d3), color-stop(1%, rgba(0, 0, 0, 0))), snow; */
+    --body-background-pattern-color-primary: #161122ff;
+    --body-background-pattern-color-secondary: #a799ccff;
+    --body-background-pattern-color-primary: var(--color-primary);
+    --body-background-pattern-color-secondary: var(--color-secondary);
+    /*
+    --dotted-grid-angle: 90deg;
+    --dotted-grid-scale-x: 10px;
+    --dotted-grid-scale-y: 10px;
+    --dotted-grid-cell-size: 9px;
+    --dotted-grid-offset: 50% / 20px 20px;
+    --body-background-pattern-lines-horizontal: linear-gradient(
+            0deg,
+            var(--body-background-pattern-color-secondary)
+                calc(var(--dotted-grid-scale-x) - var(--dotted-grid-cell-size)),
+            transparent 1%
+        )
+        var(--dotted-grid-offset);
+    --body-background-pattern-lines-vertical: linear-gradient(
+                90deg,
+                var(--body-background-pattern-color-secondary)
+                    calc(
+                        var(--dotted-grid-scale-y) -
+                            var(--dotted-grid-cell-size)
+                    ),
+                transparent 1%
+            )
+            var(--dotted-grid-offset),
+        var(--body-background-pattern-color-primary);
+    --body-background-pattern-dotted: var(
+            --body-background-pattern-lines-horizontal
+        ),
+        var(--body-background-pattern-lines-vertical);
+    */
+    --body-background-pattern-color-primary: #161122ff;
+    --body-background-pattern-color-secondary: #a799ccff;
+    --body-background-pattern-color-primary: #c1b2b2;
+    --body-background-pattern-color-secondary: #1d1b1b;
+    --body-background-pattern-color-secondary: #737373;
+    --dotted-grid-angle: 90deg;
+
+    --dotted-grid-scale-x: 8px;
+    --dotted-grid-scale-y: 8px;
+    --dotted-grid-cell-size: 2px;
+    --dotted-grid-offset: 50% / 20px 20px;
+    --dotted-grid-blur-x: 4px;
+    --dotted-grid-blur-y: 4px;
+
+    --dotted-grid-scale-x: 1.0rem;
+    --dotted-grid-scale-y: 1.0rem;
+    --dotted-grid-cell-size: 1.0rem;
+    --dotted-grid-offset: 0.5rem / 0.5rem;
+    --dotted-grid-blur-x: 0.05rem;
+    --dotted-grid-blur-y: 0.05rem;
+    --body-background-pattern-lines-horizontal: 
+        linear-gradient(
+            0deg,
+            var(--body-background-pattern-color-secondary)
+                calc(
+                    var(--dotted-grid-scale-x) - var(--dotted-grid-cell-size)
+                ),
+            transparent var(--dotted-grid-blur-x)
+        )
+        var(--dotted-grid-offset);
+    --body-background-pattern-lines-vertical: 
+        linear-gradient(
+            90deg,
+            var(--body-background-pattern-color-secondary)
+                calc(
+                    var(--dotted-grid-scale-y) - var(--dotted-grid-cell-size)
+                ),
+            transparent var(--dotted-grid-blur-y)
+        )
+        var(--dotted-grid-offset);
+    --body-background-pattern-dotted: 
+        var(--body-background-pattern-lines-horizontal),
+        var(--body-background-pattern-lines-vertical);
+}
+
+.bg-dots {
+    --body-background-pattern-color-primary: #c1b2b2;
+    --body-background-pattern-color-secondary: #1d1b1b;
+    --dotted-grid-angle: 90deg;
+    --dotted-grid-scale-x: 8px;
+    --dotted-grid-scale-y: 8px;
+    --dotted-grid-cell-size: 2px;
+    --dotted-grid-offset: 50% / 20px 20px;
+    --dotted-grid-blur-x: 4px;
+    --dotted-grid-blur-y: 4px;
+        
+    background: var(--body-background-pattern-dotted);
+    background-size: var(--dotted-grid-scale-x) var(--dotted-grid-scale-y);
+    background-color: var(--color-secondary);
+}
+
+.bg-grid {
+    --dotted-grid-angle: 90deg;
+    --dotted-grid-scale-x: 0.75rem;
+    --dotted-grid-scale-y: 0.75rem;
+    --dotted-grid-cell-size: 2.25rem;
+    --dotted-grid-offset: 50% / 20px 20px;
+    --dotted-grid-blur-x: 0.125rem;
+    --dotted-grid-blur-y: 0.125rem;
+    --body-background-pattern-color-primary: var(--color-primary);
+    --body-background-pattern-color-secondary: var(--color-tertiary);
+    --dotted-grid-angle: 90deg;
+    --dotted-grid-scale-x: 16px;
+    --dotted-grid-scale-y: 16px;
+    --dotted-grid-cell-size: 16px;
+    --dotted-grid-offset: 50% / 20px 20px;
+    --dotted-grid-blur-x: 1px;
+    --dotted-grid-blur-y: 1px;
+    background: var(--body-background-pattern-dotted);
+    background-size: var(--dotted-grid-scale-x) var(--dotted-grid-scale-y);
+    background-color: var(--color-secondary);
+}
+
+.background-polka {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image: radial-gradient(#444cf7 1px, #e5e5f7 1px);
+    background-size: 20px 20px;
+}
+.background-polka-diagonal {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image: radial-gradient(#444cf7 1px, transparent 1px),
+        radial-gradient(#444cf7 1px, #e5e5f7 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+}
+.background-grid {
+    background-color: var(--color-secondary);
+    background: var(--body-background-pattern-dotted);
+    background-size: var(--dotted-grid-scale-x) var(--dotted-grid-scale-y);
+}
+
+.background-checkerboard {
+    background-color: white;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 150%),
+        linear-gradient(-45deg, #ccc 25%, transparent 150%),
+        linear-gradient(45deg, transparent 150%, #ccc 75%),
+        linear-gradient(-45deg, transparent 150%, #ccc 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+
+    background-color: white;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 32px 32px;
+    background-position: 0 0, 0 16px, 16px -16px, -16px 0px;
+}
+
+.background-lines {
+    background-image: repeating-linear-gradient(
+            to bottom,
+            rgb(26, 198, 204) 0%,
+            rgb(26, 198, 204) 8%,
+            rgb(100, 100, 100) 16%
+        ),
+        repeating-linear-gradient(to left, #000000 0%, #ffffff 8%, #000000 16%);
+}
+
+.background-zebra {
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        black 20px,
+        black 40px
+    );
+    /* with multiple color stop lengths */
+    background-image: repeating-linear-gradient(
+        -45deg,
+        white 0px 10px,
+        black 10px 20px
+    );
+}
+
+.background-polka-lg {
+    background: linear-gradient(
+                90deg,
+                var(--color-secondary) 21px,
+                transparent 1%
+            )
+            center,
+        linear-gradient(var(--color-secondary) 21px, transparent 1%) center,
+        var(--color-primary);
+    background-size: 50px 50px;
+}
+.background-polka-sm {
+    background: linear-gradient(
+                90deg,
+                var(--color-primary) 10px,
+                transparent 100%
+            )
+            center,
+        linear-gradient(var(--color-secondary) 10px, transparent 100%) center,
+        var(--color-secondary);
+    background-size: 11px 11px;
+}
+
+
+body {
+    background: var(--body-background-pattern-dotted);
+    background-size: var(--dotted-grid-scale-x) var(--dotted-grid-scale-y);
+}
+/*
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    border: 1px dashed black;
+    width: 50vw;
+    width: 80%;
+    height: 80%;
+    max-height: 100%;
+    max-width: 100%;
+	overflow: auto;
+    gap: 0.5rem 0.0rem;
+}
+
+.section-title {
+    font-size: 1rem;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+*/
+
+/*
+
+body {
+        background-image: radial-gradient(var(--color-quinary) 0.75px, var(--color-quaternary) 1.75px);
+        background-size: calc(10 * 1.0px) calc(10 * 1.0px);
+        background-image: radial-gradient(var(--color-quinary) 0.75px, var(--color-quaternary) 1.75px);
+        background-size: calc(var(--size-mult) * var(--size-dot)) calc(var(--size-mult) * var(--size-dot));
+        --size-mult: 1;
+        --size-dot: 3mm;
+        --size-blur: 0px;
+        --size-cover: 1px;
+        background-image: radial-gradient(var(--color-quinary) var(--size-cover), var(--color-quaternary) var(--size-blur));
+        background-size: calc(var(--size-mult) * var(--size-dot)) calc(var(--size-mult) * var(--size-dot));
+        background-image: radial-gradient(var(--color-quinary) 0.5px, transparent 0.5px), radial-gradient(var(--color-quaternary) 0.5px, transparent 0.5px);
+        background-size: calc(20 * 0.5px) calc(20 * 0.5px);
+        background-position: 0 0, calc(10 * 0.5px) calc(10 * 0.5px);
+    */
+    /*
+    --size-mult: 1;
+    --size-dot: 1mm;
+    --size-blur: 6px;
+    --size-cover: 0px;
+    background-image: radial-gradient(var(--color-secondary) var(--size-cover), var(--color-tertiary) var(--size-blur));
+    background-size: calc(var(--size-mult) * var(--size-dot)) calc(var(--size-mult) * var(--size-dot));
+    background-position: 0 0, calc(10 * 0.5px) calc(10 * 0.5px);
+
+    */
+    /*
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+        background: #7158e2;
+        background: linear-gradient(to left, #ffffff26, transparent);
+        background: linear-gradient(30deg, #7158e2, #000000);
+        background: var(--body-background-pattern-dotted);
+        background-size: 22px 22px;
+    background-color: var(--color-secondary);
+    background: var(--body-background-pattern-dotted);
+    background-size: var(--dotted-grid-scale-x) var(--dotted-grid-scale-y);
+    */
+
+    /*
+        :root {
+        --body-background-pattern-color-primary: var(
+        --color-primary);
+        --body-background-pattern-color-secondary: var(
+        --color-secondary);
+        --dotted-grid-angle: 90deg;
+        --dotted-grid-scale-x: 8px;
+        --dotted-grid-scale-y: 8px;
+        --dotted-grid-cell-size: 40px;
+        --dotted-grid-offset: 50% / 20px 20px;
+        --dotted-grid-cover: 6px;
+        --dotted-grid-blur: 6px;
+        --body-background-pattern-lines-horizontal: linear-gradient(
+                0deg,
+                #000000
+                    calc(var(
+        --dotted-grid-scale-x) - var(--dotted-grid-cell-size)),
+                transparent var(--dotted-grid-cover)
+            )
+            var(--dotted-grid-offset);
+        --body-background-pattern-lines-vertical: linear-gradient(
+                    90deg,
+                    #000000
+                        calc(
+                            var(
+        --dotted-grid-scale-y) -
+                                var(--dotted-grid-cell-size)
+                        ),
+                    transparent var(--dotted-grid-blur)
+                )
+                var(--dotted-grid-offset),
+            var(--body-background-pattern-color-primary);
+        --body-background-pattern-dotted: var(
+        --body-background-pattern-lines-horizontal
+            ),
+            var(--body-background-pattern-lines-vertical);
+    }
+    background-image: repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
+    background-position: 0 0, 100px 100px;
+    background-size: calc(2 * 100px) calc(2 * 100px);
+}
+*/

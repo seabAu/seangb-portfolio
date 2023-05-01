@@ -46,5 +46,23 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+userSchema.plugin(require("mongoose-autopopulate"));
+
+const userProfileSchema = mongoose.Schema({
+    userid: {
+        type: String,
+    },
+    firstname: {
+        type: String,
+        default: "",
+    },
+    tags: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Tag",
+        },
+    ],
+} );
+userProfileSchema.plugin(require("mongoose-autopopulate"));
 
 module.exports = mongoose.model("users", userSchema);

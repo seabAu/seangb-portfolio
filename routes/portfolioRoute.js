@@ -84,12 +84,12 @@ router.post( "/update-intro", auth, async ( req, res ) => {
                 new: true
             },
         );
-        console.log(
-            "router.post(/update-intro): ",
-            req.body,
-            req.headers,
-            res.success,
-        );
+        /// console.log(
+        ///     "router.post(/update-intro): ",
+        ///     req.body,
+        ///     req.headers,
+        ///     res.success,
+        /// );
         // If it works, throw a success message.
         // res.status(200).send({
         //     data: intro,
@@ -103,7 +103,7 @@ router.post( "/update-intro", auth, async ( req, res ) => {
             status: 200,
         } );
     } catch ( error ) {
-        console.log( "/update-intro :: res = ", res, " :: error = ", error );
+        /// console.log( "/update-intro :: res = ", res, " :: error = ", error );
         // res.status(500).send(error);
         // res.status( 500 ).send( error );
         // res.sendStatus(500);
@@ -226,7 +226,7 @@ router.post( "/update-experience", auth, async ( req, res ) => {
 
 // Add project
 router.post( "/add-project", auth, async ( req, res ) => {
-    console.log( "portfolioRoute.js :: /add-project :: ", req, res );
+    /// console.log( "portfolioRoute.js :: /add-project :: ", req, res );
     try {
         const project = new Project( req.body );
         await project.save();

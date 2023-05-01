@@ -1,6 +1,7 @@
 import React from "react";
-import * as util from '../Utilities/index.js';
+import * as utils from "../../utilities/index.js";
 import TableSubTable from "./TableSubTable";
+import Button from "../Button/index.js";
 
 function TableBody(props) {
     const {
@@ -8,76 +9,145 @@ function TableBody(props) {
         // isFetching,
         tableID,
         tableData,
+        tableKeys,
         hideColumns,
         rowOnClick,
         cellOnClick,
+        rowActions,
+        debug = false,
     } = props;
+
+    const buildRow = (rowData, rowIndex = 0) => {
+        // let columnKeys = tableKeys.map( ( key, index ) => { return key.value; })
+        let rowCells = [];
+        
+        // Object.entries(rowData).forEach((prop, cellIndex) => {
+        tableKeys.forEach((columnKey, cellIndex) => {
+            // For each cell.
+            let cellData = {};
+            let value = "-";
+            if (rowData.hasOwnProperty(columnKey)) {
+                value = rowData[columnKey];
+            }
+            Object.defineProperty(cellData, columnKey, {
+                value: value,
+            });
+
+            if ( columnKey === "actions" )
+            {
+                let rowButtons = [];
+                if ( utils.val.isValidArray( rowActions, true ) )
+                {
+                    rowActions.forEach((action, actionIndex) => {
+                        if (debug) console.log(`table body action = `, action);
+                        rowButtons.push(
+                            <Button
+                                name={action.name}
+                                label={action.name}
+                                icon={action.icon}
+                                type={action.type}
+                                onClick={(e)=>{action.onClick(rowIndex, rowData );}}
+                            />,
+                        );
+                    });
+                }
+                rowCells.push(buildCell(columnKey, rowButtons, rowIndex, cellIndex));
+            } else {
+                rowCells.push(
+                    buildCell(columnKey, value, rowIndex, cellIndex),
+                    // buildCell(cellData, rowIndex, cellIndex),
+                );
+            }
+        });
+        if ( debug ) console.log(`table body rowActions = `, rowActions, " :: tableData = ", tableData, " :: rowData = ", rowData, " :: rowCells = ", rowCells, " :: tableKeys = ", tableKeys);
+
+        return (
+            <tr
+                data-index={`${rowIndex}`}
+                key={`table-${tableID}-row-${rowIndex}`}
+                id={`table-${tableID}-row-${rowIndex}`}
+                className={`row-${
+                    rowIndex
+                    //getIsVisible(index, pageNum, entriesPerPage, [])
+                    //    ? "row-visible"
+                    //    : "row-hidden"
+                }`}
+                onClick={(rowIndex) => {
+                    rowOnClick(rowIndex, rowData);
+                }}>
+                {rowCells}
+            </tr>
+        );
+    };
+
+    if (debug) console.log("tablebody.js :: rowActions = ", rowActions, " :: hideColumns = ", hideColumns);
+    const buildCell = (cellKey, cellValue, rowIndex, cellIndex) => {
+        // let data = cellData[Object.keys(cellData)[0]];
+        // let key = cellData[0];
+        // let value = cellData[1];
+        // console.log(
+        //     `buildCell`,
+        //     `\n :: cellKey = `,
+        //     cellKey,
+        //     `\n :: cellValue = `,
+        //     cellValue,
+        //     `\n :: rowIndex = `,
+        //     rowIndex,
+        //     `\n :: cellIndex = `,
+        //     cellIndex,
+        //     `\n :: utils.val.isObject(cellValue) = `,
+        //     utils.val.isObject(cellValue),
+        //     `\n :: utils.val.isArray(cellValue) = `,
+        //     utils.val.isArray(cellValue),
+        // );
+        return (
+            <td
+                data-label={`${cellKey}`}
+                key={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${cellKey}`}
+                id={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${cellKey}`}
+                rowSpan="1"
+                className={`col-cell ${utils.val.isObject(cellValue) ? `sub-table-container` : ``} ${hideColumns.includes(cellKey) ? " col-hidden" : ""}`}
+                onClick={(cellIndex) => {
+                    cellOnClick(cellIndex, cellValue);
+                }}>
+                {utils.val.isObject(cellValue) || (utils.val.isValidArray(cellValue, true) && cellKey !== "actions") ? (
+                    <TableSubTable
+                        data={cellValue}
+                        containerID={`${rowIndex}-${cellIndex}-${cellKey}`}
+                        tableID={`${tableID}`}></TableSubTable>
+                ) : utils.val.isValidArray(cellValue, true) && cellKey !== "actions" ? (
+                    cellValue.map((val, valIndex) => {
+                        return (
+                            <TableSubTable
+                                data={val}
+                                containerID={`${rowIndex}-${cellIndex}-${cellKey}-${valIndex}`}
+                                tableID={`${tableID}`}
+                            />
+                        );
+                    })
+                ) : (
+                    // ) : utils.val.isValidArray(cellValue, true) && cellKey !== "actions" ? (
+                    //     cellValue.map((val, valIndex) => {
+                    //         return (
+                    //             <td
+                    //                 className={`col-cell sub-table-list`}
+                    //                 id={`${rowIndex}-${cellIndex}-${cellKey}-${valIndex}`}>
+                    //                 {val.toString()}
+                    //             </td>
+                    //         );
+                    //     })
+                    // utils.ao.cleanInvalid(value, "-")
+                    cellValue
+                )}
+            </td>
+        );
+    };
 
     return (
         <tbody>
             {tableData.map((object, rowIndex) => {
-                return (
-                    <tr
-                        key={`table-${tableID}-row-${rowIndex}`}
-                        id={`table-${tableID}-row-${rowIndex}`}
-                        className={`row-${
-                            rowIndex
-                            //getIsVisible(index, pageNum, entriesPerPage, [])
-                            //    ? "row-visible"
-                            //    : "row-hidden"
-                        }`}
-                        onClick={(rowIndex) => {
-                            rowOnClick(rowIndex, object);
-                        }}>
-                        {Object.entries(object).map(
-                            (objProperty, cellIndex) => {
-                                let objKey = objProperty[0];
-                                let objValue = objProperty[1];
-                                if (
-                                    typeof objValue === "object" &&
-                                    objValue !== null
-                                ) {
-                                    return (
-                                        <td
-                                            key={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${objKey}`}
-                                            id={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${objKey}`}
-                                            rowSpan="1"
-                                            className={`col-cell sub-table-container ${
-                                                hideColumns.includes(objKey)
-                                                    ? " col-hidden"
-                                                    : ""
-                                            }`}
-                                            onClick={(cellIndex) => {
-                                                cellOnClick(
-                                                    cellIndex,
-                                                    objProperty,
-                                                );
-                                            }}>
-                                            <TableSubTable
-                                                data={objValue}
-                                                containerID={`${rowIndex}-${cellIndex}-${objKey}`}
-                                                tableID={`${tableID}`}></TableSubTable>
-                                        </td>
-                                    );
-                                } else {
-                                    return (
-                                        <td
-                                            key={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${objKey}`}
-                                            id={`table-${tableID}-cell-${rowIndex}-${cellIndex}-${objKey}`}
-                                            rowSpan="1"
-                                            className={`col-cell ${
-                                                hideColumns.includes(objKey)
-                                                    ? " col-hidden"
-                                                    : ""
-                                            }`}>
-                                            {util.ao.cleanInvalid(objValue, "-")}
-                                        </td>
-                                    );
-                                }
-                            },
-                        )}
-                    </tr>
-                );
+                // For each row.
+                return buildRow(object, rowIndex);
             })}
         </tbody>
     );

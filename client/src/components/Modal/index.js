@@ -3,30 +3,30 @@
 
 import React, { useState, useEffect, useContext, createContext } from "react";
 // const Modal = ({ children }) => {
-//     const childrenArray = React.Children.toArray(children);
-//     const header = childrenArray.find((child) => child.type === Modal.Header);
-//     const body = childrenArray.find((child) => child.type === Modal.Body);
-//     const footer = childrenArray.find((child) => child.type === Modal.Footer);
+//         const childrenArray = React.Children.toArray(children);
+//         const header = childrenArray.find((child) => child.type === Modal.Header);
+//         const body = childrenArray.find((child) => child.type === Modal.Body);
+//         const footer = childrenArray.find((child) => child.type === Modal.Footer);
 // 
-//     return (
-//         <div className="modal">
-//             <div className="modal-header">{header}</div>
-//             <div className="modal-body">{body}</div>
-//             <div className="modal-footer">{footer}</div>
-//         </div>
-//     );
+//         return (
+//                 <div className="modal">
+//                         <div className="modal-header">{header}</div>
+//                         <div className="modal-body">{body}</div>
+//                         <div className="modal-footer">{footer}</div>
+//                 </div>
+//         );
 // };
 // 
 // Modal.Header = ({ children }) => {
-//     return <div className="modal-header">{children}</div>;
+//         return <div className="modal-header">{children}</div>;
 // };
 // 
 // Modal.Body = ({ children }) => {
-//     return <div className="modal-body">{children}</div>;
+//         return <div className="modal-body">{children}</div>;
 // };
 // 
 // Modal.Footer = ({ children }) => {
-//     return <div className="modal-footer">{children}</div>;
+//         return <div className="modal-footer">{children}</div>;
 // };
 
 /// * Sharing State between Compound Components using Context API
@@ -34,34 +34,34 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 const ModalContext = createContext({});
 
 const Modal = ({ children }) => {
-  const [isOpened, setIsOpened] = useState(false)
+    const [isOpened, setIsOpened] = useState(false)
 
-  const childrenArray = React.Children.toArray(children);
-  const header = childrenArray.find(child => child.type === Modal.Header);
-  const body = childrenArray.find(child => child.type === Modal.Body);
-  const footer = childrenArray.find(child => child.type === Modal.Footer);
+    const childrenArray = React.Children.toArray(children);
+    const header = childrenArray.find(child => child.type === Modal.Header);
+    const body = childrenArray.find(child => child.type === Modal.Body);
+    const footer = childrenArray.find(child => child.type === Modal.Footer);
 
-  return (
-    <ModalContext.Provider value={{ isOpened, setIsOpened }}>
-      <div className="modal">
-        <div className="modal-header">{header}</div>
-        <div className="modal-body">{body}</div>
-        <div className="modal-footer">{footer}</div>
-      </div>
-    </ModalContext.Provider>
-  );
+    return (
+        <ModalContext.Provider value={{ isOpened, setIsOpened }}>
+            <div className="modal">
+                <div className="modal-header">{header}</div>
+                <div className="modal-body">{body}</div>
+                <div className="modal-footer">{footer}</div>
+            </div>
+        </ModalContext.Provider>
+    );
 };
 
 Modal.Header = ({ children }) => {
-  const {setIsOpened} = useContext(ModalContext)
-  return <div className="modal-header">{children}<button onClick={() => setIsOpened(false)}>X</button></div>;
+    const {setIsOpened} = useContext(ModalContext)
+    return <div className="modal-header">{children}<button onClick={() => setIsOpened(false)}>X</button></div>;
 };
 
 Modal.Body = ({ children }) => {
-  return <div className="modal-body">{children}</div>;
+    return <div className="modal-body">{children}</div>;
 };
 
 Modal.Footer = ({ children }) => {
-  const {setIsOpened} = useContext(ModalContext)
-  return <div className="modal-footer">{children}<button onClick={() => setIsOpened(false)}>Close</button></div>;
+    const {setIsOpened} = useContext(ModalContext)
+    return <div className="modal-footer">{children}<button onClick={() => setIsOpened(false)}>Close</button></div>;
 };

@@ -1,165 +1,531 @@
-import React from "react";
-import { Form, Button, Input, Modal, message } from "antd";
+import React, { useState, useEffect, useRef } from "react";
+import
+    {
+        // Form,
+        // Button,
+        // Input,
+        // Modal,
+        message
+    } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadData, SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
 import API from "../../api/api.js";
-import SectionTitle from "../../components/Section/SectionTitle";
+import Section from "../../components/Section";
+import Card from "../../components/Card";
+import * as utils from "../../utilities/index.js";
+import Tags from "../../components/Tags";
+import Droplist from "../../components/Droplist";
+import Table from "../../components/Table/Table";
+import { FaCheck, FaCopy, FaEdit, FaPlus, FaRobot, FaTimes } from "react-icons/fa";
+import Dialog from "../../components/Dialog";
+import Button from "../../components/Button";
+import Form from "../../components/Form";
 // import { Form, Button, Row, Col } from "react-bootstrap";
-function AdminProjects() {
-    const dispatch = useDispatch();
-    const { portfolioData } = useSelector((state) => state.root);
-    const { projects } = portfolioData;
-    const [showAddEditModal, setShowAddEditModal] = React.useState(false);
-    const [selectedItemForEdit, setSelectedItemForEdit] = React.useState(null);
-    const [type, setType] = React.useState("add");
+function AdminProjects(props) {
+	const { children } = props;
+	const dispatch = useDispatch();
+	const { debug, loading, portfolioData, appsData, reloadData, loggedIn, user, dataSchema } = useSelector((state) => state.root);
+	const { projects } = portfolioData;
 
-    const onFinish = async (values) => {
-        try {
-            // values.technologies = values.technologies.split( "," );
-            const tempTechnologies = values.technologies?.split(/[\s,]+/) || [];
-            values.technologies = tempTechnologies;
-            console.log(values);
-            dispatch(SetLoading(true));
-            let response;
-            console.log(
-                "AdminProjects :: Before API response :: API.defaults = ",
-                API.defaults,
-            );
-            if (selectedItemForEdit) {
-                // Update operation
-                response = await API.post("/api/portfolio/update-project", {
-                    ...values,
-                    _id: selectedItemForEdit._id,
-                });
-            } else {
-                // Add operation
-                response = await API.post("/api/portfolio/add-project", values);
-            }
+	const [formModalOpen, setFormModalOpen] = React.useState(false);
+	const [formModalInitialData, setFormModalInitialData] = React.useState(null); // null | { an existing item's data }
+	const [formModalType, setFormModalType] = React.useState("add"); // "" | "ADD" | "EDIT"
+	const [formDataModel, setFormDataModel] = React.useState([]);
+	const [formDataSchema, setFormDataSchema] = React.useState({});
+	const [formInitializeRandom, setFormInitializeRandom] = React.useState(false);
+	const currentInputRef = useRef(null);
+	const [confirmed, setConfirmed] = React.useState(false); // A basic TRUE / FALSe flag for handling asking to confirm when deleting an entry.
 
-            console.log(
-                "AdminProjects :: After API response :: response = ",
-                response,
-            );
-            dispatch(SetLoading(false));
-            if (response.data.success) {
-                console.log(
-                    "AdminProjects :: After API response :: response.data.success = ",
-                    response.data.success,
-                );
-                message.success(response.data.message);
-                setShowAddEditModal(false);
-                setSelectedItemForEdit(null);
-                dispatch(SetLoading(false));
-                dispatch(ReloadData(true));
-            } else {
-                message.error(response.data.message);
-            }
-        } catch (error) {
-            dispatch(SetLoading(false));
-            message.error(error.message);
-        }
-    };
+	const updateCurrentData = (input) => {
+		currentInputRef.current = input;
+		/// * setCurrentData( input );
+		if (debug) console.log("AdminProjects.js :: updateCurrentData() :: input = ", input, " :: currentInputRef.current is now = ", currentInputRef.current);
+	};
 
-    const onDelete = async (item) => {
-        try {
-            dispatch(SetLoading(true));
-            const response = await axios.post("/api/portfolio/delete-project", {
-                _id: item._id,
-            });
-            dispatch(SetLoading(false));
-            if (response.data.success) {
-                message.success(response.data.message);
-                dispatch(SetLoading(false));
-                dispatch(ReloadData(true));
-            } else {
-                message.error(response.data.message);
-            }
-        } catch (error) {
-            dispatch(SetLoading(false));
-            message.error(error.message);
-        }
-    };
+	useEffect(() => {
+		// On initial mount, build data model.
+		let model;
+		if (utils.val.isValidArray(projects, true)) {
+			model = utils.ao.cleanJSON(projects[0]);
+		} else if (utils.val.isObject(projects)) {
+			model = utils.ao.cleanJSON(projects);
+		}
+		if (debug) console.log("AdminProjects.js :: model: ", model);
+		setFormDataModel(model);
+	}, []);
 
-    return (
-        <>
-            <div className="flex justify-end">
-                <button
-                    className="admin-button bg-primary px-5 py-2 text-white"
-                    onClick={() => {
-                        setType("add");
-                        setSelectedItemForEdit(null);
-                        setShowAddEditModal(true);
-                    }}>
-                    Add project
-                </button>
-            </div>
+	/*
+	useEffect(() => {
+		// On initial mount, load schema as model to initialize the modal form.
+		console.log("AdminProjects.js", " :: dataSchema: ", dataSchema);
+		if (dataSchema) {
+			if (dataSchema.hasOwnProperty("portfolioData")) {
+				console.log("AdminProjects.JS :: dataSchema.portfolioData = ", dataSchema.portfolioData);
+				if (dataSchema.portfolioData.hasOwnProperty("projects")) {
+					let projectSchema = dataSchema.portfolioData.projects;
+					if (projectSchema.hasOwnProperty("paths")) {
+						console.log("AdminProjects.JS :: projectSchema.paths = ", projectSchema.paths);
+						setFormDataSchema(projectSchema.paths);
+					}
+				}
+			}
+		}
 
-            <div className="grid-card-container">
-                {projects.map((project) => (
-                    <div className="grid-card">
-                        <div className="grid-card-header">
-                            <h1 className="text-xl font-bold">
-                                {project.title}
-                            </h1>
-                        </div>
-                        <div className="grid-card-body">
-                            <div className="grid-card-image-container">
-                                <img
-                                    src={project.image}
-                                    alt=""
-                                    className="grid-card-image"></img>
-                            </div>
-                            <div className="grid-card-iframe">
-                                <input
-                                    id="link"
-                                    className=""
-                                    type="text"
-                                    value={project.link}></input>
-                            </div>
-                            <div className="grid-card-body-text">
-                                <h1 className="">{project.description}</h1>
-                            </div>
-                            Technologies used:{" "}
-                            <div className="cell-list">
-                                {project.technologies.map((technology) => (
-                                    <div className="cell-list-item">
-                                        <h1 className="cell-list-item-text">
-                                            {
-                                                // JSON.stringify(technology)
-                                                technology.name
-                                            }
-                                        </h1>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="grid-card-footer">
-                            <a href={project.link} className="button">
-                                See It Here
-                            </a>
-                            <button
-                                className="button admin-button admin-button-red"
-                                onClick={() => {
-                                    onDelete(project);
-                                }}>
-                                Delete
-                            </button>
-                            <button
-                                className="button admin-button admin-button-primary"
-                                onClick={() => {
-                                    setType("edit");
-                                    setSelectedItemForEdit(project);
-                                    setShowAddEditModal(true);
-                                }}>
-                                Edit
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+		let tryingAnotherWay = utils.ao.deepGetKey(dataSchema, "projects");
+		let tryingAnotherWay2 = utils.ao.deepGetKey(tryingAnotherWay, "paths");
+		console.log("AdminProjects.js", " :: dataSchema: ", dataSchema, " :: projects schema = ", tryingAnotherWay, " :: paths = ", tryingAnotherWay2);
+	}, []);
+    
+	useEffect(() => {
+		// On initial mount, build data model.
+		let model = utils.data.schemaToModel(formDataSchema);
+		console.log("AdminProjects.js :: formDataSchema = ", formDataSchema, " :: generated model = ", model);
+		setFormDataModel(model);
+	}, [formDataSchema]);
+    */
 
-            {(type === "add" || selectedItemForEdit) && (
+	useEffect(() => {
+		if (debug) console.log("AdminProjects.js :: formDataModel is now = ", formDataModel);
+	}, [formDataModel]);
+
+	const onDelete = async (values) => {
+		if (debug)
+			console.log(
+				"AdminProjects",
+				" :: onDelete()",
+				" :: values = ",
+				values,
+				" :: confirmed = ",
+				confirmed,
+				" :: formModalOpen = ",
+				formModalOpen,
+				" :: formModalType = ",
+				formModalType,
+				" :: formModalInitialData = ",
+				formModalInitialData,
+			);
+
+		// Confirmed, proceed with deleting.
+		try {
+			dispatch(SetLoading(true));
+			const response = await API.post("/api/portfolio/delete-project", {
+				_id: values._id,
+			});
+			dispatch(SetLoading(false));
+			if (response.data.success) {
+				if (debug) console.log("AdminProjects.js :: onDelete :: After API response :: response.data.success = ", response.data.success);
+				message.success(response.data.message);
+				dispatch(SetLoading(false));
+				dispatch(ReloadData(true));
+			} else {
+				if (debug) console.log("AdminProjects.js :: onDelete :: After API response :: ERROR :: response.data.error = ", response.data);
+				message.error(response.data.message);
+			}
+		} catch (error) {
+			dispatch(SetLoading(false));
+			message.error(error.message);
+		}
+		// Reset the dashboard.
+		onSetCancel();
+	};
+
+	// axios.defaults.baseURL = `http://147.182.184.250:4000`;
+	const onFinish = async (values) => {
+		if (debug) console.log("AdminProjects :: onFinish :: onFinish triggered :: Values = ", values);
+		try {
+			// const tempSubjects = values.subjects?.split(/[\s,]+/) || [];
+			// values.subjects = tempSubjects;
+
+			dispatch(SetLoading(true));
+			let response;
+			if (debug) console.log("AdminProjects :: onFinish :: Before API response :: API.defaults = ", API.defaults, " :: Values being sent = ", values);
+			if (formModalType === `edit` && formModalInitialData) {
+				// Update operation
+				response = await API.post("/api/apps/planner/edit-task", values);
+			} else if (formModalType === "delete") {
+				// Delete operation
+				response = await API.post("/api/portfolio/delete-project", {
+					_id: values._id,
+				});
+			} else {
+				// Add operation
+				response = await API.post("/api/apps/planner/add-task", values);
+			}
+			if (debug) console.log("AdminProjects :: onFinish :: After API response :: response = ", response);
+			dispatch(SetLoading(false));
+			if (response.data.success) {
+				if (debug) console.log("AdminProjects :: onFinish :: After API response :: response.data.success = ", response.data.success);
+				message.success(response.data.message);
+
+				// Reset modal form on success.
+				// setFormModalOpen(false);
+				// setFormModalInitialData(null);
+
+				dispatch(SetLoading(false));
+				dispatch(ReloadData(true));
+				// form.resetFields();
+				// updateCurrentData(null); // Reset fields.
+
+				// Reset the dashboard on success.
+				onSetCancel();
+			} else {
+				if (debug) console.log("AdminProjects :: onFinish :: After API response :: ERROR :: response.data.error = ", response.data);
+				message.error(response.data.message);
+			}
+		} catch (error) {
+			dispatch(SetLoading(false));
+			message.error(error.message);
+		}
+	};
+
+	const onSubmit = async (values) => {
+		if (debug) console.log(`AdminProjects :: onSubmit() :: Testing form return data :: values = `, values);
+		if (formModalType === "add") {
+			// Remove _id field.
+			let valtemp = { ...values };
+			valtemp = utils.ao.filterKeys(values, ["_id"]);
+			values = valtemp;
+		} else if (formModalInitialData) {
+			values = { ...values, _id: formModalInitialData._id };
+		}
+		updateCurrentData(values);
+		if (debug) console.log(`AdminProjects :: onSubmit() :: Submitting to onFinish :: values = `, values);
+		onFinish(values);
+	};
+
+	const onClone = (values) => {
+		if (utils.val.isObject(values)) {
+			let valtemp = { ...values };
+			valtemp = utils.ao.filterKeys(values, ["_id"]);
+			values = valtemp;
+			onFinish(values);
+		}
+	};
+
+	const onSetDelete = (element) => {
+		// Prompt with a simple modal to confirm.
+		if (utils.val.isObject(element)) {
+			setFormModalType("delete");
+			setFormModalInitialData(element);
+			updateCurrentData(element);
+			setFormModalOpen(true);
+		}
+	};
+
+	const onSetAdd = () => {
+		setFormModalType("add");
+		setFormModalInitialData(null);
+		setFormModalOpen(true);
+		updateCurrentData(null);
+	};
+
+	const onSetEdit = (data = {}) => {
+		if (utils.val.isObject(data)) {
+			setFormModalType("edit");
+			setFormModalInitialData(data);
+			setFormModalOpen(true);
+			updateCurrentData(data);
+		}
+	};
+
+	const onSetCancel = () => {
+		setFormModalOpen(false);
+		setFormModalInitialData(null);
+		setFormModalType("");
+		updateCurrentData(null);
+		setConfirmed(false);
+	};
+
+	const buildModal = (input) => {
+		if (formModalType === "add" || formModalType === "edit") {
+			// Build a modal with field inputs for each key in this data set's schema.
+			if (debug) console.log("AdminProjects.js :: buildModal() :: formModalInitialData = ", formModalInitialData, " :: input = ", input);
+			if (!formModalInitialData) {
+				// let cleaned = utils.ao.cleanJSON(premodel);
+				input = formDataModel;
+			}
+			return (
+				<Dialog
+					open={formModalOpen}
+					footer={
+						<div className="flex justify-end w-full">
+							<Button
+								classes="admin-button bg-white px-10 py-2 text-primary"
+								icon={<FaTimes />}
+								label={`Cancel`}
+								onClick={() => {
+									onSetCancel();
+								}}></Button>
+							<Button
+								classes="admin-button px-10 py-2 bg-primary text-white"
+								icon={<FaPlus />}
+								label={`${formModalType === `edit` ? "Update" : formModalType === `add` ? "Add" : `Submit`}`}
+								onClick={() => {
+									onSubmit(formModalInitialData);
+								}}></Button>
+						</div>
+					}
+					title={formModalInitialData ? "Edit" : "Add"}
+					onCancel={() => {
+						onSetCancel();
+					}}
+					onFinish={onFinish}>
+					<Form
+						// schema={dataSchema}
+						schema={formDataSchema}
+						model={formDataModel}
+						initialData={input}
+						onSubmit={(values) => {
+							onSubmit(values);
+						}}
+						// onChange={(values) => {
+						//     // setFormModalInitialData(values);
+						//     updateCurrentData(values);
+						// }}
+						onChange={(values) => {
+							updateCurrentData(values);
+						}}
+						layout={`inline`}
+						showViewport={true}
+					></Form>
+				</Dialog>
+			);
+		} else if (formModalType === "delete") {
+			let element = input;
+			return (
+				<Dialog
+					open={formModalOpen}
+					motion={`fade`}
+					footer={
+						<div className="flex justify-end w-full">
+							<Button
+								classes="admin-button bg-white px-10 py-2 text-primary"
+								label={`Cancel`}
+								icon={<FaTimes className={`button-text button-icon`} />}
+								onClick={() => {
+									onSetCancel();
+								}}
+							/>
+							<Button
+								classes="admin-button px-10 py-2 bg-primary text-white"
+								label={`Confirm`}
+								icon={<FaCheck className={`button-text button-icon`} />}
+								onClick={() => {
+									setConfirmed(true);
+									setTimeout(() => {
+										onDelete(element);
+									}, 1000);
+								}}
+							/>
+						</div>
+					}
+					title={"Are you sure?"}
+					onCancel={() => {
+						onSetCancel();
+					}}
+					onFinish={(e) => {
+						onDelete(element);
+					}}></Dialog>
+			);
+		}
+	};
+
+	const adminControls = [
+		{
+			name: `delete`,
+			type: `text`,
+			icon: <FaTimes className={`button-text button-icon`} />,
+			onClick: (element, elementIndex) => {
+				onSetDelete(element);
+			},
+		},
+		{
+			name: `edit`,
+			type: `text`,
+			icon: <FaEdit className={`button-text button-icon`} />,
+			onClick: (element, elementIndex) => {
+				onSetEdit( element );
+			},
+		},
+		{
+			name: `duplicate`,
+			type: `text`,
+			icon: <FaCopy className={`button-text button-icon`} />,
+			onClick: (element, elementIndex) => {
+				onClone(element);
+			},
+		},
+	];
+
+	const buildViewport = (input) => {
+		return utils.val.isDefined(input) ? (
+			<div
+				className={`section-viewport`}
+				style={{
+					display: `${`flex`}`,
+					flexDirection: `${`row`}`,
+					justifyContent: `${`center`}`,
+					alignContent: `${`stretch`}`,
+				}}>
+				<Droplist
+					label={`Planner Schema`}
+					data={formDataSchema}
+					type={`list`}
+					showControls={true}
+					expandable={true}
+					debug={false}
+					height={`auto`}
+					width={`50%`}
+				/>
+				<Droplist
+					label={`Current Item Data`}
+					data={currentInputRef.current}
+					type={`list`}
+					showControls={true}
+					expandable={true}
+					debug={false}
+					height={`auto`}
+					width={`50%`}
+				/>
+			</div>
+		) : (
+			<></>
+		);
+	};
+
+	const buildGrid = (input) => {
+		return (
+			<Card.Grid
+				data={input}
+				enableControls={true}
+				elementControls={adminControls}
+				itemWidth={`25rem`}>
+				{input.map((element) => (
+					<Card classes="text-white shadow ">
+						<Card.Header>
+							<Section.Text
+								classes="text-xl font-bold"
+								type="text"
+								content={element.title}></Section.Text>
+						</Card.Header>
+						<Card.Body>
+							<Section>
+								<Card.Frame
+									src={element.link}
+									title={element.title}
+									styles={{ border: `none` }}
+									height={`400px`}
+									width={`100%`}>
+									<input
+										id="link"
+										className=""
+										type="text"
+										value={element.link}></input>
+								</Card.Frame>
+								<Section.Image
+									classes="grid-card-image-container"
+									content={{ image: element.image, link: element.link }}
+								/>
+								<Section.Text
+									classes="grid-card-body-text"
+									type="text"
+									content={element.description}></Section.Text>
+							</Section>
+							<Section
+								height={`auto`}
+								styles={{
+									position: `relative`,
+									bottom: `0`,
+								}}>
+								{"technologies" in element && (
+									// Get a cell list for the listed technologies used.
+									<Tags
+										dataLabel={"Technologies used:"}
+										dataLabelSize={"2xl"}
+										dataList={element.technologies}
+										dataDisplayKey={"name"}
+										filteringEnabled={false}
+									/>
+								)}
+								<a
+									href={element.link}
+									className="button">
+									See It Here
+								</a>
+							</Section>
+						</Card.Body>
+						<Card.Footer>
+							<div className={`flex justify-end w-full`}>
+								<Button
+									label={`Delete`}
+									icon={<FaTimes />}
+									classes="button admin-button admin-button-red"
+									onClick={() => {
+										onSetDelete(element);
+									}}
+								/>
+								<Button
+									label={`Edit`}
+									classes="button admin-button admin-button-primary"
+									onClick={() => {
+										onSetEdit(element);
+									}}
+								/>
+
+								<Button
+									icon={<FaCopy className={`button-text button-icon`} />}
+									label={`Clone`}
+									classes="admin-button admin-button-primary bg-primary text-white rounded-sm"
+									onClick={() => {
+										onClone(element);
+									}}
+								/>
+							</div>
+						</Card.Footer>
+					</Card>
+				))}
+			</Card.Grid>
+		);
+	};
+
+	if (debug) console.log("AdminProjects.js :: appsData = ", appsData, " :: dataSchema = ", dataSchema);
+
+	return (
+		<Section>
+			<Section.Header>
+				<Section.Text
+					content="Projects"
+					type="title"
+					scale={`3xl`}
+					separator={true}>
+					<div className="section-nav">
+						<Button
+							classes="admin-button bg-primary px-5 py-2 text-white"
+							icon={<FaPlus />}
+							label={`Add Task`}
+							onClick={() => {
+								onSetAdd();
+							}}
+						/>
+					</div>
+				</Section.Text>
+			</Section.Header>
+			{formDataSchema && buildViewport(formDataSchema)}
+
+			{projects && utils.val.isValidArray(projects, true) && buildGrid(projects)}
+
+			{(formModalType === "add" || formModalInitialData) && buildModal(formModalInitialData)}
+			{formModalOpen && formModalType === "delete" && formModalInitialData && buildModal(formModalInitialData)}
+		</Section>
+	);
+}
+
+export default AdminProjects;
+
+/*
+        const buildModal = () => {
+            return (
                 <Modal
                     open={showAddEditModal}
                     footer={null}
@@ -176,28 +542,37 @@ function AdminProjects() {
                         initialValues={
                             {
                                 ...selectedItemForEdit,
-                                technologies:
-                                    selectedItemForEdit?.technologies?.join(
-                                        " , ",
-                                    ),
+                                technologies: selectedItemForEdit?.technologies?.join(" , "),
                             } || {}
                         }>
-                        <Form.Item name="title" label="Title">
+                        <Form.Item
+                            name="title"
+                            label="Title">
                             <Input placeholder="Title"></Input>
                         </Form.Item>
-                        <Form.Item name="image" label="Image URL">
+                        <Form.Item
+                            name="image"
+                            label="Image URL">
                             <Input placeholder="Image URL"></Input>
                         </Form.Item>
-                        <Form.Item name="link" label="Link URL">
+                        <Form.Item
+                            name="link"
+                            label="Link URL">
                             <Input placeholder="Link URL"></Input>
                         </Form.Item>
-                        <Form.Item name="context" label="Context">
+                        <Form.Item
+                            name="context"
+                            label="Context">
                             <Input placeholder="Context"></Input>
                         </Form.Item>
-                        <Form.Item name="description" label="Description">
+                        <Form.Item
+                            name="description"
+                            label="Description">
                             <textarea placeholder="Description"></textarea>
                         </Form.Item>
-                        <Form.Item name="technologies" label="Technologies">
+                        <Form.Item
+                            name="technologies"
+                            label="Technologies">
                             <Input placeholder="Technologies"></Input>
                         </Form.Item>
                         <div className="flex justify-end w-full">
@@ -210,143 +585,191 @@ function AdminProjects() {
                                 }}>
                                 Cancel
                             </button>
-                            <button className="admin-button px-10 py-2 bg-primary text-white">
-                                {selectedItemForEdit ? "Update" : "Add"}
-                            </button>
+                            <button className="admin-button px-10 py-2 bg-primary text-white">{selectedItemForEdit ? "Update" : "Add"}</button>
                         </div>
                     </Form>
                 </Modal>
-            )}
-        </>
-    );
-}
+            );
+        };
 
-export default AdminProjects;
+    	useEffect(() => {
+    		// On initial mount, fetch data.
+            console.log("AdminProjects.JS :: dataSchema = ", dataSchema);
+    	}, []);
 
-/*
+        const buildContent = () => {
+            return (
+                <Card.Grid>
+                    {projects.map((project) => (
+                        <Card classes="text-white shadow ">
+                            <Card.Header>
+                                <Section.Text
+                                    classes="text-xl font-bold"
+                                    type="text"
+                                    content={project.title}></Section.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Section>
+                                    <Card.Frame
+                                        src={project.link}
+                                        title={project.title}
+                                        styles={{ border: `none` }}
+                                        height={`400px`}
+                                        width={`100%`}>
+                                        <input
+                                            id="link"
+                                            className=""
+                                            type="text"
+                                            value={project.link}></input>
+                                    </Card.Frame>
+                                    <Section.Image
+                                        classes="grid-card-image-container"
+                                        content={{ image: project.image, link: project.link }}
+                                    />
+                                    <Section.Text
+                                        classes="grid-card-body-text"
+                                        type="text"
+                                        content={project.description}></Section.Text>
+                                </Section>
+                                <Section
+                                    height={`auto`}
+                                    styles={{
+                                        position: `relative`,
+                                        bottom: `0`,
+                                    }}>
+                                    {"technologies" in project && (
+                                        // Get a cell list for the listed technologies used.
+                                        <Tags
+                                            dataLabel={"Technologies used:"}
+                                            dataLabelSize={"2xl"}
+                                            dataList={project.technologies}
+                                            dataDisplayKey={"name"}
+                                            filteringEnabled={false}
+                                        />
+                                    )}
+                                </Section>
+                            </Card.Body>
+                            <Card.Footer>
+                                <a
+                                    href={project.link}
+                                    className="button">
+                                    See It Here
+                                </a>
+                                <button
+                                    className="button admin-button admin-button-red"
+                                    onClick={() => {
+                                        onDelete(project);
+                                    }}>
+                                    Delete
+                                </button>
+                                <button
+                                    className="button admin-button admin-button-primary"
+                                    onClick={() => {
+                                        setType("edit");
+                                        setSelectedItemForEdit(project);
+                                        setShowAddEditModal(true);
+                                    }}>
+                                    Edit
+                                </button>
+                            </Card.Footer>
+                        </Card>
+                    ))}
+                </Card.Grid>
+            );
+        };
 
-                    <div className="grid-card5">
-                        <h1 className="text-xl font-bold text-white">
-                            {project.title}
-                        </h1>
-                        <hr />
-                        <img
-                            src={project.image}
-                            alt=""
-                            className="h-60 w-80"></img>
-                        <h1 className="">{project.context}</h1>
-                        <hr />
-                        <h1 className="">{project.description}</h1>
-                        <h1 className="">{project.link}</h1>
-                        <input
-                            id="link"
-                            class=""
-                            type="text"
-                            value={project.link}></input>
-                        <h1 className="">
-                            Technologies used:{" "}
-                            <div className="py-2 m-0">
-                                {project.technologies.map((technology) => (
-                                    <h1 className="m-0">• {technology}</h1>
-                                ))}
+        return (
+            <>
+                <Section.Text
+                    type="title"
+                    content="Projects"
+                    scale={`3xl`}
+                    separator={true}
+                />
+                <div className="flex justify-end">
+                    <button
+                        className="admin-button bg-primary px-5 py-2 text-white"
+                        onClick={() => {
+                            setType("add");
+                            setSelectedItemForEdit(null);
+                            setShowAddEditModal(true);
+                        }}>
+                        Add project
+                    </button>
+                </div>
+
+                {!true && (
+                    <div className="grid-card-container">
+                        {projects.map((project) => (
+                            <div className="grid-card">
+                                <div className="grid-card-header">
+                                    <h1 className="text-xl font-bold">{project.title}</h1>
+                                </div>
+                                <div className="grid-card-body">
+                                    <div className="grid-card-image-container">
+                                        <img
+                                            src={project.image}
+                                            alt=""
+                                            className="grid-card-image"></img>
+                                    </div>
+                                    <div className="grid-card-iframe">
+                                        <input
+                                            id="link"
+                                            className=""
+                                            type="text"
+                                            value={project.link}></input>
+                                    </div>
+                                    <div className="grid-card-body-text">
+                                        <h1 className="">{project.description}</h1>
+                                    </div>
+                                    Technologies used:{" "}
+                                    <div className="cell-list">
+                                        {project.technologies.map((technology) => (
+                                            <div className="cell-list-item">
+                                                <h1 className="cell-list-item-text">
+                                                    {
+                                                        // JSON.stringify(technology)
+                                                        technology.name
+                                                    }
+                                                </h1>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="grid-card-footer">
+                                    <a
+                                        href={project.link}
+                                        className="button">
+                                        See It Here
+                                    </a>
+                                    <button
+                                        className="button admin-button admin-button-red"
+                                        onClick={() => {
+                                            onDelete(project);
+                                        }}>
+                                        Delete
+                                    </button>
+                                    <button
+                                        className="button admin-button admin-button-primary"
+                                        onClick={() => {
+                                            setType("edit");
+                                            setSelectedItemForEdit(project);
+                                            setShowAddEditModal(true);
+                                        }}>
+                                        Edit
+                                    </button>
+                                </div>
                             </div>
-                        </h1>
-                        <div className="flex justify-end gap-5 mt-5 items-end">
-                            <button
-                                className="admin-button admin-button-red bg-red-500 text-white rounded-sm"
-                                onClick={() => {
-                                    onDelete(project);
-                                }}>
-                                Delete
-                            </button>
-                            <button
-                                className="admin-button admin-button-primary bg-primary text-white rounded-sm"
-                                onClick={() => {
-                                    setType("edit");
-                                    setSelectedItemForEdit(project);
-                                    setShowAddEditModal(true);
-                                }}>
-                                Edit
-                            </button>
-                        </div>
+                        ))}
                     </div>
-                    */
+                )}
 
-/*
+                {projects && utils.val.isValidArray(projects, true) && buildContent(projects)}
 
-            {(type === "add" || selectedItemForEdit) && (
-                <Modal
-                    open={showAddEditModal}
-                    footer={null}
-                    title={selectedItemForEdit ? "Edit Project" : "Add Project"}
-                    onCancel={() => {
-                        setShowAddEditModal(false);
-                        setSelectedItemForEdit(null);
-                        setType("");
-                    }}
-                    >
-                    <Form
-                        layout="vertical"
-                        onFinish={onFinish}
-                        initialValues={
-                            {
-                                ...selectedItemForEdit,
-                                technologies:
-                                    selectedItemForEdit?.technologies?.join(
-                                        " , ",
-                                    ),
-                            } || {}
-                        }>
-                        <Form.Group as={Row} className="mb-3" controlId="title">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control placeholder="Title"></Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3" controlId="image">
-                            <Form.Label>Image URL</Form.Label>
-                            <Form.Control placeholder="Image URL"></Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3" controlId="link">
-                            <Form.Label>Link URL</Form.Label>
-                            <Form.Control placeholder="Link URL"></Form.Control>
-                        </Form.Group>
-                        <Form.Group
-                            as={Row}
-                            className="mb-3"
-                            controlId="context">
-                            <Form.Label>Context</Form.Label>
-                            <Form.Control placeholder="Context"></Form.Control>
-                        </Form.Group>
-                        <Form.Group
-                            as={Row}
-                            className="mb-3"
-                            controlId="description">
-                            <Form.Label>Description</Form.Label>
-                            <textarea placeholder="Description"></textarea>
-                        </Form.Group>
-                        <Form.Group
-                            as={Row}
-                            className="mb-3"
-                            controlId="technologies">
-                            <Form.Label>Technologies</Form.Label>
-                            <Form.Control placeholder="Technologies"></Form.Control>
-                        </Form.Group>
-                        <div className="flex justify-end w-full">
-                            <Button
-                                variant="primary"
-                                className="admin-button bg-white px-10 py-2 text-primary"
-                                onClick={() => {
-                                    setType("add");
-                                    setShowAddEditModal(false);
-                                    setSelectedItemForEdit( null );
-                                    onFinish();
-                                }}>
-                                Cancel
-                            </Button>
-                            <Button className="admin-button px-10 py-2 bg-primary text-white">
-                                {selectedItemForEdit ? "Update" : "Add"}
-                            </Button>
-                        </div>
-                    </Form>
-                </Modal>
-            )}
-*/
+                {(type === "add" || selectedItemForEdit) && buildModal()}
+            </>
+        );
+    }
+
+    export default AdminProjects;
+*/ 

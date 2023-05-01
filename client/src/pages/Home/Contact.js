@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SectionTitle from "../../components/Section/SectionTitle";
 import
     {
         Form,
@@ -13,7 +12,8 @@ import { SetLoading, ReloadData } from "../../redux/rootSlice";
 import axios from "axios";
 import API from "../../api/api.js";
 import Input from "../../components/Form/Input";
-import * as utils from "../../components/Utilities/index.js";
+import * as utils from "../../utilities/index.js";
+import Section from "../../components/Section";
 
 function Contact() {
     const dispatch = useDispatch();
@@ -26,11 +26,9 @@ function Contact() {
 
     const sendMessage = async (values) => {
         try {
-            /// * console.log("Contact(): values => ", values);
             dispatch(SetLoading(true));
             let response;
             response = await API.post("/api/portfolio/send-message", values);
-            /// * console.log("Contact(): response => ", response);
             // dispatch(SetLoading(false));
             if (response.data.success) {
                 message.success(response.data.message);
@@ -45,23 +43,20 @@ function Contact() {
         }
     };
 
-    /// * Debug
-    /// * useEffect(() => {
-    /// *     console.log("Contact.js :: currentInput is now = ", currentInput);
-    /// * }, [currentInput]);
-
     return (
-        <>
-            <SectionTitle title="Get In Touch" scale={`3`}></SectionTitle>
+        <Section>
+            <Section.Text
+                type="title"
+                content="Get In Touch"
+                scale={`3xl`}
+                separator={true}></Section.Text>
             <div className="flex flex-col items-center justify-center w-[100%]">
                 <div className="contact-form ">
-                    <div className={`form-container`}>
+                    <div className={`input-group input-group-block`}>
                         <Input
                             fieldtype={`text`}
                             inputProps={{
-                                defaultValue: utils.ao.has("name")
-                                    ? currentInput.name
-                                    : "",
+                                defaultValue: utils.ao.has("name") ? currentInput.name : "",
                             }}
                             label={`name`}
                             id={`name`}
@@ -78,9 +73,7 @@ function Contact() {
                         <Input
                             fieldtype={`email`}
                             inputProps={{
-                                defaultValue: utils.ao.has("email")
-                                    ? currentInput.email
-                                    : "",
+                                defaultValue: utils.ao.has("email") ? currentInput.email : "",
                             }}
                             label={`email`}
                             id={`email`}
@@ -97,9 +90,7 @@ function Contact() {
                         <Input
                             fieldtype={`text`}
                             inputProps={{
-                                defaultValue: utils.ao.has("company")
-                                    ? currentInput.company
-                                    : "",
+                                defaultValue: utils.ao.has("company") ? currentInput.company : "",
                             }}
                             label={`company`}
                             id={`company`}
@@ -116,9 +107,7 @@ function Contact() {
                         <Input
                             fieldtype={`text`}
                             inputProps={{
-                                defaultValue: utils.ao.has("subject")
-                                    ? currentInput.subject
-                                    : "",
+                                defaultValue: utils.ao.has("subject") ? currentInput.subject : "",
                             }}
                             label={`subject`}
                             id={`subject`}
@@ -135,9 +124,7 @@ function Contact() {
                         <Input
                             fieldtype={`tel`}
                             inputProps={{
-                                defaultValue: utils.ao.has("phone")
-                                    ? currentInput.phone
-                                    : "",
+                                defaultValue: utils.ao.has("phone") ? currentInput.phone : "",
                                 minLength: 9,
                             }}
                             label={`phone`}
@@ -155,9 +142,7 @@ function Contact() {
                         <Input.InputArea
                             fieldtype={`text`}
                             inputProps={{
-                                defaultValue: utils.ao.has("message")
-                                    ? currentInput.message
-                                    : "",
+                                defaultValue: utils.ao.has("message") ? currentInput.message : "",
                             }}
                             label={`message`}
                             id={`message`}
@@ -183,7 +168,7 @@ function Contact() {
                     </div>
                 </div>
             </div>
-        </>
+        </Section>
     );
 }
 

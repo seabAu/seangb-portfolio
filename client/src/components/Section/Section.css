@@ -5,8 +5,40 @@
 .section-content {
     /* Style for section content areas. These contain pane and collection components. */
 }
+.section-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-tertiary);
+    margin: 0;
+    padding: 0.25rem 0.25rem;
+    z-index: 500;
+    box-shadow: var(--bshadow-xl);
+    width: 100%;
+}
+.section-header > .section-text-container {
+    margin: 0;
+    padding: 0;
+}
+.section-header .section-nav {
+    gap: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    justify-content: flex-end;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.section-nav {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+}
 .section-container {
     display: block;
+    display: contents;
     height: 100%;
     min-height: auto;
     max-height: 100%;
@@ -19,6 +51,7 @@
     transition: width 1s ease-in-out 0s;
     box-shadow: none;
 }
+
 .section-content {
     display: flex;
     flex-direction: column;
@@ -32,6 +65,22 @@
     overflow: hidden;
 }
 
+.card .section-container .section-content {
+    display: flex;
+    /* place-content: center flex-start; */
+    align-items: flex-start;
+    height: auto;
+    min-height: auto;
+    width: auto;
+    min-width: auto;
+    /* padding: 0.25rem 1rem; */
+    overflow: hidden;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
 .section-pane {
     /* display: flex;
     place-content: center;
@@ -43,38 +92,167 @@
     padding: 0rem;
     flex-wrap: wrap !important;
     */
+}
+.section-pane {
+    display: flex;
     min-height: auto;
     width: 100%;
     min-width: 40%;
     padding: 0rem;
     flex-wrap: wrap !important;
 }
+
+.section-pane.section-row {
+    flex-direction: row;
+    height: 100%;
+}
+.section-pane.section-col {
+    flex-direction: column;
+    width: 100%;
+}
+.section-pane.section-row {
+    flex-direction: row;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.section-pane.section-col {
+    flex-direction: column;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section-pane.section-row.section-pane-spread {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex: 1 1 auto;
+}
+.section-pane.section-row.section-pane-shrink {
+    flex-direction: row;
+    align-items: center;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    flex: 0 1 auto;
+}
+.section-pane.section-col.section-pane-spread {
+    align-items: stretch;
+    justify-content: stretch;
+    width: 100%;
+    height: min-content;
+    flex: 1 1 auto;
+}
+.section-pane.section-col.section-pane-shrink {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    /* height: min-content; */
+    flex: 1 1 auto;
+}
+.section-pane-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.section-pane-mosaic {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    /* align-content: center; */
+    flex-direction: row !important;
+    /* min-height: auto; */
+    /* width: 100%; */
+    min-width: min-content;
+    padding: 0rem;
+    flex-wrap: wrap !important;
+    box-shadow: 0rem 0rem 0.125rem 0.05rem #00000077;
+    /* border-style: inset; */
+    /* transition: box-shadow 0.3s ease-in-out; */
+    border-width: 0.025rem;
+    border-color: var(--border-color);
+    border-collapse: collapse;
+    border-color: var(--color-secondary);
+    overflow-clip-margin: border-box;
+    border-top-style: outset;
+    border-bottom-style: inset;
+    width: min-content;
+    /* height: min-content; */
+    transition: 300ms all cubic-bezier(0.645, 0.045, 0.355, 1);
+    flex: 1 1 auto;
+}
+.section-pane-mosaic > * {
+    display: flex;
+    flex-direction: row !important;
+}
+
+/* Smaller screens */
+
+@media only screen and (max-width: 767px) {
+    .section-pane-wrap {
+        width: 100%;
+        height: min-content;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .section-pane.section-row.section-pane-shrink, .section-row.section-pane-spread {
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+    .section-pane.section-col.section-pane-shrink, .section-col.section-pane-spread {
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+}
+/* Bigger screens */
+
+@media only screen and (min-width: 768px) {
+    .section-pane-wrap {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex: 1 1 auto;
+    }
+}
+
 .section-text-container {
-    padding: 0.25rem;
+    padding: 0.25rem 0.0rem;
+    width: fit-content;
 }
 .section-text-container .section-text {
-    padding: 0.25rem;
+    padding: 0.125rem;
+    width: fit-content;
+    /* color: var(--color-text); */
 }
 .section-title {
-    padding: 1rem;
-    padding-left: 0 !important;
+    padding: 1.0rem;
+    /* padding-left: 0 !important; */
     margin: 0;
-    gap: 0 2.5rem;
+    gap: 0.0rem 2.5rem;
     display: flex;
     flex-direction: row;
     align-items: center !important;
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
+    white-space: nowrap;
 }
-.section-title .section-title-text {
+
+.section-text-container.section-title .section-text {
+    color: var(--color-highlightColor);
+}
+
+.section-title .section-title-text,
+.section-text-container .section-text {
     margin: auto 0;
-}
-.section-title .section-title-bar {
-    margin: 4px;
-    width: 25vw;
-    height: 1px !important;
-    background-color: white;
 }
 .section-img-container {
     max-width: 100%;
@@ -85,6 +263,47 @@
     max-height: 100%;
     height: 100%;
     transition: all 1s var(--transition-func-bezier);
+}
+
+.section-list-container {
+    width: 100%;
+}
+
+.section-list {
+    list-style: disc;
+    width: 100%;
+}
+
+.section-list-item {
+    display: list-item;
+    width: 100%;
+    /* padding: 0.125rem; */
+    border-bottom: 1px solid var(--color-secondary);
+}
+.section-list-item-content {
+    display: inline-flex;
+    width: fit-content;
+}
+.section-list-item-content * {
+    padding: 0;
+}
+.section-list-item-content .list-item-key, 
+.section-list-item-content .section-text-container:has(.list-item-key),
+.section-list-item-content .list-item-value, 
+.section-list-item-content .section-text-container:has(.list-item-value) {
+    padding: 0.0rem 0.25rem;
+    vertical-align: middle;
+    align-self: center;
+}
+.section-list-item-content .list-item-value, 
+.section-list-item-content .section-text-container:has(.list-item-value) {
+    width: 100%;
+}
+.section-list-item-content .list-item-key, 
+.section-list-item-content .section-text-container:has(.list-item-key) {
+    background-color: var(--color-secondary);
+    min-width: 7rem;
+
 }
 .section-collection {
     height: 100%;
@@ -160,9 +379,11 @@ element.style {
     /* max-height: 100%; */
     /* min-height: min-content !important; */
     opacity: 0;
-    transition: min-width 0.15s var(--transition-func-bezier), opacity 1s var(--transition-func-bezier), visibility 0.1s var(--transition-func-bezier), height 1s var(--transition-func-bezier), left 0.05s var(--transition-func-bezier);
+    transition: min-width 0.15s var(--transition-func-bezier), opacity 1s var(--transition-func-bezier), visibility 0.1s var(--transition-func-bezier),
+        height 1s var(--transition-func-bezier), left 0.05s var(--transition-func-bezier);
     transition-duration: 0.15s, 1s, 0.1s, 1s, 0.05s;
-    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier);
+    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier),
+        var(--transition-func-bezier);
     transition-delay: 0s, 0s, 0s, 0s, 0s;
     transition-property: min-width, opacity, visibility, height, left;
     /* box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px; */
@@ -181,7 +402,7 @@ element.style {
     width: 100% !important;
     min-height: min-content !important;
 }
-.section-collection-item .collection-img{
+.section-collection-item .collection-img {
     width: 0% !important;
     transition: all 1s var(--transition-func-bezier);
 }
@@ -366,7 +587,7 @@ element.style {
 }
 .collection-pagination-container {
     margin: 0;
-    padding: 1.0rem 2.0rem;
+    padding: 1rem 2rem;
     position: relative;
     bottom: 0%;
     left: 0;
@@ -445,7 +666,7 @@ element.style {
     justify-content: center;
     flex-direction: row;
 }
-*/ 
+*/
 /*
     transition: all 0.05s var(--transition-func-bezier);
     transition-duration: 0.15s, 1s, 0.1s, 1s, 0.05s;
@@ -538,7 +759,7 @@ element.style {
     line-height: normal;
     z-index: 10;
     overflow: hidden;
-    text-shadow: 0.0rem 0.0rem 0.115rem #acacacbb, 0.0rem 0.0rem 0.125rem #ffffff7f;
+    text-shadow: 0rem 0rem 0.115rem #acacacbb, 0rem 0rem 0.125rem #ffffff7f;
     transition-duration: 0.15s, 0.15s;
     transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier);
     transition-property: width, opacity, visibility, height, left;
@@ -546,8 +767,8 @@ element.style {
 .collection-pagination-bullet.collection-pagination-active {
     background-color: #736464;
     font-size: 0.85rem;
-    width: 0.90rem;
-    height: 0.90rem;
+    width: 0.9rem;
+    height: 0.9rem;
 }
 .collection-pagination-indicator {
     background: #3d252547;
@@ -565,21 +786,9 @@ element.style {
 .collection-pagination-control:focus {
     color: #3d3131;
 }
-#carousel-1:checked
-    ~ .control-1
-    ~ .collection-pagination-container
-    li:nth-child(1)
-    .collection-pagination-bullet,
-#carousel-2:checked
-    ~ .control-2
-    ~ .collection-pagination-container
-    li:nth-child(2)
-    .collection-pagination-bullet,
-#carousel-3:checked
-    ~ .control-3
-    ~ .collection-pagination-container
-    li:nth-child(3)
-    .collection-pagination-bullet {
+#carousel-1:checked ~ .control-1 ~ .collection-pagination-container li:nth-child(1) .collection-pagination-bullet,
+#carousel-2:checked ~ .control-2 ~ .collection-pagination-container li:nth-child(2) .collection-pagination-bullet,
+#carousel-3:checked ~ .control-3 ~ .collection-pagination-container li:nth-child(3) .collection-pagination-bullet {
     color: #428bca;
 }
 
@@ -589,50 +798,352 @@ element.style {
 
 /* Styling the area of the slides */
 .slideshow-container {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
 }
- 
+
 /* Style each of the sides
 with a fixed width and height */
 .slide {
-  float: left;
-  height: 100%;
-  width: 100%;
+    float: left;
+    height: 100%;
+    width: 100%;
 }
- 
+
 /* Add animation to the slides */
 .slide-wrapper {
-   
-/* Calculate the total width on the
+    /* Calculate the total width on the
   basis of number of slides */
-  width: calc(728px * 4);
- 
-/* Specify the animation with the
+    width: calc(728px * 4);
+
+    /* Specify the animation with the
   duration and speed */
-  animation: slide 10s ease infinite;
+    animation: slide 10s ease infinite;
 }
 /* Define the animation
 for the slideshow */
 @keyframes slide {
-   
-/* Calculate the margin-left for
+    /* Calculate the margin-left for
   each of the slides */
-  20% {
-    margin-left: 0px;
-  }
- 
-  40% {
-    margin-left: calc(-728px * 1);
-  }
- 
-  60% {
-    margin-left: calc(-728px * 2);
-  }
- 
-  80% {
-    margin-left: calc(-728px * 3);
-  }
+    20% {
+        margin-left: 0px;
+    }
+
+    40% {
+        margin-left: calc(-728px * 1);
+    }
+
+    60% {
+        margin-left: calc(-728px * 2);
+    }
+
+    80% {
+        margin-left: calc(-728px * 3);
+    }
+}
+
+/*
+
+*/
+/*
+.section-collection-item {
+border: 1px solid red;
+border-radius: 0px;
+padding: 0px;
+margin: 0px;
+min-width: 0%;
+max-width: 0%;
+/* height: 100%
+/* max-height: 100%
+/* min-height: min-content !important
+opacity: 0;
+transition: min-width 0.15s cubic-bezier(0.645, 0.045, 0.355, 1),
+opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1),
+visibility 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+height 1s cubic-bezier(0.645, 0.045, 0.355, 1),
+left 0.05s cubic-bezier(0.645, 0.045, 0.355, 1);
+box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px;
+visibility: hidden;
+width: 0% !important;
+/* height: min-content !important
+}
+.section-collection-container {
+border: 1px solid gold;
+/* min-height: min-content !important
+/* min-width: 100% !important
+/* width: 100% !important
+right: 50%;
+position: relative;
+display: flex;
+flex-direction: column;
+place-content: center;
+align-items: center;
+align-self: center;
+height: 100% !important;
+min-height: 100% !important;
+max-height: 100%;
+min-width: 100%;
+max-width: 100%;
+width: min-content !important;
+}
+
+<div class="section-container"
+    style="display: block;height: 100%;min-height: auto;max-height: 100%;width: 100%;min-width: auto;max-width: 100%;border: none;padding: 0.25rem 1rem;margin: 0rem;transition: width 1s ease-in-out 0s;box-shadow: none;">
+    <div class="section-title">
+        <h1 class="section-title-text text-3xl text-highlightColor" styles="[object Object]">About Me</h1>
+        <div class="section-title-bar"></div>
+    </div>
+    <div class="section-content"
+        style="display: flex;flex-direction: column;place-content: center flex-start;align-items: center;height: auto;min-height: auto;width: auto;min-width: auto;/* padding: 0.25rem 1removerflow: hidden;">
+        <div class="section-pane"
+            style="display: flex;place-content: center;align-items: center;/* height: 100%/* min-height: autowidth: 100%;min-width: 40%;padding: 0rem;flex-wrap: wrap !important;overflow: hidden;">
+            <div class="section-collection-container"
+                style="display: flex;/* flex-direction: column/* place-content: cent;/* align-items: centerenter;align-self: center;">
+                <div class="section-collection-content"
+                    style=display: flex/* flex-direction: row/* place-content: center/* align-items: centeralign-self: center;">
+                    <a id="collection-item-0" href="https://codepen.io/sgbn23/embed/preview/vYaovdE?default-tab=result"
+                        class="section-collection-item "><img class="collection-img"
+                            src="https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png"
+                            alt="https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png" style="height: 500px;"></a><a
+                        id="collection-item-1" href="https://codepen.io/sgbn23/embed/preview/dyqbvXa?default-tab=result"
+                        class="section-collection-item section-collection-item-visible"><img class="collection-img"
+                            src="https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png"
+                            alt="https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png" style="height: 500px;"></a><a
+                        id="collection-item-2" href="https://codepen.io/sgbn23/embed/preview/RwBXGBa?default-tab=result"
+                        class="section-collection-item "><img class="collection-img"
+                            src="https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png"
+                            alt="https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png" style="height: 500px;"></a><a
+                        id="collection-item-3" href="https://codepen.io/sgbn23/embed/preview/gOdvwqw?default-tab=result"
+                        class="section-collection-item "><img class="collection-img"
+                            src="https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png"
+                            alt="https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png" style="height: 500px;"></a>
+                </div>
+                <div class="carousel-indicators">
+                    <p class="collection-indicator-index">1</p>
+                    <div class="carousel-indicator flex-column" id="section-collection-item-0"></div>
+                    <div class="carousel-indicator flex-column" id="section-collection-item-1"></div>
+                    <div class="carousel-indicator flex-column" id="section-collection-item-2"></div>
+                    <div class="carousel-indicator flex-column" id="section-collection-item-3"></div>
+                </div><button class="carousel-buttons" style=height: 50px/* width: 50px"><button
+                        class="carousel-control next glassmorphic-button image-slideshow-button"
+                        style="height: 50px;width: 50px;">&gt;</button><button
+                        class="carousel-control prev glassmorphic-button image-slideshow-button"
+                        style="height: 50px;width: 50px;">&lt;</button></button>
+            </div>
+        </div>
+        <div class="section-pane"
+            style=display: flexplace-content: flex-start;align-items: flex-start;height: 100%;min-height: auto;width: auto;min-width: 40%;padding: 0.25rem 1rem;overflow: auto;">
+            <div class="section-text-container">
+                <div class="section-text section-text text-highlightColor text-xs">I am a versatile engineer and web
+                    developer with a passion for learning and problem-solving. With a degree in electrical engineering
+                    and five years of experience designing motor control, VFDs, control and instrumentation, and power
+                    transmission systems, I have a solid foundation in engineering principles and technical expertise.
+                </div>
+            </div>
+            <div class="section-text-container">
+                <div class="section-text section-text text-highlightColor2 text-xs">In my free time, I taught myself a
+                    variety of programming languages and quickly applied these skills to secure a remote job during the
+                    pandemic lockdowns. Over the past three years, my role has expanded to include front-end
+                    development, back-end development, cybersecurity risk management, and even handling administrative
+                    tasks on Microsoft Azure and Microsoft Admin 365.</div>
+            </div>
+            <div class="section-text-container">
+                <div class="section-text section-text text-white text-xs">My portfolio showcases my proficiency in a
+                    broad range of front-end and full-stack web development technologies, including React, Vue, MongoDB,
+                    Mongoose, NodeJS, ExpressJS, Apache, MySQL, Wordpress, PHP, Codeigniter, HTML5, CSS3, and C#. I also
+                    have experience in cybersecurity risk management, including vulnerability assessments, penetration
+                    testing, threat analysis, and security awareness training.</div>
+            </div>
+            <div class="section-text-container">
+                <div class="section-text section-text text-highlightColor text-xs">Whether it's designing complex
+                    electrical systems, building user-friendly web applications, or ensuring the security and integrity
+                    of digital systems, I take pride in delivering high-quality work that meets the needs of my clients.
+                    I am excited to bring my diverse skill set and experience to a new position and tackle new
+                    challenges.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+*/
+
+/* Various separator styles - Source is on Codepen */
+/*
+.section-title .section-title-bar,
+.section-text-container .section-bar .section-bar-default {
+    margin: 4px;
+    width: 25vw;
+    height: 1px !important;
+    background-color: white;
+}
+
+.section-bar * {
+    width: 90%;
+    height: 1px !important;
+}
+*/ 
+.section-bar .hr-gray-90 {
+    height: 1px;
+    width: 90%;
+    background-color: rgb(55, 65, 81, 1.0);
+    margin: 1rem auto;
+}
+.section-bar .hr-style-neumorphic {
+    margin: 0px 0px;
+    width: 100%;
+    height: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: rgba(255, 255, 255, 0.0784314) 0px 1px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 1px;
+    background: linear-gradient(var(--color-quaternary), var(--color-tertiary));
+}
+.section-bar .hr-style-1 {
+    border-top: 1px solid #8c8b8b;
+}
+
+.section-bar .hr-style-2 {
+    border-top: 3px double #8c8b8b;
+}
+
+.section-bar .hr-style-3 {
+    border-top: 1px dashed #8c8b8b;
+}
+
+.section-bar .hr-style-4 {
+    border-top: 1px dotted #8c8b8b;
+}
+
+.section-bar .hr-style-5 {
+    background-color: #fff;
+    border-top: 2px dashed #8c8b8b;
+}
+
+.section-bar .hr-style-6 {
+    background-color: #fff;
+    border-top: 2px dotted #8c8b8b;
+}
+
+.section-bar .hr-style-7 {
+    border-top: 1px solid #8c8b8b;
+    border-bottom: 1px solid #fff;
+}
+
+.section-bar .hr-style-8 {
+    border-top: 1px solid #8c8b8b;
+    border-bottom: 1px solid #fff;
+}
+.section-bar .hr-style-8:after {
+    content: "";
+    display: block;
+    margin-top: 2px;
+    border-top: 1px solid #8c8b8b;
+    border-bottom: 1px solid #fff;
+}
+
+.section-bar .hr-style-9 {
+    border-top: 1px dashed #8c8b8b;
+    border-bottom: 1px dashed #fff;
+}
+
+.section-bar .hr-style-10 {
+    border-top: 1px dotted #8c8b8b;
+    border-bottom: 1px dotted #fff;
+}
+
+.section-bar .hr-style-11 {
+    height: 6px;
+    background: url(http://ibrahimjabbari.com/images/hr-11.png) repeat-x 0 0;
+    border: 0;
+}
+
+.section-bar .hr-style-12 {
+    height: 6px;
+    background: url(http://ibrahimjabbari.com/images/hr-12.png) repeat-x 0 0;
+    border: 0;
+}
+
+.section-bar .hr-style-13 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.section-bar .hr-style-14 {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+
+.section-bar .hr-style-15 {
+    border-top: 4px double #8c8b8b;
+    text-align: center;
+}
+.section-bar .hr-style-15:after {
+    content: "\002665";
+    display: inline-block;
+    position: relative;
+    top: -15px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+}
+
+.section-bar .hr-style-16 {
+    border-top: 1px dashed #8c8b8b;
+}
+.section-bar .hr-style-16:after {
+    content: "\002702";
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    left: 40px;
+    padding: 0 3px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+}
+
+.section-bar .hr-style-17 {
+    border-top: 1px solid #8c8b8b;
+    text-align: center;
+}
+.section-bar .hr-style-17:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -14px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+
+.section-bar .hr-style-18 {
+    height: 30px;
+    border-style: solid;
+    border-color: #8c8b8b;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+.section-bar .hr-style-18:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #8c8b8b;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
 }

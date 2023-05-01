@@ -1,5 +1,5 @@
-import { deepGetKey } from "../components/Utilities/AO";
-import { isValidArray } from "../components/Utilities/Val";
+import { deepGetKey } from "../../utilities/AO";
+import { isValidArray } from "../../utilities/Val";
 const debug = false;
 
 // Kind of a temporary function; provide a destination and current location and this will check it against the user's permissions to see if they can go there. If not, it will route to a public location like the landing page or portfolio site.

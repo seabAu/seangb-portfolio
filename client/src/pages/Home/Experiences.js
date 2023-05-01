@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SectionTitle from "../../components/Section/SectionTitle";
 import Tabs from "../../components/Tabs/Tabs";
-import * as utils from "../../components/Utilities/index.js";
+import * as utils from "../../utilities/index.js";
+import Section from "../../components/Section";
 // import { experiences } from "../../resources/experiences";
 
 function Experiences (){
@@ -11,7 +11,6 @@ function Experiences (){
     const { experiences } = portfolioData;
     
     const getExperiences = (data) => {
-        // console.log( "getExperiences :: data = ", data, portfolioData );
         if (utils.val.isValidArray(data, true)) {
             return data.map((experience, index) => {
                 return (
@@ -21,21 +20,15 @@ function Experiences (){
                         key={experience._id}
                         id={experience._id}
                         index={index}>
-                        <div className="flex-row-spread">
-                            <h1 className="header-section">
-                                {experience.title}
-                            </h1>
-                            <h2 className="text-highlightColor text-xl">
-                                {experience.period}
-                            </h2>
-                        </div>
-                        <div className="flex-row-spread">
-                            <h1 className="header-subsection">
-                                {experience.company}
-                            </h1>
-                            <h2 className="text-highlightColor text-xl">
-                                {experience.location}
-                            </h2>
+                        <div className="flex-group flex-row-spread">
+                            <div className="flex-col-spread">
+                                <h1 className="header-section text-xl">{experience.title}</h1>
+                                <h2 className="text-highlightColor text-sm">{experience.period}</h2>
+                            </div>
+                            <div className="flex-col-shrink">
+                                <h1 className="header-subsection text-xl">{experience.company}</h1>
+                                <h2 className="text-highlightColor text-sm">{experience.location}</h2>
+                            </div>
                         </div>
                         <p className="text-white">{experience.description}</p>
                         <ul className="list">
@@ -55,8 +48,13 @@ function Experiences (){
     };
 
     return (
-        <>
-            <SectionTitle title="Experience"></SectionTitle>
+        <Section>
+            <Section.Text
+                type="title"
+                content="Experience"
+                scale={`3xl`}
+                separator={true}
+            />
             {portfolioData && (
                 <Tabs
                     type={"top"}
@@ -70,7 +68,7 @@ function Experiences (){
                     {getExperiences(experiences)}
                 </Tabs>
             )}
-        </>
+        </Section>
     );
 }
 

@@ -1,6 +1,5 @@
 // Dependencies
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
     BrowserRouter,
     Routes,
@@ -10,11 +9,11 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import API from "./api/api.js";
-import { message } from "antd";
+import local_portfolio_data from "./resources/localData.json";
 
 // Redux state management
-import
-    {
+import { useDispatch, useSelector } from "react-redux";
+import {
     SetDebug,
     SetLoading,
     SetPortfolioData,
@@ -27,67 +26,63 @@ import
 
 // Components
 import Loader from "./components/Loader/Loader";
+import { message } from "antd";
 
 // Pages
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-import { deepGetKey } from "./components/Utilities/AO.js";
+import * as utils from "./utilities";
+import { importFile } from "./api/import.js";
+
+const offlineMode = false;
 
 // const debug = false;
 const ProtectedRoute = ({
     children,
-    loggedIn,
-    token,
-    role,
-    user,
-    reqRoles = [],
+    isAllowed,
     redirectPath = "/",
+    // loggedIn,
+    // token,
+    // role,
+    // user,
+    reqRoles = [],
 }) => {
     const dispatch = useDispatch();
     const {
         debug,
-        ///loading,
-        ///portfolioData,
-        ///reloadData,
-        ///loggedIn,
-        // token,
-        // role,
-        ///user,
+        loading,
+        portfolioData,
+        reloadData,
+        loggedIn,
+        token,
+        role,
+        user,
     } = useSelector((state) => state.root);
 
-    // Make sure a visitor is successfully logged in before letting them access any page other than "/admin-login".
-    // useEffect(() => {
-    //     // Run stored token through auth checks and make sure access is confirmed.
-    //     auth(reqRoles);
-    //     // if ( !localStorage.getItem( "token" ) )
-    //     // {
-    //     //     window.location.href = "/login";
-    //     // }
-    // }, []);
+    // if (isAllowed) {
+    //     return (
+    //         <Navigate
+    //             to={redirectPath}
+    //             replace
+    //         />
+    //     );
+    // }
 
-    // if (!loggedIn || !user.token || !reqRoles.includes(user.role)) {
-    if (!loggedIn || !token || !reqRoles.includes(role)) {
-        if (debug)
-            console.log(
-                "App.js :: ProtectedRoute :: state.root = ",
-                // [loading, portfolioData, reloadData, loggedIn, token, role],
-                " :: LoggedIn = ",
-                loggedIn,
-                " :: token = ",
-                token,
-                " :: role = ",
-                role,
-                " :: reqroles = ",
-                reqRoles,
-                " :: userdata = ",
-                user,
-            );
-        return <Navigate to={redirectPath} replace />;
+    // // return children;
+    // return children ? children : <Outlet />;
+    // 
+
+    if (!isAllowed) {
+        return (
+            <Navigate
+                to={redirectPath}
+                replace
+            />
+        );
     }
 
-    // return children;
     return children ? children : <Outlet />;
 };
 
@@ -97,14 +92,15 @@ function App() {
         debug,
         loading,
         portfolioData,
+        blogData,
+        appsData,
         reloadData,
         loggedIn,
-        // token,
-        // role,
         user,
     } = useSelector((state) => state.root);
 
-    const [authorized, setAuthorized] = React.useState(false);
+    // const [authorized, setAuthorized] = React.useState(false);
+    const authRef = React.useRef(false);
 
     const auth = async (requiredRoles = []) => {
         // Get the session token from the stored token, if there is one. If there isn't one, automatically reject.
@@ -120,7 +116,8 @@ function App() {
             return false;
         }
 
-        if (debug) console.log("Admin index.js :: auth :: token = ", token);
+        if ( debug )
+            console.log( "Admin index.js :: auth :: token = ", token );
         try {
             const response = await API.get("/api/users/auth/user", {
                 headers: {
@@ -138,11 +135,12 @@ function App() {
                 );
             if (response.data.success) {
                 // Successfully authenticated.
-                if(debug)message.success(response.data.message);
+                if ( debug )
+                    message.success( response.data.message );
                 // Check the role of the user. If guest, return to /portfolio. If admin, send to /admin.
-                let userdata = deepGetKey(response.data, "user");
-                let auth = deepGetKey(response.data, "auth");
-                let role = deepGetKey(response.data, "role");
+                let userdata = utils.ao.deepGetKey(response.data, "user");
+                let auth = utils.ao.deepGetKey(response.data, "auth");
+                let role = utils.ao.deepGetKey(response.data, "role");
                 if (debug)
                     console.log(
                         "Admin index.js :: auth :: auth = ",
@@ -167,7 +165,8 @@ function App() {
                 }
             } else {
                 // Failed to log in. Return to homepage.
-                if(debug)message.error(response.data.message);
+                if ( debug )
+                    message.error( response.data.message );
                 // window.location.href = "/";
                 if (debug)
                     console.log(
@@ -188,7 +187,8 @@ function App() {
                     " :: error.message = ",
                     error.message,
                 );
-            if(debug)message.error(`Authentication error: ${error.message}`);
+            if ( debug )
+                message.error( `Authentication error: ${ error.message }` );
             dispatch(SetLoading(false));
             // setAuthorized(false);
             return false;
@@ -208,8 +208,40 @@ function App() {
 
     // Make sure a visitor is successfully logged in before letting them access any page other than "/admin-login".
     useEffect(() => {
-        if (debug) console.log("App.js :: Authorized is now = ", authorized);
-    }, [authorized]);
+        if (debug) console.log("App.js :: authRef.current is now = ", authRef.current);
+    }, [authRef.current]);
+    
+    useEffect(() => {
+        if (debug)
+            console.log(
+                "App.js :: Redux data is now = ",
+                "\n :: debug = ",
+                debug,
+                "\n :: loading = ",
+                loading,
+                "\n :: portfolioData = ",
+                portfolioData,
+                "\n :: blogData = ",
+                blogData,
+                "\n :: appsData = ",
+                appsData,
+                "\n :: reloadData = ",
+                reloadData,
+                "\n :: loggedIn = ",
+                loggedIn,
+                "\n :: user = ",
+                user,
+            );
+    }, [
+        debug,
+        loading,
+        portfolioData,
+        blogData,
+        appsData,
+        reloadData,
+        loggedIn,
+        user,
+    ]);
 
     const getPortfolioData = async () => {
         try {
@@ -247,7 +279,28 @@ function App() {
     // Database API Call
     useEffect(() => {
         if (!portfolioData) {
-            getPortfolioData();
+            if ( !offlineMode )
+            {
+                getPortfolioData();
+            }
+            else
+            {
+                // let path = `${process.env.PUBLIC_URL}/data/localData.json`;
+                // let data = importFile(path);
+                // console.log(
+                //     "App.js :: offlineMode :: data imported from local data file = ",
+                //     data,
+                //     " :: file location = ",
+                //     path,
+                // );
+                // if ( utils.val.isValidArray( data, true ) ) SetPortfolioData( data );
+                // else SetPortfolioData(offlineData);
+                if (debug)
+                    console.log("App.js :: offlineMode :: data imported from local data file = ", local_portfolio_data, " :: file location = ", "./resources/localData.json");
+                dispatch(SetPortfolioData(local_portfolio_data));
+                dispatch(ReloadData(false));
+                dispatch(SetLoading(false));
+            }
         }
     }, [portfolioData]);
 
@@ -265,32 +318,53 @@ function App() {
         <BrowserRouter>
             {loading ? <Loader /> : null}
             <Routes>
-                <Route index path="/" element={<Landing />} />
-                <Route path="/portfolio" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/admin" element={<Admin />} />
                 <Route
-                    path="/adminpanel"
-                    loggedIn={loggedIn}
-                    // token={token}
-                    // role={role}
+                    index
+                    path="/"
+                    element={<Landing />}
+                />
+                <Route
+                    path="/portfolio"
+                    element={<Home />}
+                />
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
+                <Route
+                    path="admin"
                     element={
                         <ProtectedRoute
-                            reqRoles={["admin"]}
+                            redirectPath="/"
+                            isAllowed={!!user && user.role.includes("admin")}>
+                            <Admin />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="*"
+                    element={<p>There's nothing here: 404!</p>}
+                />
+            </Routes>{" "}
+        </BrowserRouter>
+    );
+}
+/*
+                <Route
+                    path="/admin"
+                    loggedIn={loggedIn}
+                    element={
+                        <ProtectedRoute
+                            reqRoles={["admin", "superadmin"]}
                             user={user}
                             loggedIn={loggedIn}
-                            // role={role}
+                            // role={role}  <Route path="/admin" element={<Admin />} />
                             // token={token}
                         >
                             <Admin />
                         </ProtectedRoute>
                     }
                 />
-
-                <Route path="*" element={<p>There's nothing here: 404!</p>} />
-            </Routes>{" "}
-        </BrowserRouter>
-    );
-}
-
+*/
 export default App;
+

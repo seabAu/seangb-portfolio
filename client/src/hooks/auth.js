@@ -12,7 +12,7 @@ import {
     SetLoggedIn,
     SetToken,
 } from "./redux/rootSlice";
-import { deepGetKey } from "../components/Utilities/AO";
+import * as utils from '../../utilities/index.js';
 import API from "../api/api";
 
     // const dispatch = useDispatch();
@@ -34,8 +34,8 @@ import API from "../api/api";
                 // Successfully authenticated.
                 // .success(response.data.message);
                 // Check the role of the user. If guest, return to /portfolio. If admin, send to /admin.
-                let auth = deepGetKey(response.data, "auth");
-                let role = deepGetKey(response.data, "role");
+                let auth = utils.ao.deepGetKey(response.data, "auth");
+                let role = utils.ao.deepGetKey(response.data, "role");
                 console.log(
                     "Admin index.js :: auth :: auth = ",
                     auth,

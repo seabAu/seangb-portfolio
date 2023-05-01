@@ -1,37 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    FaCloudDownloadAlt,
-    FaFilePdf,
-    FaUser,
-    FaUserTimes,
-    FaTimesCircle,
-    FaThList,
-} from "react-icons/fa";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { FaCloudDownloadAlt, FaFilePdf, FaUser, FaUserTimes, FaTimesCircle, FaThList } from "react-icons/fa";
+
+import API from "../../api/api.js";
+import Button from "../Button";
 import "./nav.css";
 import "./header.css";
-import API from "../../api/api.js";
-import { deepGetKey } from "../Utilities/AO";
 
-function Header(props) {
-    const {
-        debug,
-        loading,
-        portfolioData,
-        reloadData,
-        loggedIn,
-        token,
-        role,
-        user,
-    } = useSelector((state) => state.root);
+import * as utils from "../../utilities";
+function Header ( props )
+{
+    const navigate = useNavigate();
+    const { debug, loading, portfolioData, reloadData, loggedIn, token, role, user } = useSelector((state) => state.root);
 
     const [showDropdown, setShowDropdown] = React.useState(false);
     const showDropdownRef = useRef(false);
     const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
+    const [ height, setHeight ] = useState( window.innerHeight );
+    
     const handleDownload = (event, fileID) => {
         let file;
-        let filepath;
+        // let filepath;
         if (fileID === 1) {
             file = "Sean G Brown Web Developer Resume (March 2023).pdf";
         } else if (fileID === 2) {
@@ -73,6 +63,7 @@ function Header(props) {
             }
         }
     }
+
     const updateDimensions = () => {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
@@ -89,6 +80,7 @@ function Header(props) {
         //     showDropdown,
         // );
     };
+
     useEffect(() => {
         window.addEventListener("resize", updateDimensions);
         return () => window.removeEventListener("resize", updateDimensions);
@@ -99,249 +91,97 @@ function Header(props) {
         // If logged in, the button will say Log Out.
         let currentPath = window.location.href;
         let loggedIn = localStorage.getItem("token");
-        if (debug)
-            console.log(
-                "Currently logged in? = ",
-                loggedIn,
-                " :: currentPath = ",
-                currentPath,
-            );
+        if (debug) console.log("Currently logged in? = ", loggedIn, " :: currentPath = ", currentPath);
 
         if (loggedIn) {
             // Currently logged in, so delete the token to log them out, and send them to the home page.
             // window.location.href = "/admin";
             if (debug) console.log("HEADER.JS :: DELETING TOKEN.");
-            localStorage.removeItem("token");
-            window.location.href = "/";
+            localStorage.removeItem("token"); 
+            /// window.location.href = "/"; 
+            navigate("/login");
         } else {
             // Not logged in. Send to login page.
-            window.location.href = "/login";
+            /// window.location.href = "/login";
+            navigate("/login");
         }
     };
 
-    const iconOnClick = () => {
-        let currentPath = window.location.href;
-        let loggedIn = localStorage.getItem("token");
-        if (debug)
+    const headerNav = ( show ) =>
+    {
+        let userData = user;
+        let userRole = userData.hasOwnProperty("role") ? userData.role : "guest";
+        let userToken = userData.hasOwnProperty("token") ? userData.token : "";
+        // let token = localStorage.getItem("token");
+        let tokenValid = utils.val.isValid(userToken, true);
+
+        if ( debug )
             console.log(
-                "Currently logged in? = ",
-                loggedIn,
-                " :: currentPath = ",
-                currentPath,
-            );
-
-        if (loggedIn) {
-            // Currently logged in. Send to admin dashboard page.
-            // if ( currentPath === '/admin' )
-            if (currentPath.includes("/admin")) {
-                // Currently in admin directory.
-                window.location.href = "/";
-            } else if (
-                currentPath.includes("/") ||
-                currentPath.includes("/portfolio")
-            ) {
-                // Currently in the main site.
-                // if (currentPath === '/' || currentPath === '/portfolio')
-                window.location.href = "/admin";
-            }
-        } else {
-            // Not logged in. Send to login page.
-            // / window.location.href = "/login";
-            window.location.href = currentPath.includes("/portfolio")
-                ? (window.location.href = "/")
-                : (window.location.href = "/portfolio");
-        }
-    };
-
-    // Kind of a temporary function; provide a destination and current location and this will check it against the user's permissions to see if they can go there. If not, it will route to a public location like the landing page or portfolio site.
-    const route = (dest) => {
-        let src = window.location.href;
-        let token = localStorage.getItem("token");
-        if (debug)
-            console.log(
-                "HEADER index.js :: route(",
-                dest,
-                ") :: src = ",
-                src,
-                ", token = ",
-                token,
-                ", role = ",
-                role,
-                ", userdata = ",
-                user,
-            );
-        if (dest === "/") {
-            // Public page, send them on their way.
-            window.location.href = "/";
-        } else if (dest === "/portfolio") {
-            // Public page, send them on their way.
-            window.location.href = "/portfolio";
-        } else if (dest === "/admin") {
-            if (debug)
-                console.log(
-                    "HEADER index.js :: route(",
-                    dest,
-                    ") :: Trying to go to admin. Checking auth. :: src = ",
-                    src,
-                    ", token = ",
-                    token,
-                    ", role = ",
-                    role,
-                    ", userdata = ",
-                    user,
-                );
-            if (token) {
-                // We are logged in. Check for permissions.
-
-                if (role) {
-                    if (debug)
-                        console.log(
-                            "HEADER index.js :: route(",
-                            dest,
-                            ") :: Role is set :: ",
-                            role,
-                        );
-                    if (role === "guest") {
-                        window.location.href = "/portfolio";
-                    } else if (role === "admin") {
-                        if (debug)
-                            console.log(
-                                "HEADER index.js :: route(",
-                                dest,
-                                ") :: Role is admin, proceeding to admin panel!!!",
-                            );
-                        window.location.href = "/admin";
-                    } else {
-                        window.location.href = "/";
-                    }
-                } else {
-                    window.location.href = "/";
-                }
-                /// window.location.href = "/admin";
-            }
-            /// window.location.href = "/";
-        } else {
-            window.location.href = "/";
-        }
-    };
-
-    const checkauth = async (requiredRoles = []) => {
-        // Get the session token from the stored token, if there is one. If there isn't one, automatically reject.
-        let token = localStorage.getItem("token");
-        if (debug) console.log("HEADER index.js :: auth :: token = ", token);
-        try {
-            const response = await API.get("/api/users/auth/user", {
-                headers: {
-                    "x-auth-token": token,
-                    "Content-type": "application/json",
-                },
-            });
-
-            if (debug)
-                console.log("Admin index.js :: auth :: response = ", response);
-            if (response.data.success) {
-                // Successfully authenticated.
-                // Check the role of the user. If guest, return to /portfolio. If admin, send to /admin.
-                let auth = deepGetKey(response.data, "auth");
-                let role = deepGetKey(response.data, "role");
-                if (debug)
-                    console.log(
-                        "HEADER index.js :: auth :: auth = ",
-                        auth,
-                        " :: role = ",
-                        role,
-                    );
-                if (requiredRoles.includes(role)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                // Failed to log in. Return to homepage.
-                // window.location.href = "/";
-                if (debug)
-                    console.log(
-                        "Auth requiredRoles = ",
-                        requiredRoles,
-                        " :: response.data.message = ",
-                        response.data.message,
-                    );
-                return false;
-            }
-        } catch (error) {
-            if (debug)
-                console.log(
-                    "Auth requiredRoles = ",
-                    requiredRoles,
-                    " :: error.message = ",
-                    error.message,
-                );
-            return false;
-        }
-    };
-
-    // useEffect(() => {
-    //     // setShowDropdown(false);
-    //     console.log("HEADER :: showDropdown.current", showDropdown.current);
-    // }, [showDropdown.current]);
-
-    // useEffect(() => {
-    //     // setShowDropdown(false);
-    //     console.log("HEADER :: window.innerWidth = ", window.innerWidth,);
-    // }, [window.innerWidth]);
-
-    const handleDropdown = (event) => {
-        // setShowDropdown(!showDropdown);
-        if (showDropdown === false) {
-            setShowDropdown(true);
-        } else if (showDropdown === true) {
-            setShowDropdown(false);
-        }
-        // if (showDropdown.current) {
-        //     showDropdown.current = false;
-        // } else {
-        //     showDropdown.current = true;
-        // }
-        // showDropdown.current = !showDropdown.current;
-    };
-
-    const headerNav = (show) => {
+			"HEADER.JS :: headerNav :: show = ",
+			show,
+			" :: tokenValid = ",
+			tokenValid,
+			" :: userData = ",
+			userData,
+			" :: userRole = ",
+			userRole,
+			" :: userToken = ",
+			userToken,
+		);
         return (
-            <ul className="nav-button-row text-base text-gray-700 md:flex md:justify-between p-0 whitespace-nowrap">
-                <li>
-                    <button className="nav-button" onClick={handleDownload}>
-                        <div className="nav-button-text">
-                            Developer Resume (PDF)
-                        </div>
-                        <i className="nav-button-icon icon">
-                            <FaCloudDownloadAlt />
-                        </i>
-                    </button>
-                </li>
-                <li>
-                    <button className="nav-button" onClick={handleDownload}>
-                        <div className="nav-button-text">
-                            Engineering Resume (PDF)
-                        </div>
-                        <i className="nav-button-icon icon">
-                            <FaCloudDownloadAlt />
-                        </i>
-                    </button>
-                </li>
-                <li>
-                    <button className="nav-button" onClick={loginOnClick}>
-                        <div className="nav-button-text">
-                            {localStorage.getItem("token") == null
-                                ? "Log In"
-                                : "Log Out"}
-                        </div>
-                        <i className="nav-button-icon user-icon">
-                            <FaCloudDownloadAlt />
-                        </i>
-                    </button>
-                </li>
-            </ul>
-        );
+			<ul className="nav-list flex justify-between whitespace-nowrap h-full">
+				<li className="nav-list-item h-full">
+					<Link
+						className="nav-button"
+						to={`${window.location.href.includes("/portfolio") ? (["admin", "superadmin"].includes(userRole) ? "/admin" : "/") : "/portfolio"}`}>
+						<Button
+							classes="nav-button"
+							label={
+								<div className="nav-button-text">
+									{
+										window.location.href.includes("/portfolio") ? (["admin", "superadmin"].includes(userRole) ? "Admin" : "Home") : "Portfolio"
+										// localStorage.getItem( "token" ) ? "Admin" : "Portfolio" )
+									}
+								</div>
+							}
+							icon={<FaThList className="nav-button-icon icon" />}
+							onClick={(event) => {
+								/// route("/admin");
+							}}></Button>
+					</Link>
+				</li>
+				<li className="nav-list-item h-full">
+					<Button.Dropdown
+						// open={showDropdown}
+						// setOpen={handleDropdown}
+						label={<FaCloudDownloadAlt className="nav-button-icon icon" />}>
+						<Button
+							label={<div className="nav-button-text">Developer Resume (PDF)</div>}
+							icon={<FaCloudDownloadAlt className="nav-button-icon icon" />}
+							classes="nav-button"
+							onClick={(event) => {
+								handleDownload(event, 1);
+							}}></Button>
+						<Button
+							label={<div className="nav-button-text">Engineering Resume (PDF)</div>}
+							icon={<FaCloudDownloadAlt className="nav-button-icon icon" />}
+							classes="nav-button"
+							onClick={(event) => {
+								handleDownload(event, 2);
+							}}></Button>
+					</Button.Dropdown>
+				</li>
+				<li className="nav-list-item h-full">
+					<Button
+						label={<div className="nav-button-text">{tokenValid ? "Log Out" : "Log In"}</div>}
+						icon={<i className="nav-button-icon icon">{tokenValid ? <FaUserTimes className={`nav-icon`} /> : <FaUser className={`nav-icon`} />}</i>}
+						classes="nav-button"
+						onClick={(event) => {
+							loginOnClick();
+						}}></Button>
+				</li>
+			</ul>
+		);
     };
 
     return (
@@ -371,16 +211,22 @@ function Header(props) {
                 }`}>
                 <div className="page-header-logo-container">
                     <div className="page-header-icon-container">
-                        <img
-                            className="page-header-icon"
-                            src={
-                                process.env.PUBLIC_URL +
-                                "/assets/img/portfolio_icon.jpg"
-                            }
-                            alt="User Icon"
-                            onClick={(event) => {
-                                iconOnClick();
-                            }}></img>
+                        <Link
+                            to={`${
+                                window.location.href.includes("/portfolio")
+                                    ? (user ? (utils.ao.has(user, "role") ? ["admin", "superadmin"].includes(user.role) : "/admin") : "/")
+                                        ? "/admin"
+                                        : "/"
+                                    : "/portfolio"
+                            }`}>
+                            <img
+                                className="page-header-icon"
+                                src={process.env.PUBLIC_URL + "/assets/img/portfolio_icon.jpg"}
+                                alt="User Icon"
+                                onClick={(event) => {
+                                    // iconOnClick();
+                                }}></img>
+                        </Link>
                     </div>
                     <div className="page-header-title-container">
                         <div className="page-header-title">
@@ -401,10 +247,10 @@ function Header(props) {
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
-                            onClick={handleDropdown}
+                            onClick={(e)=>{setShowDropdown(showDropdown === true ? false : true);}}
                             // onClick={onHover(true)}
-                            // </div>onMouseOver={onHover(true)}
-                            // </div>onMouseOut={onHover(false)}
+                            // onMouseOver={onHover(true)}
+                            // onMouseOut={onHover(false)}
                         >
                             <path
                                 strokeLinecap="round"
@@ -428,68 +274,7 @@ function Header(props) {
                 }`}>
                 {
                     // width > 768 && headerNav( true )
-                    <ul className="nav-list flex justify-between whitespace-nowrap h-full">
-                        <li className="nav-list-item h-full">
-                            <button
-                                className="nav-button"
-                                onClick={(event) => {
-                                    route("/admin");
-                                }}>
-                                <i className="nav-button-icon icon">
-                                    <FaThList />
-                                </i>
-                                <div className="nav-button-text">Admin</div>
-                            </button>
-                        </li>
-                        <li className="nav-list-item h-full">
-                            <button
-                                className="nav-button"
-                                onClick={(event) => {
-                                    handleDownload(event, 1);
-                                }}>
-                                <i className="nav-button-icon icon">
-                                    <FaCloudDownloadAlt />
-                                </i>
-                                <div className="nav-button-text">
-                                    Developer Resume (PDF)
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-list-item h-full">
-                            <button
-                                className="nav-button"
-                                onClick={(event) => {
-                                    handleDownload(event, 2);
-                                }}>
-                                <i className="nav-button-icon icon">
-                                    <FaCloudDownloadAlt />
-                                </i>
-                                <div className="nav-button-text">
-                                    Engineering Resume (PDF)
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-list-item h-full">
-                            <button
-                                className="nav-button"
-                                onClick={(event) => {
-                                    loginOnClick();
-                                }}>
-                                <i className="nav-button-icon icon">
-                                    {localStorage.getItem("token") == null ? (
-                                        <FaUser />
-                                    ) : (
-                                        <FaUserTimes />
-                                    )}
-                                </i>
-                                <div className="nav-button-text">
-                                    {localStorage.getItem("token") == null
-                                        ? "Log In"
-                                        : "Log Out"}
-                                </div>
-                            </button>
-                        </li>
-                    </ul>
+                    headerNav(true)
                 }
             </div>
         </div>
@@ -497,10 +282,168 @@ function Header(props) {
 }
 
 export default Header;
+/*  const iconOnClick = () => {
+        let currentPath = window.location.href;
+        let loggedIn = localStorage.getItem("token");
+        if (debug) console.log("Currently logged in? = ", loggedIn, " :: currentPath = ", currentPath);
 
-/*
+        if (loggedIn) {
+            // Currently logged in. Send to admin dashboard page.
+            // if ( currentPath === '/admin' )
+            if (currentPath.includes("/admin")) {
+                // Currently in admin directory.
+                window.location.href = "/";
+            } else if (currentPath.includes("/") || currentPath.includes("/portfolio")) {
+                // Currently in the main site.
+                // if (currentPath === '/' || currentPath === '/portfolio')
+                window.location.href = "/admin";
+            }
+        } else {
+            // Not logged in. Send to login page.
+            // / window.location.href = "/login";
+            window.location.href = currentPath.includes("/portfolio") ? (window.location.href = "/") : (window.location.href = "/portfolio");
+        }
+    };
 
-            <div
+    const handleDropdown = (event) => {
+        setShowDropdown(showDropdown === true ? false : true);
+    };
+*/ 
+
+/*  // Kind of a temporary function; provide a destination and current location and this will check it against the user's permissions to see if they can go there. If not, it will route to a public location like the landing page or portfolio site.
+    const route = (dest) => {
+        let src = window.location.href;
+        let token = localStorage.getItem("token");
+        if (debug) console.log("HEADER index.js :: route(", dest, ") :: src = ", src, ", token = ", token, ", role = ", role, ", userdata = ", user);
+        if (dest === "/") {
+            // Public page, send them on their way.
+            window.location.href = "/";
+        } else if (dest === "/portfolio") {
+            // Public page, send them on their way.
+            window.location.href = "/portfolio";
+        } else if (dest === "/admin") {
+            if (debug)
+                console.log(
+                    "HEADER index.js :: route(",
+                    dest,
+                    ") :: Trying to go to admin. Checking auth. :: src = ",
+                    src,
+                    ", token = ",
+                    token,
+                    ", role = ",
+                    role,
+                    ", userdata = ",
+                    user,
+                );
+            if (token) {
+                // We are logged in. Check for permissions.
+
+                if (role) {
+                    if (debug) console.log("HEADER index.js :: route(", dest, ") :: Role is set :: ", role);
+                    if (role === "guest") {
+                        window.location.href = "/portfolio";
+                    } else if (role === "admin") {
+                        if (debug) console.log("HEADER index.js :: route(", dest, ") :: Role is admin, proceeding to admin panel!!!");
+                        window.location.href = "/admin";
+                    } else {
+                        window.location.href = "/";
+                    }
+                } else {
+                    window.location.href = "/";
+                }
+                /// window.location.href = "/admin";
+            }
+            /// window.location.href = "/";
+        } else {
+            window.location.href = "/";
+        }
+    };
+
+    const checkauth = async (requiredRoles = []) => {
+        // Get the session token from the stored token, if there is one. If there isn't one, automatically reject.
+        let token = localStorage.getItem("token");
+        if (debug) console.log("HEADER index.js :: auth :: token = ", token);
+        try {
+            const response = await API.get("/api/users/auth/user", {
+                headers: {
+                    "x-auth-token": token,
+                    "Content-type": "application/json",
+                },
+            });
+
+            if (debug) console.log("Admin index.js :: auth :: response = ", response);
+            if (response.data.success) {
+                // Successfully authenticated.
+                // Check the role of the user. If guest, return to /portfolio. If admin, send to /admin.
+                let auth = utils.ao.deepGetKey(response.data, "auth");
+                let role = utils.ao.deepGetKey(response.data, "role");
+                if (debug) console.log("HEADER index.js :: auth :: auth = ", auth, " :: role = ", role);
+                if (requiredRoles.includes(role)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                // Failed to log in. Return to homepage.
+                // window.location.href = "/";
+                if (debug) console.log("Auth requiredRoles = ", requiredRoles, " :: response.data.message = ", response.data.message);
+                return false;
+            }
+        } catch (error) {
+            if (debug) console.log("Auth requiredRoles = ", requiredRoles, " :: error.message = ", error.message);
+            return false;
+        }
+    };
+
+    const authroute = (dest) => {
+        let src = window.location.href;
+        let token = localStorage.getItem("token");
+        console.log("HEADER index.js :: route(", dest, ") :: src = ", src, ", token = ", token, ", role = ", role, ", userdata = ", user);
+        if (dest === "/") {
+            // Public page, send them on their way.
+            return "/";
+        } else if (dest === "/portfolio") {
+            // Public page, send them on their way.
+            return "/portfolio";
+        } else if (dest === "/admin") {
+            console.log(
+                "HEADER index.js :: route(",
+                dest,
+                ") :: Trying to go to admin. Checking auth. :: src = ",
+                src,
+                ", token = ",
+                token,
+                ", role = ",
+                role,
+                ", userdata = ",
+                user,
+            );
+            if (token) {
+                // We are logged in. Check for permissions.
+
+                if (role) {
+                    console.log("HEADER index.js :: route(", dest, ") :: Role is set :: ", role);
+                    if (role === "guest") {
+                        return "/portfolio";
+                    } else if (role === "admin") {
+                        console.log("HEADER index.js :: route(", dest, ") :: Role is admin, proceeding to admin panel!!!");
+                        return "/admin";
+                    } else {
+                        return "/";
+                    }
+                } else {
+                    return "/";
+                }
+                /// window.location.href = "/admin";
+            }
+            /// window.location.href = "/";
+        } else {
+            return "/";
+        }
+    };
+*/ 
+
+/*          <div
                 className={`page-header-center ${
                     width < 768 ? "" : "hidden w-0"
                 }`}>

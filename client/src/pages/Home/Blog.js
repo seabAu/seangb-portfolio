@@ -1,16 +1,27 @@
 // This will eventually house blog posts populated by data stored in the database, but for now, it's a testing ground for Section and CardGrid components.
 
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+
+// Redux state management
+import { useDispatch, useSelector } from "react-redux";
+import {
+    SetDebug,
+    SetLoading,
+    SetPortfolioData,
+    SetAppsData,
+    SetBlogData,
+    ReloadData,
+} from "../../redux/rootSlice";
+import API from "../../api/api.js";
+
+// Components
+import Loader from "../../components/Loader/Loader";
+
+
 import Section from "../../components/Section";
-import SectionContent from "../../components/Section/SectionContent";
-import SectionImage from "../../components/Section/SectionImage";
-import SectionPane from "../../components/Section/SectionPane";
-import SectionText from "../../components/Section/SectionText";
-import SectionTitle from "../../components/Section/SectionTitle";
-import SectionCollection from "../../components/Section/SectionCollection";
-import CellList from "../../components/Cell/CellList";
-import * as utils from "../../components/Utilities/index.js";
+import * as utils from "../../utilities/index.js";
+import Post from "../../components/Posts/index.js";
+import Posts from "../../components/Posts/Posts";
 
 /*  // Sample blog post layout:
     <Blog>
@@ -81,9 +92,51 @@ import * as utils from "../../components/Utilities/index.js";
 */
 
 function Blog() {
-    const { portfolioData } = useSelector((state) => state.root);
+    const dispatch = useDispatch();
+    const {
+        debug,
+        loading,
+        portfolioData,
+        blogData,
+        reloadData,
+        loggedIn,
+        // token,
+        // role,
+        user,
+    } = useSelector((state) => state.root);
 
-    const { about, projects } = portfolioData;
+    const getPosts = async () => {
+        try {
+            dispatch(SetLoading(true));
+            dispatch(ReloadData(false));
+            const response = await API.get(`/api/blog/posts`)
+                .then((res) => {
+                    if (debug)
+                        console.log("Blog.js :: getPosts :: res = ", res);
+                    dispatch(SetBlogData(res.data));
+
+                    // Set reloadData flag false.
+                    dispatch(ReloadData(false));
+                })
+                .catch((err) => {
+                    if (debug) console.error(err);
+
+                    // Set reloadData flag false. Again. JUST IN CASE. This causes infinite loops very easily.
+                    dispatch(ReloadData(false));
+                });
+
+            // console.log( response.data );
+            dispatch(SetBlogData(response.data));
+            // Set reloadData flag false.
+            /// dispatch(ReloadData(false));
+            dispatch(SetLoading(false));
+        } catch (error) {
+            dispatch(SetLoading(false));
+        }
+    };
+
+    const { posts, about, projects } = portfolioData;
+    // const { posts } = blogData;
     const {
         _id,
         firstName,
@@ -104,23 +157,31 @@ function Blog() {
     const [skillsList, setSkillsList] = useState([]);
     const [skillCategories, setSkillCategories] = useState([]);
     const [skillCategoryFilter, setSkillCategoryFilter] = useState([]);
-    const debug = false;
-    /*  // Each skill has a structure like: 
-        {
-            "_id": "640d9f030e3b63c5c6959316",
-            "index": 0,
-            "showIndex": 0,
-            "enabled": true,
-            "name": "HTML5",
-            "category": "Web Development",
-            "tags": [
-                "Front End Development"
-            ],
-            "proficiency": 7,
-            "years": 6
-        }
-    */
-    // Hooks for skills cell list.
+    // Tracking the window size.
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+    const [postsData, setPostsData] = useState();
+    const [numPerPage, setNumPerPage] = useState(10);
+    const [postIndex, setPostIndex] = useState(-1);
+    const updateDimensions = () => {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+    };
+    useEffect(() => {
+        // On initial mount, fetch posts.
+        let postsTemp = getPosts();
+        console.log("Blog.js :: postsTemp: ", postsTemp);
+    }, []);
+
+    useEffect(() => {
+        console.log("Blog.js :: blogData: ", blogData);
+    }, [blogData]);
+
+    useEffect(() => {
+        window.addEventListener("resize", updateDimensions);
+        return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
+
     useEffect(() => {
         // On load, get all skills listed, for the filters. Doing it other ways results in an infinite loop??
         if (utils.val.isValidArray(skills)) {
@@ -148,371 +209,95 @@ function Blog() {
         }
     }, []);
 
-    const getDataList = (data, key = "") => {
-        let list = [];
-        if (utils.val.isValidArray(data, true)) {
-            projects.forEach((item, index) => {
-                if (utils.val.isObject(item)) {
-                    let val = utils.ao.deepGetKey(item, key);
-                    if (val && val !== "") {
-                        list.push(val);
-                    }
-                }
-            });
-        }
-        return list;
+    const fetchPromise = (call, fetchOptions = {}) => {
+        console.log("fetchPromise = ", call);
+        return new Promise((resolve, reject) => {
+            fetch(call, fetchOptions)
+                .then((response) => response.json())
+                .then((data) => resolve(data))
+                .catch((error) => reject(error));
+        });
+        // return handleBasicFetch(call);
     };
 
-    // Fetches specific keys from an object array.
-    const extractDataList = (data, keys = []) => {
-        let list = [];
-        if (utils.val.isValidArray(data, true)) {
-            // Run for each element in the array.
-            data.forEach((item, index) => {
-                if (utils.val.isObject(item)) {
-                    // Run for each key given.
-                    let res = {};
-                    let skip = false;
-                    keys.forEach((key, i) => {
-                        let val = utils.ao.deepGetKey(item, key);
-                        if (val && val !== "" && val !== "''") {
-                            // && !isBlank(val)) {
-                            res[key] = val;
-                        } else {
-                            skip = true;
-                        }
-                    });
-                    if (!skip) {
-                        list.push(res);
-                    }
-                    skip = false; // Reset skip temp value.
-                }
-            });
-        }
-        if(debug)console.log(
-            "extractDataList :: data = ",
-            data,
-            " :: keys = ",
-            keys,
-            " :: list results = ",
-            list,
-        );
-        return list;
-    };
-
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
-    const updateDimensions = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-    };
     useEffect(() => {
-        window.addEventListener("resize", updateDimensions);
-        return () => window.removeEventListener("resize", updateDimensions);
+        if (!posts && !utils.val.isValidArray(postsData, true)) {
+            let call = `https://jsonplaceholder.typicode.com/posts${
+                postIndex > -1 ? `/${postIndex}` : ""
+            }`;
+            let postList = [];
+            try {
+                Promise.resolve(fetchPromise(call))
+                    .then((data) => {
+                        postList = data;
+                        console.log("posts = ", data);
+                        if (utils.val.isValidArray(data, true)) {
+                            setPostsData(data);
+                        }
+                    })
+                    .then((data) => (postList = data))
+                    .catch((error) =>
+                        console.log(
+                            "Blog :: getting posts onload :: Allsettled error: ",
+                            error,
+                        ),
+                    );
+                // .then(() => setIsLoading(false));
+            } catch (error) {
+                console.log("error: ", error);
+            }
+            if (utils.val.isValidArray(postList, true)) {
+                setPostsData(postList);
+            }
+        }
     }, []);
 
+    let defaultPost = {
+        // Post content
+        author: "",
+        title: "",
+        imageUrl: "",
+        content: "",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: [],
+        // Post categorization
+        topic: "",
+        categories: [],
+        tags: [],
+        // Post Interactions
+        views: 0,
+        comments: [],
+        likes: 0,
+        dislikes: 0,
+    };
+
     return (
-        <>
-            <Section
-                showSection={true}
-                showChildren={true}
-                responsive={true}
-                responsiveBreakpoints={768}
-                // Style settings
-                flexDirection={"row"}
-                fillArea={true}
-                height={"100%"}
-                minHeight={"auto"}
-                maxHeight={"100%"}
-                width={"100%"}
-                minWidth={"auto"}
-                maxWidth={"100%"}
-                padding={"0.25rem 1.0rem"}
-                margin={"0.0rem"}
-                border={"none"}
-                borderRadius={"0%"}
-                boxShadowEnabled={false}
-                styles={{}}>
-                <SectionTitle title="Blog" scale={`3`}></SectionTitle>
-                <SectionContent
-                    type={"default"}
-                    responsive={true}
-                    responsiveBreakpoints={768}
-                    styles={{}}>
-                    <SectionPane
-                        key={`section-pane-${"img-container"}`}
-                        type={"default"}
-                        responsive={true}
-                        responsiveBreakpoints={768}
-                        // Style settings
-                        // flexDirection={"column"}
-                        // alignContent={"center"}
-                        // justifyContent={"flex-start"}
-                        height={"100%"}
-                        // minHeight={"auto"}
-                        // maxHeight={"100%"}
-                        width={"auto"}
-                        // minWidth={"auto"}
-                        // maxWidth={"100%"}
-                        padding={"0.25rem 1.0rem"}
-                        margin={"0.0rem"}
-                        border={"none"}
-                        borderRadius={"0%"}
-                        boxShadowEnabled={false}
-                        overflowX={`hidden`}
-                        overflowY={`hidden`}
-                        styles={
-                            {
-                                // border: `1px solid white`,
-                            }
-                        }>
-                        <SectionImage
-                            content={getDataList(projects, "image")}
-                            type={"slideshow"}
-                            key={`section-img-${""}`}
-                            classes={`section-img-collection ${""}`}
-                            containerStyles={{
-                                height: `${"min-content"}`,
-                                // minHeight: `${"100%"}`,
-                                minHeight: `${"100%"}`,
-                                width: `${"auto"}`,
-                                minWidth: `${"min-content"}`,
-                                // verticalAlign: `top`,
-                                // height: `100%`,
-                                // width: `100%`,
-                                // position: `relative`,
-                                // overflowX: `auto`,
-                            }}
-                            elementStyles={
-                                {
-                                    // border: `1px solid green`,
-                                }
-                            }></SectionImage>
-                    </SectionPane>
-                    <SectionPane
-                        type={"default"}
-                        responsive={true}
-                        responsiveBreakpoints={768}
-                        // Style settings
-                        // flexDirection={"column"}
-                        // alignContent={"center"}
-                        // justifyContent={"flex-start"}
-                        height={"100%"}
-                        // minHeight={"auto"}
-                        // maxHeight={"100%"}
-                        width={"auto"}
-                        // minWidth={"auto"}
-                        // maxWidth={"100%"}
-                        padding={"0.25rem 1.0rem"}
-                        margin={"0.0rem"}
-                        border={"none"}
-                        borderRadius={"0%"}
-                        boxShadowEnabled={false}
-                        overflowX={`auto`}
-                        overflowY={`auto`}
-                        styles={
-                            {
-                                // border: `1px solid white`,
-                            }
-                        }>
-                        {utils.val.isValidArray(about.description)
-                            ? about.description.map((section, index) => {
-                                  return (
-                                      <SectionText
-                                          key={`section-text-${index}`}
-                                          classes={`section-text ${
-                                              [
-                                                  "text-highlightColor",
-                                                  "text-highlightColor2",
-                                                  "text-white",
-                                              ][index % 3]
-                                          }`}
-                                          styles={
-                                              {
-                                                  // border: `1px solid green`,
-                                              }
-                                          }>
-                                          {section}
-                                      </SectionText>
-                                  );
-                              })
-                            : ""}
-                    </SectionPane>
-                </SectionContent>
-            </Section>
-            <Section
-                showSection={true}
-                showChildren={true}
-                responsive={true}
-                responsiveBreakpoints={768}
-                // Style settings
-                flexDirection={"row"}
-                fillArea={true}
-                height={"100%"}
-                width={"100%"}
-                padding={"0.0rem"}
-                margin={"0.0rem"}
-                border={"none"}
-                borderRadius={"0%"}
-                boxShadowEnabled={true}
-                styles={{}}>
-                <SectionTitle
-                    title="Blog Posts"
-                    scale={`3`}></SectionTitle>
-                <SectionContent
-                    type={"default"}
-                    responsive={true}
-                    responsiveBreakpoints={768}
-                    styles={{}}>
-                    <SectionPane
-                        key={`section-pane-${"collection-container"}`}
-                        type={"default"}
-                        responsive={true}
-                        responsiveBreakpoints={768}
-                        // Style settings
-                        // flexDirection={"column"}
-                        // alignContent={"center"}
-                        // justifyContent={"flex-start"}
-                        height={"100%"}
-                        // minHeight={"auto"}
-                        // maxHeight={"100%"}
-                        width={"100%"}
-                        // minWidth={"auto"}
-                        // maxWidth={"100%"}
-                        padding={"0.0rem"}
-                        margin={"0.0rem"}
-                        border={"none"}
-                        borderRadius={"0%"}
-                        boxShadowEnabled={false}
-                        styles={{}}>
-                        <SectionCollection
-                            content={extractDataList(projects, [
-                                "image",
-                                "link",
-                            ])}
-                            datakeys={["image", "link"]}
-                            data={projects}
-                            type={`slideshow`}
-                            key={`section-img-collection-mosaic`}
-                            classes={`section-img-collection-mosaic`}
-                            styles={{
-                                border: `1px solid green`,
-                            }}></SectionCollection>
-                    </SectionPane>
-                </SectionContent>
-            </Section>
-            <Section
-                showSection={true}
-                showChildren={true}
-                responsive={true}
-                responsiveBreakpoints={768}
-                // Style settings
-                flexDirection={"row"}
-                fillArea={true}
-                height={"100%"}
-                width={"100%"}
-                padding={"0.25rem 1.0rem"}
-                margin={"0.0rem"}
-                border={"none"}
-                borderRadius={"0%"}
-                boxShadowEnabled={false}
-                styles={{}}>
-                <SectionContent
-                    type={"default"}
-                    responsive={true}
-                    responsiveBreakpoints={768}
-                    styles={{}}>
-                    <SectionPane
-                        key={`section-pane-${"cell-list-container"}`}
-                        type={"default"}
-                        responsive={true}
-                        responsiveBreakpoints={768}
-                        // Style settings
-                        // flexDirection={"column"}
-                        // alignContent={"center"}
-                        // justifyContent={"flex-start"}
-                        height={"100%"}
-                        // minHeight={"auto"}
-                        // maxHeight={"100%"}
-                        width={"100%"}
-                        // minWidth={"auto"}
-                        // maxWidth={"100%"}
-                        padding={"0.25rem 1.0rem"}
-                        margin={"0.0rem"}
-                        border={"none"}
-                        borderRadius={"0%"}
-                        boxShadowEnabled={false}
-                        styles={{}}>
-                        <CellList
-                            dataLabel={
-                                "Here are a few of my skills and the technologies i've been working with:"
-                            }
-                            dataLabelSize={"1"}
-                            dataList={skillsList}
-                            dataDisplayKey={"name"}
-                            hoverPopupEnabled={false}
-                            progressDisplayEnabled={true}
-                            progressDisplayKey={"proficiency"}
-                            filterOptionsList={skillCategories}
-                            filterActiveList={skillCategoryFilter}
-                            filteringEnabled={true}
-                            dataFilterKey={"category"}
-                            dataFilterFunction={setSkillCategoryFilter}
-                        />
-                    </SectionPane>
-                </SectionContent>
-            </Section>
-        </>
+        <Section>
+          <Section.Text
+              type="title"
+              content="Blog"
+              scale={`3xl`}
+              separator={true}
+          />
+            {
+                // posts && utils.val.isValidArray( posts, true ) && buildPosts()
+                blogData && utils.val.isValidArray(blogData.posts, true) && (
+                    <Posts
+                        layout={`flex`}
+                        dataModel={defaultPost}
+                        data={blogData.posts}
+                        // rowHeight={`300px`}
+                        // colWidth={`400px`}
+                        activeFocusIndex={-1}
+                        gap={`0.5rem`}
+                        margin={`0.0rem`}
+                        padding={`0.0rem`}></Posts>
+                )
+            }
+        </Section>
     );
-};
+}
 export default Blog;
-
-/*
-
-*/ 
-
-/*
-            <SectionTitle title="Blog"></SectionTitle>
-            <SectionContent>
-                {utils.val.isValidArray(about.description)
-                    ? about.description.map((section, index) => {
-                          return (
-                              <div
-                                  className={`section-text-container`}
-                                  key={`about-section-description-${index}`}>
-                                  <h1
-                                      className={`section-text ${
-                                          [
-                                              "text-highlightColor",
-                                              "text-highlightColor2",
-                                              "text-white",
-                                          ][index % 3]
-                                      }`}>
-                                      {section}
-                                  </h1>
-                              </div>
-                          );
-                      })
-                    : ""}
-            </SectionContent>
-            <div className="flex-set">
-                <div className="flex-col-shrink"></div>
-                <div className="flex-col-shrink"></div>
-            </div>
-            <CellList
-                dataLabel={
-                    "Here are a few of my skills and the technologies i've been working with:"
-                }
-                dataLabelSize={"1"}
-                dataList={skillsList}
-                dataDisplayKey={"name"}
-                hoverPopupEnabled={false}
-                progressDisplayEnabled={true}
-                progressDisplayKey={"proficiency"}
-                filterOptionsList={skillCategories}
-                filterActiveList={skillCategoryFilter}
-                filteringEnabled={true}
-                dataFilterKey={"category"}
-                dataFilterFunction={setSkillCategoryFilter}
-            />
-*/

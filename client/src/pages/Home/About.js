@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Section from "../../components/Section";
-import SectionContent from "../../components/Section/SectionContent";
-import SectionImage from "../../components/Section/SectionImage";
-import SectionPane from "../../components/Section/SectionPane";
-import SectionText from "../../components/Section/SectionText";
-import SectionTitle from "../../components/Section/SectionTitle";
-import SectionCollection from "../../components/Section/SectionCollection";
-import CellList from "../../components/Cell/CellList";
-import * as utils from "../../components/Utilities/index.js";
+import * as utils from "../../utilities/index.js";
+import Tags from "../../components/Tags";
 
 function About() {
     const { portfolioData } = useSelector((state) => state.root);
@@ -35,106 +29,54 @@ function About() {
     const [skillCategories, setSkillCategories] = useState([]);
     const [skillCategoryFilter, setSkillCategoryFilter] = useState([]);
 
-    /*  // Each skill has a structure like: 
-        {
-            "_id": "640d9f030e3b63c5c6959316",
-            "index": 0,
-            "showIndex": 0,
-            "enabled": true,
-            "name": "HTML5",
-            "category": "Web Development",
-            "tags": [
-                "Front End Development"
-            ],
-            "proficiency": 7,
-            "years": 6
-        }
-    */
     // Hooks for skills cell list.
     useEffect(() => {
-        // On load, get all skills listed, for the filters. Doing it other ways results in an infinite loop??
-        if (utils.val.isValidArray(skills)) {
-            // Case of being given all projects.
-            let s = [];
-            let names = [];
-            let categories = [];
-            skills.forEach((skill) => {
-                if (utils.ao.has(skill, "name")) {
-                    if (!names.includes(skill.name)) {
-                        if (!categories.includes(skill.category)) {
-                            categories.push(skill.category);
-                        }
-                        names.push(skill.name);
-                        s.push(skill);
-                    }
-                }
-            });
-            if (s) {
-                setSkillsList(s);
+		// On load, get all skills listed, for the filters. Doing it other ways results in an infinite loop due to useEffect's quirks on state change.
+		/*  // Each skill has a structure like: 
+            {
+                "_id": "640d9f030e3b63c5c6959316",
+                "index": 0,
+                "showIndex": 0,
+                "enabled": true,
+                "name": "HTML5",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development"
+                ],
+                "proficiency": 7,
+                "years": 6
             }
-            if (categories) {
-                setSkillCategories(categories);
-            }
-        }
-    }, []);
+        */
+		if (utils.val.isValidArray(skills)) {
+			// Case of being given all projects.
+			let s = [];
+			let names = [];
+			let categories = [];
+			skills.forEach((skill) => {
+				if (utils.ao.has(skill, "name")) {
+					if (!names.includes(skill.name)) {
+						if (!categories.includes(skill.category)) {
+							categories.push(skill.category);
+						}
+						names.push(skill.name);
+						s.push(skill);
+					}
+				}
+			});
+			if (s) {
+				setSkillsList(s);
+			}
+			if (categories) {
+				setSkillCategories(categories);
+			}
+		}
+	}, []);
 
-    const getDataList = (data, key = "") => {
-        let list = [];
-        if (utils.val.isValidArray(data, true)) {
-            projects.forEach((item, index) => {
-                if (utils.val.isObject(item)) {
-                    let val = utils.ao.deepGetKey(item, key);
-                    if (val && val !== "") {
-                        list.push(val);
-                    }
-                }
-            });
-        }
-        return list;
-    };
-
-    // Fetches specific keys from an object array.
-    const extractDataList = (data, keys = []) => {
-        let list = [];
-        if (utils.val.isValidArray(data, true)) {
-            // Run for each element in the array.
-            data.forEach((item, index) => {
-                if (utils.val.isObject(item)) {
-                    // Run for each key given.
-                    let res = {};
-                    let skip = false;
-                    keys.forEach((key, i) => {
-                        let val = utils.ao.deepGetKey(item, key);
-                        if (val && val !== "" && val !== "''") {
-                            // && !isBlank(val)) {
-                            res[key] = val;
-                        } else {
-                            skip = true;
-                        }
-                    });
-                    if (!skip) {
-                        list.push(res);
-                    }
-                    skip = false; // Reset skip temp value.
-                }
-            });
-        }
-        // console.log(
-        //     "extractDataList :: data = ",
-        //     data,
-        //     " :: keys = ",
-        //     keys,
-        //     " :: list results = ",
-        //     list,
-        // );
-        return list;
-    };
-
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const updateDimensions = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
+        setScreenWidth(window.innerWidth);
+        setScreenHeight(window.innerHeight);
     };
     useEffect(() => {
         window.addEventListener("resize", updateDimensions);
@@ -142,7 +84,7 @@ function About() {
     }, []);
 
     return (
-        <>
+        <Section>
             <Section
                 showSection={true}
                 showChildren={true}
@@ -152,7 +94,7 @@ function About() {
                 display={'block'}
                 flexDirection={"row"}
                 fillArea={true}
-                height={"100%"}
+                height={"fit-content"}
                 minHeight={"auto"}
                 maxHeight={"100%"}
                 width={"100%"}
@@ -164,13 +106,13 @@ function About() {
                 borderRadius={"0%"}
                 boxShadowEnabled={false}
                 styles={{}}>
-                <SectionTitle title="About Me" scale={`3`}></SectionTitle>
-                <SectionContent
+                <Section.Text type="title" content="About Me" scale={`3xl`} separator={true} />
+                <Section.Content
                     type={"default"}
                     responsive={true}
                     responsiveBreakpoints={768}
                     styles={{}}>
-                    <SectionPane
+                    <Section.Pane
                         key={`section-pane-${"collection-container"}`}
                         type={"default"}
                         responsive={true}
@@ -191,8 +133,8 @@ function About() {
                         borderRadius={"0%"}
                         boxShadowEnabled={false}
                         styles={{}}>
-                        <SectionCollection
-                            content={extractDataList(projects, [
+                        <Section.Collection
+                            content={utils.ao.extractDataList(projects, [
                                 "image",
                                 "link",
                             ])}
@@ -206,9 +148,9 @@ function About() {
                             classes={`section-img-collection-mosaic`}
                             styles={{
                                 border: `1px solid green`,
-                            }}></SectionCollection>
-                    </SectionPane>
-                    <SectionPane
+                            }}></Section.Collection>
+                    </Section.Pane>
+                    <Section.Pane
                         type={"default"}
                         responsive={true}
                         responsiveBreakpoints={768}
@@ -235,29 +177,33 @@ function About() {
                             }
                         }>
                         {utils.val.isValidArray(about.description)
-                            ? about.description.map((section, index) => {
+                            ? about.description.map( ( section, index ) =>
+                            {
                                   return (
-                                      <SectionText
-                                          key={`section-text-${index}`}
-                                          classes={`section-text ${
+                                      <Section.Text
+                                          key={ `section-text-${ index }` }
+                                          type={"text"}
+                                          content={section}
+                                          color={`${
                                               [
                                                   "text-highlightColor",
                                                   "text-highlightColor2",
                                                   "text-white",
                                               ][index % 3]
-                                          }`}
+                                              }` }
+                                          scale={`sm`}
                                           styles={
                                               {
                                                   // border: `1px solid green`,
                                               }
                                           }>
-                                          {section}
-                                      </SectionText>
+                                          
+                                      </Section.Text>
                                   );
                               })
                             : ""}
-                    </SectionPane>
-                </SectionContent>
+                    </Section.Pane>
+                </Section.Content>
             </Section>
             <Section
                 showSection={true}
@@ -275,12 +221,12 @@ function About() {
                 borderRadius={"0%"}
                 boxShadowEnabled={false}
                 styles={{}}>
-                <SectionContent
+                <Section.Content
                     type={"default"}
                     responsive={true}
                     responsiveBreakpoints={768}
                     styles={{}}>
-                    <SectionPane
+                    <Section.Pane
                         key={`section-pane-${"cell-list-container"}`}
                         type={"default"}
                         responsive={true}
@@ -303,7 +249,7 @@ function About() {
                         overflowX={`unset`}
                         overflowY={`unset`}
                         styles={{}}>
-                        <CellList
+                        <Tags
                             dataLabel={
                                 "Here are a few of my skills and the technologies i've been working with:"
                             }
@@ -319,64 +265,64 @@ function About() {
                             dataFilterKey={"category"}
                             dataFilterFunction={setSkillCategoryFilter}
                         />
-                    </SectionPane>
-                </SectionContent>
+                    </Section.Pane>
+                </Section.Content>
             </Section>
-        </>
+        </Section>
     );
 }
 
 export default About;
 
 /* // Old iteration of the image slideshow:
-                    <SectionPane
-                        key={`section-pane-${"img-container"}`}
-                        type={"default"}
-                        responsive={true}
-                        responsiveBreakpoints={768}
-                        // Style settings
-                        // flexDirection={"column"}
-                        // alignContent={"center"}
-                        // justifyContent={"flex-start"}
-                        height={"100%"}
-                        // minHeight={"auto"}
-                        // maxHeight={"100%"}
-                        width={"auto"}
-                        // minWidth={"auto"}
-                        // maxWidth={"100%"}
-                        padding={"0.25rem 1.0rem"}
-                        margin={"0.0rem"}
-                        border={"none"}
-                        borderRadius={"0%"}
-                        boxShadowEnabled={false}
-                        overflowX={`hidden`}
-                        overflowY={`hidden`}
-                        styles={
-                            {
-                                // border: `1px solid white`,
-                            }
-                        }>
-                        <SectionImage
-                            content={getDataList(projects, "image")}
-                            type={"slideshow"}
-                            key={`section-img-${""}`}
-                            classes={`section-img-collection ${""}`}
-                            containerStyles={{
-                                height: `${"min-content"}`,
-                                // minHeight: `${"100%"}`,
-                                minHeight: `${"100%"}`,
-                                width: `${"auto"}`,
-                                minWidth: `${"min-content"}`,
-                                // verticalAlign: `top`,
-                                // height: `100%`,
-                                // width: `100%`,
-                                // position: `relative`,
-                                // overflowX: `auto`,
-                            }}
-                            elementStyles={
-                                {
-                                    // border: `1px solid green`,
-                                }
-                            }></SectionImage>
-                    </SectionPane>
+    <SectionPane
+        key={`section-pane-${"img-container"}`}
+        type={"default"}
+        responsive={true}
+        responsiveBreakpoints={768}
+        // Style settings
+        // flexDirection={"column"}
+        // alignContent={"center"}
+        // justifyContent={"flex-start"}
+        height={"100%"}
+        // minHeight={"auto"}
+        // maxHeight={"100%"}
+        width={"auto"}
+        // minWidth={"auto"}
+        // maxWidth={"100%"}
+        padding={"0.25rem 1.0rem"}
+        margin={"0.0rem"}
+        border={"none"}
+        borderRadius={"0%"}
+        boxShadowEnabled={false}
+        overflowX={`hidden`}
+        overflowY={`hidden`}
+        styles={
+            {
+                // border: `1px solid white`,
+            }
+        }>
+        <SectionImage
+            content={getDataList(projects, "image")}
+            type={"slideshow"}
+            key={`section-img-${""}`}
+            classes={`section-img-collection ${""}`}
+            containerStyles={{
+                height: `${"min-content"}`,
+                // minHeight: `${"100%"}`,
+                minHeight: `${"100%"}`,
+                width: `${"auto"}`,
+                minWidth: `${"min-content"}`,
+                // verticalAlign: `top`,
+                // height: `100%`,
+                // width: `100%`,
+                // position: `relative`,
+                // overflowX: `auto`,
+            }}
+            elementStyles={
+                {
+                    // border: `1px solid green`,
+                }
+            }></SectionImage>
+    </SectionPane>
 */ 

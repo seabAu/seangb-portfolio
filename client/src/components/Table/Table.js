@@ -6,9 +6,10 @@ import TablePagination from "./TablePagination";
 import TableFoot from "./TableFoot";
 // import Select from '../Form/Select';
 
-import * as util from "../Utilities/index.js";
+import * as utils from "../../utilities/index.js";
 import "./table.css";
 import Select from "../Form/Select";
+import Input from "../Form/Input";
 
 function Table(props) {
     // The tableData contains an array of objects. To construct the header, we use just the first object in the array and grab its keys' names.
@@ -16,22 +17,24 @@ function Table(props) {
         // isVisible,
         isFetching,
         isFilterable,
-        isSortable,
-        dataName,
+        isSortable = "true",
+        dataName = "",
         tableData,
         setShowSidePanel,
         setSidePanelID,
-        rowOnClick = ()=>{},
-        cellOnClick = ()=>{},
+        rowOnClick = () => {},
+        cellOnClick = () => {},
+        rowActions = [], // An array of buttons to add to each row
+        debug = false,
     } = props;
 
     const appendIndex = (data) => {
         // Simple routine to add an index key-value pair to each entry in the dataset.
-        return data.map((obj, index) => {
+        return utils.val.isValidArray(data, true) ? (data.map((obj, index) => {
             let proparray = Object.entries(obj);
             proparray.unshift(["index", index]);
             return Object.fromEntries(proparray);
-        });
+        })) : (data);
     };
 
     const [entriesPerPage, setEntriesPerPage] = useState(10);
@@ -42,6 +45,18 @@ function Table(props) {
     const [headers, setHeaders] = useState([]);
     const [tableID, setTableID] = useState(Math.floor(Math.random() * 1000000));
     const [showFlattened, setShowFlattened] = useState(false);
+
+    // Tracking the window size.
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+    const updateDimensions = () => {
+        setScreenWidth(window.innerWidth);
+        setScreenHeight(window.innerHeight);
+    };
+    useEffect(() => {
+		window.addEventListener("resize", updateDimensions);
+		return () => window.removeEventListener("resize", updateDimensions);
+	}, []);
 
     const getPageEntries = (data, page, numPerPage, filters = []) => {
         if (!data) {
@@ -62,32 +77,11 @@ function Table(props) {
     };
 
     const changePage = (dataLen, page, numPerPage) => {
-        // console.log( "changePage(): ", pagenum, pageNum );
-        // const crimeReportsClone = [...crimeReports];
-        // console.log( "Reached bottom of table: ", crimeReports );
         const numPages = Math.ceil(dataLen / parseInt(numPerPage));
         if (page >= 0 && page < numPages) {
-            // if (dataLen > entriesPerPage) {
             setTimeout(() => {
                 return setPageNum(parseInt(page));
             }, 10);
-        }
-    };
-
-    // Sorting function from https://blog.logrocket.com/creating-react-sortable-table/
-    const sortDataByKey = (data, key, order = "asc") => {
-        if (key) {
-            const sortedData = [...data].sort((a, b) => {
-                if (a[key] === null) return 1;
-                if (b[key] === null) return -1;
-                if (a[key] === null && b[key] === null) return 0;
-                return (
-                    a[key].toString().localeCompare(b[key].toString(), "en", {
-                        numeric: true,
-                    }) * (order === "asc" ? 1 : -1)
-                );
-            });
-            setRenderData(sortedData);
         }
     };
 
@@ -99,15 +93,23 @@ function Table(props) {
     useEffect( () =>
     {
         // Update if the data, filters, or any data-altering options are changed.
-        if ( util.val.isValidArray( tableData, true ) )
+        if ( utils.val.isValidArray( tableData, true ) )
         {
             let temp = showFlattened
-                ? util.ao.flattenObjArray(appendIndex(tableData))
-                : appendIndex(tableData);
-            
-            setHeaders(util.ao.getObjKeys(temp[0]));
+                ? utils.ao.flattenObjArray(appendIndex(tableData))
+                : appendIndex( tableData );
+            let headerKeys = utils.ao.getObjKeys(temp[0]);
+            if (utils.val.isValidArray(rowActions, true)) {
+                headerKeys.push({
+                    id: headerKeys.length,
+                    key: "actions",
+                    value: "actions",
+                    label: "Actions",
+                });
+            }
+            setHeaders(headerKeys);
             // setRenderData(filterData(temp, filters));
-            setRenderData(util.ao.filterDataFast(temp, filters));
+            setRenderData(utils.ao.filterDataFast(temp, filters));
         }
     }, [tableData, filters, showFlattened]);
     
@@ -121,7 +123,11 @@ function Table(props) {
             });
             if (filterKeys.indexOf(key) > -1) {
                 // We already have a filter for this key, update it.
-                if (filter !== undefined && filter !== null && filter !== "") {
+					
+                if ( utils.val.isTruthy( filter )
+                    // filter !== undefined && filter !== null && filter !== ""
+                )
+                {
                     setFilters(
                         filters.map((item) => {
                             if (item.key === key) {
@@ -144,26 +150,30 @@ function Table(props) {
             } else {
                 // We don't currently have a filter for this key, add it.
                 if (
-                    key !== undefined &&
-                    key !== null &&
-                    key !== "" &&
-                    filter !== undefined &&
-                    filter !== null &&
-                    filter !== ""
-                ) {
-                    // setFilters(filters.concat({ key: key, value: filter }));
-                    setFilters([...filters, { key: key, value: filter }]);
-                }
+					utils.val.isTruthy(key) &&
+					utils.val.isTruthy(filter)
+					// key !== undefined &&
+					// key !== null &&
+					// key !== "" &&
+					// filter !== undefined &&
+					// filter !== null &&
+					// filter !== ""
+				) {
+					// setFilters(filters.concat({ key: key, value: filter }));
+					setFilters([...filters, { key: key, value: filter }]);
+				}
             }
         } else {
             // We don't have any filters yet, so just add it!
             if (
-                key !== undefined &&
-                key !== null &&
-                key !== "" &&
-                filter !== undefined &&
-                filter !== null &&
-                filter !== ""
+				utils.val.isTruthy(key) &&
+				utils.val.isTruthy(filter)
+                // key !== undefined &&
+                // key !== null &&
+                // key !== "" &&
+                // filter !== undefined &&
+                // filter !== null &&
+                // filter !== ""
             ) {
                 setFilters({ key: key, value: filter });
             }
@@ -190,164 +200,169 @@ function Table(props) {
         // setRenderData(filterData(renderData, filters));
     };
 
-    return (
-        <div className="table-container">
-            <div className="options-container">
-                <TableDownload
-                    dataName={dataName}
-                    tableData={tableData}
-                    downloadFileType="csv"></TableDownload>
-                <div className="input-group">
-                    <Select
-                        height={50}
-                        width={100}
-                        label="Set results per page"
-                        key="table-set-pagelength"
-                        id="table-set-pagelength"
-                        name="table-set-pagelength"
-                        value={entriesPerPage}
-                        unsetOption="-"
-                        optionsConfig={[
-                            5, 10, 15, 20, 30, 50, 75, 100, 200,
-                        ].map((option, index) => {
-                            return {
-                                key: `${index}`,
-                                value: `${option}`,
-                                label: `${option}`,
-                            };
-                        })}
-                        multiple=""
-                        disabled={isFetching ?? ""}
-                        onChange={(value) => {
-                            if (value) {
-                                if (!isNaN(value)) {
-                                    if (value > 0 && value < 200) {
-                                        setEntriesPerPage(+value);
-                                    }
-                                }
-                            }
-                        }}></Select>
-                    {headers && util.val.isValidArray(tableData, true) && (
-                        <Select
-                            height={50}
-                            width={100}
-                            label="Hide or show columns"
-                            key="table-set-columns"
-                            id="table-set-columns"
-                            name="table-set-columns"
-                            value={columnsVisible}
-                            unsetOption="-"
-                            optionsConfig={
-                                headers // util.ao.getObjKeys(tableData[0])
-                                //.map( ( option, index ) =>
-                                //{
-                                //return {
-                                //    key: `${index}`,
-                                //    value: `${option}`,
-                                //    label: `${option}`,
-                                //};
-                                //} )
-                            }
-                            multiple="multiple"
-                            dropdown={true}
-                            disabled={isFetching ?? ""}
-                            onChange={(selected) => {
-                                if (selected) {
-                                    console.log(
-                                        "Selected = ",
-                                        selected,
-                                        ", columnsVisible = ",
-                                        columnsVisible,
-                                    );
-                                    setColumnsVisible(selected);
-                                }
-                            }}></Select>
-                    )}
+    const buildTableOptions = () =>
+    {
+        return (
+			<div className="table-options-container">
+				<TableDownload
+					dataName={dataName}
+					tableData={tableData}
+					downloadFileType="csv"
+				/>
+				<Input
+					fieldType="select"
+					fieldLayout="inline"
+					label="Set results per page"
+					id="table-options-input-set-pagelength"
+					key="table-options-input-set-pagelength"
+					name="table-options-input-set-pagelength"
+					value={entriesPerPage}
+					// unsetOption="-"
+					// optionsConfig={
+					// 	[5, 10, 15, 20, 30, 50, 75, 100, 200] /*.map((option, index) => {
+					// 	return {
+					// 		key: `${index}`,
+					// 		value: `${option}`,
+					// 		label: `${option}`,
+					// 	};
+					// })*/
+					// }
+					inputProps={{
+						options: [5, 10, 15, 20, 30, 50, 75, 100, 200],
+						unsetOption: "-",
+						// defaultValue: columnsVisible,
+						value: columnsVisible,
+						multiple: false,
+					}}
+					multiple={false}
+					disabled={isFetching ?? ""}
+					onChange={(value) => {
+						if (value) {
+							if (!isNaN(value)) {
+								if (value > 0 && value < 200) {
+									setEntriesPerPage(+value);
+								}
+							}
+						}
+					}}
+				/>
+				{headers && utils.val.isValidArray(tableData, true) && (
+					<Input
+						fieldType="select"
+						fieldLayout="inline"
+						label="Hide or show columns"
+						id="table-options-input-hideshow-columns"
+						key="table-options-input-hideshow-columns"
+						name="table-options-input-hideshow-columns"
+						// optionsConfig={
+						// 	headers // utils.ao.getObjKeys(tableData[0])
+						// 	//.map( ( option, index ) =>
+						// 	//{
+						// 	//return {
+						// 	//    key: `${index}`,
+						// 	//    value: `${option}`,
+						// 	//    label: `${option}`,
+						// 	//};
+						// 	//} )
+						// }
+						// value={columnsVisible}
+						inputProps={{
+							options: headers,
+							unsetOption: "-",
+							// defaultValue: columnsVisible,
+							value: columnsVisible,
+							multiple: true,
+						}}
+						multiple={true}
+						dropdown={true}
+						disabled={isFetching ?? ""}
+						onChange={(selected) => {
+							if (selected) {
+								setColumnsVisible(selected);
+							}
+						}}
+					/>
+				)}
+				<Input
+					fieldType="checkbox"
+					fieldLayout="inline"
+					label="Show Flattened"
+					id={`table-options-input-set-columns`}
+					key={`table-options-input-set-columns`}
+					name={`table-options-input-set-columns`}
+					inputProps={{
+						options: headers,
+						// defaultValue: columnsVisible,
+						value: columnsVisible,
+						multiple: true,
+						unsetOption: "-",
+					}}
+					multiple={true}
+					dropdown={true}
+					disabled={isFetching ?? ""}
+					defaultValue={showFlattened}
+					onChange={(event) => {
+						setShowFlattened(event.target.checked);
+					}}
+				/>
+			</div>
+		);
+    }
 
-                    <div className="input-field input-field-inline">
-                        <label
-                            className="input-field-label"
-                            htmlFor={`table-checkbox-input-showflattened`}>
-                            <p className="input-field-label-text">
-                                Show Flattened
-                            </p>
-                            <input
-                                type="checkbox"
-                                className={`input-field-checkbox`}
-                                name={`table-checkbox-input-showflattened`}
-                                key={`table-checkbox-input-showflattened`}
-                                id={`table-checkbox-input-showflattened`}
-                                defaultValue={showFlattened}
-                                onChange={(event) => {
-                                    setShowFlattened(event.target.checked);
-                                }}
-                                disabled={isFetching}
-                            />
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div className="table table-fixed-head">
-                <table
-                    className="table table-fixed-head"
-                    sortable={isSortable ? "true" : ""}>
-                    <caption>{dataName}</caption>
-                    {renderData &&
-                        headers && ( // tableData && tableData[0] && (
-                            <TableHead
-                                tableID={tableID}
-                                isFilterable={isFilterable}
-                                isSortable={isSortable ? "true" : ""}
-                                tableHeadings={headers}
-                                changeFilters={changeFilters}
-                                headerOnClick={(headerIndex, key, order) => {
-                                    sortDataByKey(renderData, key, order);
-                                }}
-                                hideColumns={columnsVisible}></TableHead>
-                        )}
-                    {renderData && tableData && (
-                        <TableBody
-                            tableID={tableID}
-                            tableData={getPageEntries(
-                                renderData,
-                                pageNum,
-                                entriesPerPage,
-                                [],
-                            )}
-                            hideColumns={columnsVisible}
-                            rowOnClick={rowOnClick}
-                            cellOnClick={(
-                                cellIndex,
-                                cellData,
-                            ) => {}}></TableBody>
-                    )}
-                    {
-                        // renderData && headers && (
-                        // <div className="tablefoot-scrollable">
-                        //     <TableFoot
-                        //         tableID={tableID}
-                        //         tableHeadings={headers}
-                        //         numEntries={renderData.length}
-                        //         entriesPerPage={parseInt(entriesPerPage)}
-                        //         pageNum={parseInt(pageNum)}
-                        //         changePage={changePage}></TableFoot>
-                        // </div>
-                        // )
-                    }
-                </table>
-            </div>
-            {renderData && renderData.length > 0 && (
-                <TablePagination
-                    tableID={tableID}
-                    numEntries={renderData.length}
-                    entriesPerPage={parseInt(entriesPerPage)}
-                    pageNum={parseInt(pageNum)}
-                    changePage={changePage}
-                />
-            )}
-        </div>
-    );
+    return (
+		<div className="table-container">
+			{buildTableOptions()}
+			<div className="table table-fixed-head">
+				<table
+					//className="table table-fixed-head"
+					className="table-responsive"
+					data-title={`${dataName}`}
+					sortable={isSortable ? "true" : ""}>
+					<caption>{dataName}</caption>
+					{renderData &&
+						headers && ( // tableData && tableData[0] && (
+							<TableHead
+								tableID={tableID}
+								isFilterable={isFilterable}
+								// isSortable={isSortable ? "true" : ""}
+								isSortable={isSortable ? "true" : ""}
+								tableHeadings={headers}
+								// tableHeadings={utils.val.isValidArray(rowActions, true) ? [...headers, 'actions'] : headers }
+								changeFilters={changeFilters}
+								headerOnClick={(headerIndex, key, order) => {
+                                    setRenderData(utils.ao.keySortData(renderData, key, order));
+								}}
+								hideColumns={columnsVisible}
+								actionsEnabled={utils.val.isValidArray(rowActions, true)}
+								debug={debug}></TableHead>
+						)}
+					{renderData && tableData && (
+						<TableBody
+							tableID={tableID}
+							tableData={getPageEntries(renderData, pageNum, entriesPerPage, [])}
+							// tableKeys={headers}
+							tableKeys={headers.map((key, index) => {
+								return key.value;
+							})}
+							hideColumns={columnsVisible}
+							rowOnClick={rowOnClick}
+							cellOnClick={(cellIndex, cellData) => {}}
+							rowActions={rowActions}
+							debug={debug}></TableBody>
+					)}
+					{renderData && headers && (
+						<TableFoot
+							tableID={tableID}
+							tableHeadings={headers}
+							numEntries={renderData.length}
+							entriesPerPage={parseInt(entriesPerPage)}
+							pageNum={parseInt(pageNum)}
+							changePage={changePage}></TableFoot>
+					)}
+				</table>
+			</div>
+		</div>
+	);
 }
 
 export default Table;
-

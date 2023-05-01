@@ -353,7 +353,7 @@ const messageSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
-messageSchema.plugin(require("mongoose-autopopulate"));
+messageSchema.plugin( require( "mongoose-autopopulate" ) );
 
 module.exports = {
     Intro: mongoose.model("intros", introSchema),

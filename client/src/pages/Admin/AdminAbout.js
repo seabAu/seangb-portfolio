@@ -1,144 +1,212 @@
-import React, { useState, useEffect } from "react";
-import * as utils from "../../components/Utilities/index.js";
+import React, { useState, useEffect, useRef } from "react";
+import * as utils from "../../utilities/index.js";
 import {
-    Form,
-    // Input,
-    Button,
-    // Checkbox,
-    message,
+	/// Form,
+	// Input,
+	/// Button,
+	// Checkbox,
+	message,
 } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { SetLoading } from "../../redux/rootSlice";
 import axios from "axios";
 import API from "../../api/api.js";
 import Input from "../../components/Form/Input.js";
+import { Form } from "../../components/Form/index.js";
+import Section from "../../components/Section/index.js";
 
 function AdminAbout() {
-    const dispatch = useDispatch();
-    // Get the current values.
-    const { portfolioData } = useSelector((state) => state.root);
+	const dispatch = useDispatch();
+	// Get the current values.
+	const { portfolioData, debug } = useSelector((state) => state.root);
 
-    const [formModel, setFormModel] = React.useState({
-        firstName: {
-            type: String,
-        },
-        lastName: {
-            type: String,
-        },
-        statement: {
-            type: String,
-        },
-        summary: {
-            type: String,
-        },
-        description: {
-            type: Array,
-            model: String,
-        },
-        description1: {
-            type: Array,
-            model: String,
-        },
-        description2: {
-            type: Array,
-            model: String,
-        },
-        certifications: {
-            type: Array,
-            model: String,
-        },
-        achievements: {
-            type: Array,
-            model: String,
-        },
-        skills: {
-            // type: [skillSchema],
-            type: Array,
-            model: {
-                index: {
-                    type: Number,
-                },
-                showIndex: {
-                    type: Number,
-                },
-                enabled: {
-                    type: Boolean,
-                },
-                name: {
-                    type: String,
-                },
-                category: {
-                    type: String,
-                },
-                tags: {
-                    type: Array,
-                    model: String,
-                },
-                proficiency: {
-                    type: Number,
-                    min: 0,
-                    max: 10,
-                },
-                years: {
-                    type: Number,
-                    min: 0,
-                    max: 50,
-                },
-            },
-        },
-        social: {
-            type: Array,
-            model: {
-                site: {
-                    type: String,
-                },
-                url: {
-                    type: String,
-                },
-                icon: {
-                    type: String,
-                },
-            },
-        },
-    });
-    // Initialize formData as a duplicate of formModel, and fill in each value.
-    const [loadForm, setLoadForm] = React.useState(false);
-    const [formData, setFormData] = React.useState({
-        firstName: " ",
-        lastName: " ",
-        statement: " ",
-        summary: " ",
-        description: [" "],
-        description1: [" "],
-        description2: [" "],
-        certifications: [" "],
-        achievements: [" "],
-        enabled: true,
-        skills: [
-            {
-                index: 0,
-                showIndex: 0,
-                enabled: true,
-                name: " ",
-                category: " ",
-                tags: [" "],
-                proficiency: 0,
-                years: 0,
-            },
-        ],
-        social: [
-            {
-                site: " ",
-                url: " ",
-                icon: " ",
-            },
-        ],
-    });
+	const [formModel, setFormModel] = React.useState({
+		firstName: {
+			type: String,
+		},
+		lastName: {
+			type: String,
+		},
+		statement: {
+			type: String,
+		},
+		summary: {
+			type: String,
+		},
+		description: {
+			type: Array,
+			model: String,
+		},
+		description1: {
+			type: Array,
+			model: String,
+		},
+		description2: {
+			type: Array,
+			model: String,
+		},
+		certifications: {
+			type: Array,
+			model: String,
+		},
+		achievements: {
+			type: Array,
+			model: String,
+		},
+		skills: {
+			// type: [skillSchema],
+			type: Array,
+			model: {
+				index: {
+					type: Number,
+				},
+				showIndex: {
+					type: Number,
+				},
+				enabled: {
+					type: Boolean,
+				},
+				name: {
+					type: String,
+				},
+				category: {
+					type: String,
+				},
+				tags: {
+					type: Array,
+					model: String,
+				},
+				proficiency: {
+					type: Number,
+					min: 0,
+					max: 10,
+				},
+				years: {
+					type: Number,
+					min: 0,
+					max: 50,
+				},
+			},
+		},
+		social: {
+			type: Array,
+			model: {
+				site: {
+					type: String,
+				},
+				url: {
+					type: String,
+				},
+				icon: {
+					type: String,
+				},
+			},
+		},
+	});
+	// Initialize formData as a duplicate of formModel, and fill in each value.
+	const [loadForm, setLoadForm] = React.useState(false);
+	const [formData, setFormData] = React.useState({
+		firstName: " ",
+		lastName: " ",
+		statement: " ",
+		summary: " ",
+		description: [" "],
+		description1: [" "],
+		description2: [" "],
+		certifications: [" "],
+		achievements: [" "],
+		enabled: true,
+		skills: [
+			{
+				index: 0,
+				showIndex: 0,
+				enabled: true,
+				name: " ",
+				category: " ",
+				tags: [" "],
+				proficiency: 0,
+				years: 0,
+			},
+		],
+		social: [
+			{
+				site: " ",
+				url: " ",
+				icon: " ",
+			},
+		],
+	});
 
-    useEffect(() => {
-        console.log("AdminAbout.js :: FormData is now = ", formData);
-    }, [formData]);
+	useEffect(() => {
+		if (debug) console.log("AdminAbout.js :: FormData is now = ", formData);
+	}, [formData]);
 
+	const onSubmit = async (values) => {
+		try {
+			// const tempSkills = values.skills.split(/[\s,]+/);
+			// values.skills = tempSkills;
+
+			dispatch(SetLoading(true));
+			const response = await API.post("/api/portfolio/update-about", {
+				...values,
+				_id: portfolioData.about._id,
+			});
+			dispatch(SetLoading(false));
+			if (response.data.success) {
+				message.success(response.data.message);
+			} else {
+				message.error(response.data.message);
+			}
+		} catch (error) {
+			message.error(error.message);
+		}
+	};
+
+	return (
+		<Section>
+			<Section.Header>
+				<Section.Text
+					content="About"
+					type="title"
+					scale={`3xl`}
+					separator={true}></Section.Text>
+			</Section.Header>
+			<Section.Content layout={`col`} behavior="wrap">
+				<Form
+					// initialData={portfolioData.about}
+					// initialData={portfolioData.projects[0]}
+					initialData={portfolioData.about}
+					onSubmit={(values) => {
+						onSubmit(values);
+					}}
+					layout={`block`}
+					showViewport={true}></Form>
+				{
+					// * constructForm({
+					// *     ...portfolioData.about,
+					// *     // skills: portfolioData.about.skills.join( ", " ),
+					// *     // enabled: true
+					// * })
+				}
+
+				<div className="flex justify-end w-full">
+					<button
+						className="px-10 py-2 bg-primary text-white"
+						type="submit"
+						onClick={(event) => {
+							onSubmit(event);
+						}}>
+						SAVE
+					</button>
+				</div>
+			</Section.Content>
+		</Section>
+	);
+}
+
+export default AdminAbout;
+
+/*
     const modelToData = (model) => {
         // Extract all keys from the model and build a database that can be filled from it.
     };
@@ -217,25 +285,6 @@ function AdminAbout() {
                             }
                         }
                     }
-                    // } else if (
-                    //     value instanceof Array ||
-                    //     value instanceof Object
-                    // ) {
-                    //     // if (typeof value === "object" && !Array.isArray(value)) {
-                    //     // Value is a nested object.
-                    //     // Render a specialized input.
-                    //     console.log("OBJECT :: ", value);
-                    //     datatype = "object";
-                    //     fieldtype = "data";
-                    //     form.push( Field( formData, key, value, datatype, fieldtype ) );
-                    // } else if (Array.isArray(value)) {
-                    //     // utils.val.isArray(value)) {
-                    //     // Value is a nested array.
-                    //     // Render a specialized input.
-                    //     console.log("ARRAY :: ", value);
-                    //     datatype = "array";
-                    //     fieldtype = "data";
-                    //     form.push( Field( formData, key, value, datatype, fieldtype ) );
                     else {
                         // Value is a scalar of some kind. Dig into the specific type.
                         // if (utils.val.isString(value)) {
@@ -250,7 +299,6 @@ function AdminAbout() {
                             // Render a number input.
                             datatype = "number";
                             fieldtype = "number";
-
                             // } else if (utils.val.isBool(value)) {
                         } else if (value === true || value === false) {
                             // Value is a Boolean.
@@ -297,7 +345,7 @@ function AdminAbout() {
         ) {
             // Dealing with a complex, possibly nested data input type.
             return (
-                <Input.DataInput
+                <Input.Data
                     data={value}
                     datamodel={data}
                     datatype={datatype}
@@ -320,7 +368,7 @@ function AdminAbout() {
                             utils.ao.findAndSetObject(
                                 data,
                                 key,
-                                e.target.value.toString(),
+                                e.target.value, // .toString(),
                             ),
                         );
                     }}
@@ -399,59 +447,7 @@ function AdminAbout() {
         }
     };
 
-    const onSubmit = async (values) => {
-        try {
-            const tempSkills = values.skills.split(/[\s,]+/);
-            values.skills = tempSkills;
-
-            dispatch(SetLoading(true));
-            const response = await API.post("/api/portfolio/update-about", {
-                ...values,
-                _id: portfolioData.about._id,
-            });
-            dispatch(SetLoading(false));
-            if (response.data.success) {
-                message.success(response.data.message);
-            } else {
-                message.error(response.data.message);
-            }
-        } catch (error) {
-            message.error(error.message);
-        }
-    };
-
-    return (
-        <>
-            <div
-                className={`form-container-admin`}
-                // onSubmit={onSubmit}
-                // layout="vertical"
-                // initialValues={{
-                //     ...portfolioData.about,
-                //     skills: portfolioData.about.skills.join(", "),
-                // }}
-            >
-                {constructForm({
-                    ...portfolioData.about,
-                    // skills: portfolioData.about.skills.join( ", " ),
-                    // enabled: true
-                })}
-                <div className="flex justify-end w-full">
-                    <button
-                        className="px-10 py-2 bg-primary text-white"
-                        type="submit"
-                        onClick={(event) => {
-                            onSubmit(event);
-                        }}>
-                        SAVE
-                    </button>
-                </div>
-            </div>
-        </>
-    );
-}
-
-export default AdminAbout;
+*/
 
 /*
 

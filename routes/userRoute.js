@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const auth = require("../middleware/auth");
 
-const jwt_expires = 60 * 60 * 24 * 7; // 1 week.
+const jwt_expires = 1000 * 60 * 60 * 24 * 7; // = 60 * 60 * 24 * 7; // 1 week.
 
 const debug = (
     route,

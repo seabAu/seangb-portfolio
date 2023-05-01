@@ -1,4 +1,10 @@
-@import '../../vars.css';
+@import "../../vars.css";
+/*
+* {
+    line-height: 1.4;
+    font-family: "harmonia sans", roboto, arial;
+}
+*/
 .data-list-container {
     display: flex;
     position: relative;
@@ -9,9 +15,11 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    padding: 1rem;
-    border: 1px solid grey;
+    padding: 0.0rem;
+    border: 1px solid rgba(128, 128, 128, 0);
+    transition: all 1s ease-in-out 0s;
 }
+
 .data-list-container .data-list {
     display: block;
     position: relative;
@@ -21,11 +29,17 @@
     flex-direction: row;
     width: auto;
     overflow-y: auto;
+    transition: all 1s ease-in-out 0s;
+    border-color: #000 #111 #111;
+    border-style: inset;
+    box-shadow: rgba(0, 0, 0, 0.247059) 0 1px 2px inset, rgba(255, 255, 255, 0.0784314) 0 1px;
 }
+
 .data-list-container .data-list * {
     font-size: 0.65rem;
     font-weight: 100;
 }
+
 ul:nth-of-type(1) {
     list-style-position: inside;
     border-left: solid 0px red;
@@ -88,7 +102,7 @@ ul.data-list-obj {
 .data-list ul.data-list-obj:has(:nth-child(2)):after {
     content: "},";
 }
-ul li .data-list-key+.data-list-value:has(ul.data-list-array) {
+ul li .data-list-key + .data-list-value:has(ul.data-list-array) {
     font-size: 1.2rem;
     display: inline;
 }
@@ -96,7 +110,7 @@ ul li .data-list-key+.data-list-value:has(ul.data-list-array) {
     display: inline;
     font-size: 1.2rem;
 }
-.data-list-array>li.data-list-item {
+.data-list-array > li.data-list-item {
     list-style-type: none;
     border-bottom: 1px solid #212121;
     position: relative;
@@ -105,24 +119,26 @@ ul li .data-list-key+.data-list-value:has(ul.data-list-array) {
         max-width: 80%;
         */
 }
-li::marker {}
+li::marker {
+}
 ul.data-list-array::marker {
-    content: '✝ ';
+    content: "✝ ";
     font-size: 1.2rem;
     display: list-item;
     content: "[" "]";
 }
 li.data-list-item {
-    margin-block-start: 0.0rem;
-    margin-block-end: 0.0rem;
+    margin-block-start: 0rem;
+    margin-block-end: 0rem;
     margin-inline-start: 0rem;
     margin-inline-end: 0rem;
-    padding-inline-start: 0.0rem;
-    padding-inline-end: 0.0rem;
-    padding-block-start: 0.0rem;
-    padding-block-end: 0.0rem;
+    padding-inline-start: 0rem;
+    padding-inline-end: 0rem;
+    padding-block-start: 0rem;
+    padding-block-end: 0rem;
 }
-ul.data-list-obj, ul.data-list-array {
+ul.data-list-obj,
+ul.data-list-array {
     color: white;
     counter-reset: item;
     /* 
@@ -136,11 +152,11 @@ ul.data-list-obj, ul.data-list-array {
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin-block-start: 0.0rem;
+    margin-block-start: 0rem;
     margin-block-end: 0.25rem;
     margin-inline-start: 0rem;
     margin-inline-end: 0rem;
-    padding-inline-start: 0.5rem;
+    padding-inline-start: 0.0rem;
     padding-inline-end: 0.5rem;
     padding-block-start: 0rem;
     padding-block-end: 0rem;
@@ -151,27 +167,32 @@ ul.data-list-obj, ul.data-list-array {
     */
     display: inline;
 }
-ul.data-list-obj li.data-list-item, ul.data-list-array li.data-list-item {
+ul.data-list-obj li.data-list-item,
+ul.data-list-array li.data-list-item {
     border-left: 1px solid grey;
+    border-right: 1px solid grey;
     padding: 0;
     padding-inline-start: 0.125rem;
     margin-inline-start: 0.125rem;
 }
-.data-list-value ul.data-list-array, .data-list-value ul.data-list-obj {
+.data-list-value ul.data-list-array,
+.data-list-value ul.data-list-obj {
     padding: 0;
     margin: 0;
 }
 ul.data-list-obj li.data-list-item :not(:has(div)) {
     display: inline;
 }
-ul.data-list-obj li.data-list-item, ul.data-list-array li.data-list-item {
+ul.data-list-obj li.data-list-item,
+ul.data-list-array li.data-list-item {
     display: list;
     width: auto;
     padding-top: 0;
     padding-bottom: 0;
-    margin-top: 0.0rem;
+    margin-top: 0rem;
     margin-bottom: 0.125rem;
-    margin-inline-start: 1rem;
+    margin-inline-start: 0.75rem;
+    margin-inline-end: 0.75rem;
 }
 li.data-list-item:not(:has(div)) {
     width: 100%;
@@ -180,7 +201,8 @@ li.data-list-item:not(:has(div)) {
     justify-content: space-between;
     align-items: center;
 }
-li.data-list-item .data-list-key, li.data-list-item .data-list-value {
+li.data-list-item .data-list-key,
+li.data-list-item .data-list-value {
     text-transform: capitalize;
     display: inline;
     max-width: 100%;
@@ -205,17 +227,23 @@ li.data-list-item .data-list-key, li.data-list-item .data-list-value {
     */
     flex-grow: 1;
     border: 0px solid #b9b9b9;
+    position: relative;
+    z-index: 100;
 }
 li.data-list-item .data-list-value {
     background-color: transparent;
 }
-.data-list-expandable~li {}
-.data-list-compact li.data-list-item .data-list-key, .data-list-compact li.data-list-item .data-list-value {
+li.data-list-item .data-list-key {
+    min-width: 10rem;
+}
+.data-list-expandable ~ li {
+}
+.data-list-compact li.data-list-item .data-list-key,
+.data-list-compact li.data-list-item .data-list-value {
     display: inline !important;
 }
 
 /* Expandable list styling */
-
 
 /*
 
@@ -244,29 +272,40 @@ ul.data-list-array.data-list-expandable .data-list-item:has(:nth-child(2))::befo
 }
 */
 
-ul.data-list-obj.data-list-expandable .data-list-item:has(:nth-child(3)), ul.data-list-array.data-list-expandable .data-list-item:has(:nth-child(3)) {
+ul.data-list-obj.data-list-expandable .data-list-item:has(:nth-child(3)),
+ul.data-list-array.data-list-expandable .data-list-item:has(:nth-child(3)) {
     /*border: 1px solid #aaaaaa;*/
     background-color: #00000011;
 }
-ul.data-list-obj.data-list-expandable .data-list-item:has(:nth-child(3))>.data-list-key, ul.data-list-array.data-list-expandable .data-list-item:has(:nth-child(3))>.data-list-key {
+ul.data-list-obj.data-list-expandable
+    .data-list-item:has(:nth-child(3))
+    > .data-list-key,
+ul.data-list-array.data-list-expandable
+    .data-list-item:has(:nth-child(3))
+    > .data-list-key {
     background-color: transparent;
     color: #93c0ff;
     cursor: pointer;
 }
-ul.data-list-obj.data-list-expandable .data-list-item:has(:nth-child(3))::before, ul.data-list-array.data-list-expandable .data-list-item:has(:nth-child(3))::before {}
+ul.data-list-obj.data-list-expandable
+    .data-list-item:has(:nth-child(3))::before,
+ul.data-list-array.data-list-expandable
+    .data-list-item:has(:nth-child(3))::before {
+}
 .data-list-expandable li.data-list-item .data-list-key {
-    background-color: rgba( 0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid black;
 }
-.data-list-expandable li.data-list-item .data-list-key::before {}
+.data-list-expandable li.data-list-item .data-list-key::before {
+}
 li.data-list-item:not(:has(ul.data-list-obj)) .data-list-key {
-    background-color: rgba( 55, 55, 100, 0.0);
+    background-color: rgba(55, 55, 100, 0);
 }
 .data-list-expandable {
     margin: 0;
     padding: 0;
 }
-.data-list-expandable>li.data-list-item {
+.data-list-expandable > li.data-list-item {
     list-style-type: none;
     border-bottom: 1px solid #212121;
     position: relative;
@@ -305,28 +344,33 @@ li.data-list-item:not(:has(ul.data-list-obj)) .data-list-key {
     transform: translateY(5px);
     transition: all 180ms ease-in-out 0ms;
 }
-.data-list-expandable li.data-list-item input[class^="tab"]:checked~.data-list-content {
+.data-list-expandable
+    li.data-list-item
+    input[class^="tab"]:checked
+    ~ .data-list-content {
     max-height: 100%;
     transition: all 150ms ease-in-out 0ms;
 }
-.data-list-expandable input[class^="tab"]:checked~.data-list-content {
-    margin-bottom: 20px;
+.data-list-expandable input[class^="tab"]:checked ~ .data-list-content {
+    margin-bottom: 4px;
 }
 .data-list-expandable .open-close-icon {
     display: inline-block;
     position: absolute;
     right: 20px;
-    transform: translatey(2px);
+    /* transform: translatey(2px); */
 }
 .data-list-expandable .open-close-icon i {
     position: absolute;
     left: 0;
 }
 .data-list-expandable .open-close-icon .fa-minus {
+    opacity: 0;
     transform: rotate(-90deg);
     transition: transform 150ms ease-in-out 0ms;
 }
-.data-list-expandable input[class^="tab"]:checked~.open-close-icon .fa-minus {
+.data-list-expandable input[class^="tab"]:checked ~ .open-close-icon .fa-minus {
+    opacity: 1;
     transform: rotate(0deg);
     transition: transform 150ms ease-in-out 0ms;
 }
@@ -335,18 +379,10 @@ li.data-list-item:not(:has(ul.data-list-obj)) .data-list-key {
     transform: rotate(-90deg);
     transition: opacity 50ms linear 0ms, transform 150ms ease-in-out 0ms;
 }
-.data-list-expandable input[class^="tab"]:checked~.open-close-icon .fa-plus {
+.data-list-expandable input[class^="tab"]:checked ~ .open-close-icon .fa-plus {
     opacity: 0;
     transform: rotate(0deg);
     transition: opacity 50ms linear 0ms, transform 150ms ease-in-out 0ms;
-}
-* {
-    line-height: 1.4;
-    font-family: "harmonia sans", roboto, arial;
-}
-.data-list-label {
-    padding: 0;
-    margin: 0;
 }
 ul {
     counter-reset: li;
@@ -356,7 +392,7 @@ ul {
     padding-left: 0;
     /* Remove the default left padding */
 }
-ul>li.data-list-item {
+ul > li.data-list-item {
     position: relative;
     /* Create a positioning context */
     margin: 0 0 6px 2em;
@@ -368,7 +404,7 @@ ul>li.data-list-item {
     border-top: 2px solid #666;
     background: #f6f6f611;
 }
-ul.data-list>li.data-list-item:before {
+ul.data-list > li.data-list-item:before {
     content: counter(li);
     /* Use the counter as content */
     counter-increment: li;
@@ -392,9 +428,84 @@ ul.data-list>li.data-list-item:before {
     font-family: "Helvetica Neue", Arial, sans-serif;
     text-align: center;
 }
-li.data-list-item ul, li.data-list-item ul {
+li.data-list-item ul,
+li.data-list-item ul {
     margin-top: 6px;
 }
 ul ul li.data-list-item:last-child {
     margin-bottom: 0;
 }
+
+
+.data-list-label {
+    padding: 0;
+    margin: 0;
+    color: var(--color-text);
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.5rem;
+    white-space: nowrap;
+}
+.data-list-controls {
+    border-color: #000 #111 #111;
+    border-style: inset;
+    box-shadow: rgba(0, 0, 0, 0.247059) 0 1px 2px inset, rgba(255, 255, 255, 0.0784314) 0 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /* height: 1.5rem; */
+    max-height: 100%;
+    min-height: min-content;
+    width: 100%;
+}
+
+
+/* Compactness styling */
+.data-list.data-list-compact {
+    
+}
+
+.data-list.data-list-compact .data-list-item {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-block: 0;
+}
+
+.data-list.data-list-compact ul.data-list-obj:before, .data-list.data-list-compact ul.data-list-obj:after, .data-list.data-list-compact ul.data-list-array:before, .data-list.data-list-compact ul.data-list-array:after {
+    content: "";
+    content: none;
+}
+/* Collapsed styling */
+
+.data-list.data-list-collapsed {
+    height: 0px;
+}
+
+/*
+.data-list-container.data-list-collapsed .data-list {
+    height: 0%;
+}
+
+.data-list-container.data-list-collapsed .data-list * {
+    height: 0%;
+}
+
+.data-list-container.data-list-compact .data-list .data-list-item {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-block: 0;
+}
+
+.data-list-container.data-list-compact .data-list ul.data-list-obj:before, 
+.data-list-container.data-list-compact .data-list ul.data-list-obj:after, 
+.data-list-container.data-list-compact .data-list ul.data-list-array:before, 
+.data-list-container.data-list-compact .data-list ul.data-list-array:after {
+    content: none;
+}
+.data-list-container.data-list-collapsed .data-list {
+    height: 0%;
+}
+
+*/

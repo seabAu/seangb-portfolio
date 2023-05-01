@@ -56,7 +56,7 @@
 .loader-container {
     padding: 0 !important;
     margin: 0 !important;
-    background-color: var(--color_primary);
+    background-color: var(--color-primary);
     height: 100vh;
     width: 100vw;
     width: 100%;
@@ -122,7 +122,7 @@ svg.spinner .path {
     padding: 0 !important;
     margin: 0 !important;
     stroke: #111111;
-    stroke: var(--color_header);
+    stroke: var(--color-header);
     stroke-linecap: round;
     -webkit-animation: colordash 1.5s ease-in-out infinite;
     animation: colordash 1.5s ease-in-out infinite;
@@ -185,7 +185,18 @@ svg.spinner.hidden {
         stroke-dashoffset: -124;
     }
 }
-
+.progress {
+    width: 100%;
+}
+.progress {
+    appearance: auto;
+    box-sizing: border-box;
+    display: inline-block;
+    block-size: 1em;
+    inline-size: 10em;
+    vertical-align: -0.2em;
+    writing-mode: horizontal-tb !important;
+}
 /*
 .progress {
     height: 20px;
