@@ -10,6 +10,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
 const cors = require("cors");
 app.use(express.json());
+// app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
 app.use(
     cors({
         // origin: "localhost",
@@ -29,10 +30,6 @@ if (process.env.NODE_ENV === "production") {
 
     const deployPath = path.resolve(
         __dirname,
-        // "../",
-        // "../",
-        // "html",
-        // "seangb-portfolio",
         "./",
         "client",
         "build",
@@ -54,28 +51,7 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(usepath));
 
     app.get("*", (req, res) => {
-        if (process.env.DEBUG)
-			console.log(
-				`Server.js :: app.get(*) :: environment variables are currently: `,
-				//process.env,
-				", __dirname = ",
-				__dirname,
-				", NODE_ENV = ",
-				process.env.NODE_ENV,
-				", PORT = ",
-				process.env.PORT,
-				// ", req = ",
-				// req,
-				// ", res = ",
-				// res,
-				// ", express.static use path = ",
-				// usepath,
-				// ", send path = ",
-				// sendpath,
-			);
-
         res.sendFile(sendpath);
-        // res.sendFile( path.join( __dirname, "../../html/seangb_portfolio/client/build/index.html" ) );
     });
 } else {
     app.get("/", (req, res) => {
@@ -88,48 +64,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}.`);
-    if (process.env.DEBUG)
-		console.log(
-			`Server.js :: app.listen(port, ()) :: environment variables are currently: `,
-			//process.env,
-			", NODE_ENV = ",
-			process.env.NODE_ENV,
-			", PORT = ",
-			process.env.PORT,
-			", __dirname = ",
-			__dirname,
-		);
 });
-
-// app.use( "/api/portfolio", createProxyMiddleware( { target: 'localhost', changeOrigin: true } ) );
-// Set up measures to avoid CORS issues.
-// const cors = require("cors");
-// app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "Origin, X-Requested-With, Content-Type, Accept",
-//     );
-//     next();
-// } );
-// app.use((req, res, next) => {
-//     res.append("Access-Control-Allow-Origin", ["*"]);
-//     res.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.append("Access-Control-Allow-Headers", "Content-Type");
-//     next();
-// });
-// app.use( "/api/portfolio", ( req, res, next ) =>
-// {
-//     console.log( res.header );
-//     res.writeHead(200, {
-//         "Content-Type": "text/plain",
-//         "Access-Control-Allow-Origin": ["*"],
-//         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
-//     });
-//     next();
-// });
-//
 
 /*
     const express = require( "express" );
