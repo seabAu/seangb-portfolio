@@ -135,7 +135,7 @@ export function Form (props) {
 						minWidth: `${utils.str.getLongest(formModel) / 2 + 2}rem`,
 						maxWidth: `${100}%`,
 						paddingInline: `${0.5}rem`,
-						// flex: `1 1 ${cardWidth}rem`,
+						flex: `0 1 ${10}rem`,
 				  }
 				: {}),
 		},
@@ -230,19 +230,20 @@ export function Form (props) {
 						// return '';
 					}
 					form.push(Field(formData, key, value, dataType, fieldType));
-					// if (debug) console.log(
-					//     "FORM.JS.js :: constructForm(",
-					//     input,
-					//     ") :: after typecheck run :: key = (",
-					//     key,
-					//     ") :: value = (",
-					//     value,
-					//     ") :: dataType = (",
-					//     dataType,
-					//     ") :: fieldType = (",
-					//     fieldType,
-					//     ")",
-					// );
+					if (debug) 
+						console.log(
+						    "FORM.JS.js :: constructForm(",
+						    input,
+						    ") :: after typecheck run :: key = (",
+						    key,
+						    ") :: value = (",
+						    value,
+						    ") :: dataType = (",
+						    dataType,
+						    ") :: fieldType = (",
+						    fieldType,
+						    ")",
+						);
 				}
             });
         } else if ( utils.val.isValidArray( input, true ) )
@@ -405,14 +406,14 @@ export function Form (props) {
         if (utils.val.isObject(input)) {
             Object.keys(obj).forEach((key, index) => {
                 let value = obj[key];
-                // if (debug) console.log(
-                //     "FORM.JS :: dataToModel(",
-                //     input,
-                //     ") :: key = ",
-                //     key,
-                //     " :: value = ",
-                //     value,
-                // );
+                if (debug) console.log(
+                    "FORM.JS :: dataToModel(",
+                    input,
+                    ") :: key = ",
+                    key,
+                    " :: value = ",
+                    value,
+                );
                 let fieldType = utils.val.isString(value)
                     ? `text`
                     : utils.val.isNumber(value)
@@ -466,7 +467,7 @@ export function Form (props) {
             <div className="flex justify-end w-full">
                 <Button
                     type="submit"
-                    appearance={`neumorphic`}
+                    appearance={`glassmorphic`}
                     onClick={(e) => {
                         onSubmit(formData);
                     }}

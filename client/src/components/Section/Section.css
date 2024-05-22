@@ -1,10 +1,5 @@
 @import "../../vars.css";
-.section-container {
-    /* Style for section container. This contains header/title, content, and footer components. */
-}
-.section-content {
-    /* Style for section content areas. These contain pane and collection components. */
-}
+
 .section-header {
     position: sticky;
     top: 0;
@@ -37,6 +32,7 @@
     align-items: stretch;
 }
 .section-container {
+    /* Style for section container. This contains header/title, content, and footer components. */
     display: block;
     display: contents;
     height: 100%;
@@ -53,6 +49,7 @@
 }
 
 .section-content {
+    /* Style for section content areas. These contain pane and collection components. */
     display: flex;
     flex-direction: column;
     place-content: center flex-start;
@@ -63,6 +60,7 @@
     min-width: auto;
     /* padding: 0.25rem 1rem; */
     overflow: hidden;
+    gap: 2.0rem;
 }
 
 .card .section-container .section-content {
@@ -81,18 +79,6 @@
     justify-content: flex-start;
 }
 
-.section-pane {
-    /* display: flex;
-    place-content: center;
-    align-items: center;
-    height: 100%;
-    min-height: auto; 
-    width: 100%;
-    min-width: 40%;
-    padding: 0rem;
-    flex-wrap: wrap !important;
-    */
-}
 .section-pane {
     display: flex;
     min-height: auto;
@@ -341,7 +327,7 @@ element.style {
     min-height: 100% !important;
     /* right: 50%; */
     /* position: relative; */
-    transform: 50%, 50%;
+    /* transform: translate(50%, 50%); */
     /* display: flex; */
     flex-direction: column;
     place-content: center;
@@ -379,10 +365,18 @@ element.style {
     /* max-height: 100%; */
     /* min-height: min-content !important; */
     opacity: 0;
-    transition: min-width 0.15s var(--transition-func-bezier), opacity 1s var(--transition-func-bezier), visibility 0.1s var(--transition-func-bezier),
-        height 1s var(--transition-func-bezier), left 0.05s var(--transition-func-bezier);
+    transition: 
+        min-width 0.15s var(--transition-func-bezier), 
+        opacity 1s var(--transition-func-bezier), 
+        visibility 0.1s var(--transition-func-bezier),
+        height 1s var(--transition-func-bezier), 
+        left 0.05s var(--transition-func-bezier);
     transition-duration: 0.15s, 1s, 0.1s, 1s, 0.05s;
-    transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier), var(--transition-func-bezier),
+    transition-timing-function: 
+        var(--transition-func-bezier), 
+        var(--transition-func-bezier), 
+        var(--transition-func-bezier), 
+        var(--transition-func-bezier),
         var(--transition-func-bezier);
     transition-delay: 0s, 0s, 0s, 0s, 0s;
     transition-property: min-width, opacity, visibility, height, left;
@@ -606,7 +600,6 @@ element.style {
 /* display: inline-block !important; */
 
 /*
-
 .collection-pagination-container {
     bottom: 0%;
     left: 0;
@@ -706,14 +699,14 @@ element.style {
     top: 50%;
     /* 
     left: 0%; 
-     right: 0%; 
-     bottom: 0%; 
-     top: 0%; 
+    right: 0%; 
+    bottom: 0%; 
+    top: 0%; 
     line-height: 35px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-     */
+    */
     -webkit-transform: translate(0, -50%);
     transform: translate(0%, -50%);
     background: rgba(0, 0, 0, 0.28);
@@ -755,20 +748,19 @@ element.style {
     width: 0.75rem;
     height: 0.75rem;
     margin-inline: 2.5rem;
-    font-size: 0.65rem;
+    font-size: 0.80rem;
     line-height: normal;
     z-index: 10;
     overflow: hidden;
-    text-shadow: 0rem 0rem 0.115rem #acacacbb, 0rem 0rem 0.125rem #ffffff7f;
     transition-duration: 0.15s, 0.15s;
     transition-timing-function: var(--transition-func-bezier), var(--transition-func-bezier);
     transition-property: width, opacity, visibility, height, left;
 }
 .collection-pagination-bullet.collection-pagination-active {
     background-color: #736464;
-    font-size: 0.85rem;
-    width: 0.9rem;
-    height: 0.9rem;
+    font-weight: 900;
+    width: 1.1rem;
+    height: 1.1rem;
 }
 .collection-pagination-indicator {
     background: #3d252547;
@@ -779,9 +771,9 @@ element.style {
     background-color: #00000047;
 }
 .collection-pagination-control:hover {
-    color: #736464;
+    color: #eebaba;
     background-color: #383838;
-    box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px;
+    box-shadow: rgba(10, 10, 10, 0.25) 0px 0px 2px 2px;
 }
 .collection-pagination-control:focus {
     color: #3d3131;
@@ -844,131 +836,6 @@ for the slideshow */
     }
 }
 
-/*
-
-*/
-/*
-.section-collection-item {
-border: 1px solid red;
-border-radius: 0px;
-padding: 0px;
-margin: 0px;
-min-width: 0%;
-max-width: 0%;
-/* height: 100%
-/* max-height: 100%
-/* min-height: min-content !important
-opacity: 0;
-transition: min-width 0.15s cubic-bezier(0.645, 0.045, 0.355, 1),
-opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1),
-visibility 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-height 1s cubic-bezier(0.645, 0.045, 0.355, 1),
-left 0.05s cubic-bezier(0.645, 0.045, 0.355, 1);
-box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 5px;
-visibility: hidden;
-width: 0% !important;
-/* height: min-content !important
-}
-.section-collection-container {
-border: 1px solid gold;
-/* min-height: min-content !important
-/* min-width: 100% !important
-/* width: 100% !important
-right: 50%;
-position: relative;
-display: flex;
-flex-direction: column;
-place-content: center;
-align-items: center;
-align-self: center;
-height: 100% !important;
-min-height: 100% !important;
-max-height: 100%;
-min-width: 100%;
-max-width: 100%;
-width: min-content !important;
-}
-
-<div class="section-container"
-    style="display: block;height: 100%;min-height: auto;max-height: 100%;width: 100%;min-width: auto;max-width: 100%;border: none;padding: 0.25rem 1rem;margin: 0rem;transition: width 1s ease-in-out 0s;box-shadow: none;">
-    <div class="section-title">
-        <h1 class="section-title-text text-3xl text-highlightColor" styles="[object Object]">About Me</h1>
-        <div class="section-title-bar"></div>
-    </div>
-    <div class="section-content"
-        style="display: flex;flex-direction: column;place-content: center flex-start;align-items: center;height: auto;min-height: auto;width: auto;min-width: auto;/* padding: 0.25rem 1removerflow: hidden;">
-        <div class="section-pane"
-            style="display: flex;place-content: center;align-items: center;/* height: 100%/* min-height: autowidth: 100%;min-width: 40%;padding: 0rem;flex-wrap: wrap !important;overflow: hidden;">
-            <div class="section-collection-container"
-                style="display: flex;/* flex-direction: column/* place-content: cent;/* align-items: centerenter;align-self: center;">
-                <div class="section-collection-content"
-                    style=display: flex/* flex-direction: row/* place-content: center/* align-items: centeralign-self: center;">
-                    <a id="collection-item-0" href="https://codepen.io/sgbn23/embed/preview/vYaovdE?default-tab=result"
-                        class="section-collection-item "><img class="collection-img"
-                            src="https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png"
-                            alt="https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png" style="height: 500px;"></a><a
-                        id="collection-item-1" href="https://codepen.io/sgbn23/embed/preview/dyqbvXa?default-tab=result"
-                        class="section-collection-item section-collection-item-visible"><img class="collection-img"
-                            src="https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png"
-                            alt="https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png" style="height: 500px;"></a><a
-                        id="collection-item-2" href="https://codepen.io/sgbn23/embed/preview/RwBXGBa?default-tab=result"
-                        class="section-collection-item "><img class="collection-img"
-                            src="https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png"
-                            alt="https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png" style="height: 500px;"></a><a
-                        id="collection-item-3" href="https://codepen.io/sgbn23/embed/preview/gOdvwqw?default-tab=result"
-                        class="section-collection-item "><img class="collection-img"
-                            src="https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png"
-                            alt="https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png" style="height: 500px;"></a>
-                </div>
-                <div class="carousel-indicators">
-                    <p class="collection-indicator-index">1</p>
-                    <div class="carousel-indicator flex-column" id="section-collection-item-0"></div>
-                    <div class="carousel-indicator flex-column" id="section-collection-item-1"></div>
-                    <div class="carousel-indicator flex-column" id="section-collection-item-2"></div>
-                    <div class="carousel-indicator flex-column" id="section-collection-item-3"></div>
-                </div><button class="carousel-buttons" style=height: 50px/* width: 50px"><button
-                        class="carousel-control next glassmorphic-button image-slideshow-button"
-                        style="height: 50px;width: 50px;">&gt;</button><button
-                        class="carousel-control prev glassmorphic-button image-slideshow-button"
-                        style="height: 50px;width: 50px;">&lt;</button></button>
-            </div>
-        </div>
-        <div class="section-pane"
-            style=display: flexplace-content: flex-start;align-items: flex-start;height: 100%;min-height: auto;width: auto;min-width: 40%;padding: 0.25rem 1rem;overflow: auto;">
-            <div class="section-text-container">
-                <div class="section-text section-text text-highlightColor text-xs">I am a versatile engineer and web
-                    developer with a passion for learning and problem-solving. With a degree in electrical engineering
-                    and five years of experience designing motor control, VFDs, control and instrumentation, and power
-                    transmission systems, I have a solid foundation in engineering principles and technical expertise.
-                </div>
-            </div>
-            <div class="section-text-container">
-                <div class="section-text section-text text-highlightColor2 text-xs">In my free time, I taught myself a
-                    variety of programming languages and quickly applied these skills to secure a remote job during the
-                    pandemic lockdowns. Over the past three years, my role has expanded to include front-end
-                    development, back-end development, cybersecurity risk management, and even handling administrative
-                    tasks on Microsoft Azure and Microsoft Admin 365.</div>
-            </div>
-            <div class="section-text-container">
-                <div class="section-text section-text text-white text-xs">My portfolio showcases my proficiency in a
-                    broad range of front-end and full-stack web development technologies, including React, Vue, MongoDB,
-                    Mongoose, NodeJS, ExpressJS, Apache, MySQL, Wordpress, PHP, Codeigniter, HTML5, CSS3, and C#. I also
-                    have experience in cybersecurity risk management, including vulnerability assessments, penetration
-                    testing, threat analysis, and security awareness training.</div>
-            </div>
-            <div class="section-text-container">
-                <div class="section-text section-text text-highlightColor text-xs">Whether it's designing complex
-                    electrical systems, building user-friendly web applications, or ensuring the security and integrity
-                    of digital systems, I take pride in delivering high-quality work that meets the needs of my clients.
-                    I am excited to bring my diverse skill set and experience to a new position and tackle new
-                    challenges.</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-*/
-
 /* Various separator styles - Source is on Codepen */
 /*
 .section-title .section-title-bar,
@@ -990,6 +857,8 @@ width: min-content !important;
     background-color: rgb(55, 65, 81, 1.0);
     margin: 1rem auto;
 }
+
+/*
 .section-bar .hr-style-neumorphic {
     margin: 0px 0px;
     width: 100%;
@@ -1002,6 +871,19 @@ width: min-content !important;
     box-shadow: rgba(255, 255, 255, 0.0784314) 0px 1px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 1px;
     background: linear-gradient(var(--color-quaternary), var(--color-tertiary));
 }
+*/ 
+.section-bar .hr-style-neumorphic {
+	/* background: linear-gradient(var(--color-quaternary),var(--color-tertiary)); */
+	/* border: 1px solid; */
+	/* border-color: #111 #111 #000; */
+	border-radius: 4px;
+	box-shadow: inset 0 1px hsla(0,0%,100%,.078),0 1px 1px rgba(0,0,0,.098);
+	box-sizing: border-box;
+	height: 8px;
+	margin: 0;
+	width: 100%;
+}
+
 .section-bar .hr-style-1 {
     border-top: 1px solid #8c8b8b;
 }

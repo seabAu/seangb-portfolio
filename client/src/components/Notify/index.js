@@ -136,13 +136,3 @@ export function Notify(props) {
 		)
 	);
 }
-
-// Notify.propTypes = {
-//   second: PropTypes.third
-// }
-//
-// const mapStateToProps = (state) => ({})
-//
-// const mapDispatchToProps = {}
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Notify)

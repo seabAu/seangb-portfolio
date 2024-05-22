@@ -112,7 +112,7 @@ function Blog() {
             dispatch(ReloadData(false));
             const response = await API.get(`/api/blog/posts`)
                 .then((res) => {
-                    if (debug)
+                    if ( debug ) 
                         console.log("Blog.js :: getPosts :: res = ", res);
                     dispatch(SetBlogData(res.data));
 
@@ -126,7 +126,7 @@ function Blog() {
                     dispatch(ReloadData(false));
                 });
 
-            // console.log( response.data );
+            // if ( debug ) console.log( response.data );
             dispatch(SetBlogData(response.data));
             // Set reloadData flag false.
             /// dispatch(ReloadData(false));
@@ -171,11 +171,11 @@ function Blog() {
     useEffect(() => {
         // On initial mount, fetch posts.
         let postsTemp = getPosts();
-        console.log("Blog.js :: postsTemp: ", postsTemp);
+        if ( debug ) console.log("Blog.js :: postsTemp: ", postsTemp);
     }, []);
 
     useEffect(() => {
-        console.log("Blog.js :: blogData: ", blogData);
+        if ( debug ) console.log("Blog.js :: blogData: ", blogData);
     }, [blogData]);
 
     useEffect(() => {

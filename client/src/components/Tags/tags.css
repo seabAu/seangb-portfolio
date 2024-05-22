@@ -31,6 +31,7 @@
 
 .cell-list-item:hover {
     background-color: var(--color-quinary);
+    box-shadow: inset -2px -2px 2px -2px #000000bb, inset 2px 2px 2px -2px #888888bb;
 }
 .cell-list-item:focus {
     background-color: var(--color-quaternary);

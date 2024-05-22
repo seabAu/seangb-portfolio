@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import populate from "mongoose-autopopulate";
 
 const userSchema = new mongoose.Schema({
     /// REQUIRED
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
-userSchema.plugin(require("mongoose-autopopulate"));
+userSchema.plugin(populate);
 
 const userProfileSchema = mongoose.Schema({
     userid: {
@@ -63,6 +64,9 @@ const userProfileSchema = mongoose.Schema({
         },
     ],
 } );
-userProfileSchema.plugin(require("mongoose-autopopulate"));
+userProfileSchema.plugin(populate);
 
-module.exports = mongoose.model("users", userSchema);
+// module.exports = mongoose.model("users", userSchema);
+export const User = mongoose.model( "users", userSchema );
+
+export default User;

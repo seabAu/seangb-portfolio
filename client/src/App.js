@@ -38,7 +38,6 @@ import { importFile } from "./api/import.js";
 
 const offlineMode = false;
 
-// const debug = false;
 const ProtectedRoute = ({
     children,
     isAllowed,
@@ -100,7 +99,10 @@ function App() {
     } = useSelector((state) => state.root);
 
     // const [authorized, setAuthorized] = React.useState(false);
-    const authRef = React.useRef(false);
+    const authRef = React.useRef( false );
+
+    // Whether we've CHECKED for token authenticity yet. If not, hold off on rerouting, to give the server a moment to respond. 
+    const [ authenticated, setAuthenticated ] = useState( false ); 
 
     const auth = async (requiredRoles = []) => {
         // Get the session token from the stored token, if there is one. If there isn't one, automatically reject.
@@ -113,6 +115,11 @@ function App() {
                     "Admin index.js :: auth :: token is not set: ",
                     token,
                 );
+            
+            dispatch(SetLoggedIn(false));
+            dispatch(SetUser({}));
+            dispatch(SetLoading(false));
+
             return false;
         }
 
@@ -206,43 +213,6 @@ function App() {
         // }
     }, []);
 
-    // Make sure a visitor is successfully logged in before letting them access any page other than "/admin-login".
-    useEffect(() => {
-        if (debug) console.log("App.js :: authRef.current is now = ", authRef.current);
-    }, [authRef.current]);
-    
-    useEffect(() => {
-        if (debug)
-            console.log(
-                "App.js :: Redux data is now = ",
-                "\n :: debug = ",
-                debug,
-                "\n :: loading = ",
-                loading,
-                "\n :: portfolioData = ",
-                portfolioData,
-                "\n :: blogData = ",
-                blogData,
-                "\n :: appsData = ",
-                appsData,
-                "\n :: reloadData = ",
-                reloadData,
-                "\n :: loggedIn = ",
-                loggedIn,
-                "\n :: user = ",
-                user,
-            );
-    }, [
-        debug,
-        loading,
-        portfolioData,
-        blogData,
-        appsData,
-        reloadData,
-        loggedIn,
-        user,
-    ]);
-
     const getPortfolioData = async () => {
         try {
             dispatch(SetLoading(true));
@@ -310,6 +280,44 @@ function App() {
         }
     }, [getPortfolioData]);
 
+    useEffect( () =>
+    {
+        // Debug output for tracking important values. 
+        if (debug)
+            console.log(
+                "App.js :: Redux data is now = ",
+                "\n :: debug = ",
+                debug,
+                "\n :: loading = ",
+                loading,
+                "\n :: portfolioData = ",
+                portfolioData,
+                "\n :: blogData = ",
+                blogData,
+                "\n :: appsData = ",
+                appsData,
+                "\n :: reloadData = ",
+                reloadData,
+                "\n :: loggedIn = ",
+                loggedIn,
+                "\n :: user = ",
+                user,
+            );
+    }, [
+        debug,
+        loading,
+        portfolioData,
+        blogData,
+        appsData,
+        reloadData,
+        loggedIn,
+        user,
+    ]);
+
+    useEffect(() => {
+        if (debug) console.log("App.js :: authRef.current is now = ", authRef.current);
+    }, [authRef.current]);
+    
     // // Crosscheck data. This triggers whenever portfolioData changes.
     // useEffect(() => {
     //     console.log("App.js:", portfolioData);
@@ -332,11 +340,11 @@ function App() {
                     element={<Login />}
                 />
                 <Route
-                    path="admin"
+                    path="/admin"
                     element={
                         <ProtectedRoute
                             redirectPath="/"
-                            isAllowed={!!user && user.role.includes("admin")}>
+                            isAllowed={ ( !!user && user?.role?.includes("admin") ) }>
                             <Admin />
                         </ProtectedRoute>
                     }

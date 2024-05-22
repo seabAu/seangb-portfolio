@@ -144,7 +144,16 @@ function Admin ()
 			// let schema = utils.ao.deepGetKey(response, "tasks");
 			// let paths = utils.ao.deepGetKey(taskschema, "paths");
 			// if (paths) setFormDataSchema(paths);
-            if (response.data) dispatch(SetDataSchema(response.data.data))
+
+            // if (response.data) dispatch(SetDataSchema(response.data.data))
+			if ( response.data )
+			{
+				console.log( response.data );
+				if ( response.data.data )
+				{
+					SetDataSchema( response.data.data );
+				}
+			}
 		});
 		// if (debug)
 		console.log("AdminPlanner.js :: schemaTemp = ", schemaTemp, " :: schema = ", schema);
@@ -152,7 +161,7 @@ function Admin ()
 
 	useEffect(() => {
 		// On initial mount, fetch data.
-		if (!dataSchema) getSchema();
+		if (!dataSchema || Object.keys(dataSchema).length === 0) getSchema();
 	}, []);
 
 	// if ( role !== "admin" )
@@ -212,85 +221,3 @@ function Admin ()
 }
 
 export default Admin;
-/*
-	<div
-		key="0"
-		className="tab-item"
-		label="Dashboard"
-		enabled={true}
-		access={"admin"}>
-		<AdminDashboard />
-	</div>
-	<div
-		key="1"
-		className="tab-item"
-		label="Intro"
-		enabled={true}
-		access={"admin"}>
-		<AdminIntro />
-	</div>
-	<div
-		className="tab-item"
-		label="About"
-		key="2"
-		enabled={true}
-		access={"admin"}>
-		<AdminAbout />
-	</div>
-	<div
-		className="tab-item"
-		label="Experiences"
-		key="3"
-		enabled={true}
-		access={"admin"}>
-		<AdminExperiences />
-	</div>
-	<div
-		className="tab-item"
-		label="Projects"
-		key="4"
-		enabled={true}
-		access={"admin"}>
-		<AdminProjects />
-	</div>
-	<div
-		className="tab-item"
-		label="Education"
-		key="5"
-		enabled={true}
-		access={"admin"}>
-		<AdminEducations />
-	</div>
-	<div
-		className="tab-item"
-		label="Messages"
-		key="6"
-		enabled={true}
-		access={"admin"}>
-		<AdminMessages />
-	</div>
-	<div
-		className="tab-item"
-		label="Blog"
-		key="7"
-		enabled={true}
-		access={"admin"}>
-		<AdminBlog />
-	</div>
-	<div
-		className="tab-item"
-		label="To Do"
-		key="8"
-		enabled={true}
-		access={"admin"}>
-		<AdminPlanner />
-	</div>
-	<div
-		className="tab-item"
-		label="Dev"
-		key="9"
-		enabled={true}
-		access={"admin"}>
-		<AdminDev />
-	</div>
-*/

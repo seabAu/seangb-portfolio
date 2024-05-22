@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { FaCloudDownloadAlt, FaFilePdf, FaUser, FaUserTimes, FaTimesCircle, FaThList } from "react-icons/fa";
+import { FaCloudDownloadAlt, FaFilePdf, FaUser, FaUserTimes, FaTimesCircle, FaThList, FaThumbsUp, FaSwatchbook, FaBook } from "react-icons/fa";
 
 import API from "../../api/api.js";
 import Button from "../Button";
@@ -21,7 +21,6 @@ function Header ( props )
     
     const handleDownload = (event, fileID) => {
         let file;
-        // let filepath;
         if (fileID === 1) {
             file = "Sean G Brown Web Developer Resume (March 2023).pdf";
         } else if (fileID === 2) {
@@ -31,12 +30,6 @@ function Header ( props )
         // var pubURL = process.env.PUBLIC_URL;
         // console.log( "pubURL = ", pubURL, pubURL.endsWith( '/' ) );
 
-        // filepath =
-        //     process.env.PUBLIC_URL +
-        //     (process.env.PUBLIC_URL.endsWith("/") ? "" : "/") +
-        //     "files" +
-        //     "/" +
-        //     file;
         // using Java Script method to get PDF file
         fetch(file).then((response) => {
             response.blob().then((blob) => {
@@ -67,18 +60,6 @@ function Header ( props )
     const updateDimensions = () => {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
-        // if(debug)console.log(
-        //     "HEADER :: updateDimensions ::  ",
-        //     "\n",
-        //     "window.innerWidth = ",
-        //     window.innerWidth,
-        //     "\n",
-        //     "window.innerHeight = ",
-        //     window.innerHeight,
-        //     "\n",
-        //     "showDropdown = ",
-        //     showDropdown,
-        // );
     };
 
     useEffect(() => {
@@ -115,41 +96,139 @@ function Header ( props )
         // let token = localStorage.getItem("token");
         let tokenValid = utils.val.isValid(userToken, true);
 
-        if ( debug )
-            console.log(
-			"HEADER.JS :: headerNav :: show = ",
-			show,
-			" :: tokenValid = ",
-			tokenValid,
-			" :: userData = ",
-			userData,
-			" :: userRole = ",
-			userRole,
-			" :: userToken = ",
-			userToken,
-		);
+        // if ( debug )
+        //     console.log(
+		// 	"HEADER.JS :: headerNav :: show = ",
+		// 	show,
+		// 	" :: tokenValid = ",
+		// 	tokenValid,
+		// 	" :: userData = ",
+		// 	userData,
+		// 	" :: userRole = ",
+		// 	userRole,
+		// 	" :: userToken = ",
+		// 	userToken,
+		// );
         return (
-			<ul className="nav-list flex justify-between whitespace-nowrap h-full">
+            <ul className="nav-list flex justify-between whitespace-nowrap h-full">
+                {
+                    /*
+        				<li className="nav-list-item h-full">
+        					<Link
+        						className="nav-button"
+                                to={
+                                    `${ window.location.href.includes( "/portfolio" )
+                                    ? ( [ "admin", "superadmin" ].includes( userRole )
+                                        ? "/admin"
+                                        : "/portfolio" )
+                                    : "/portfolio"
+                                    }`
+                                }>
+        						<Button
+        							classes="nav-button"
+        							label={
+        								<div className="nav-button-text">
+        									{
+        									    window.location.href.includes( "/portfolio" )
+                                                ? ( [ "admin", "superadmin" ].includes( userRole )
+                                                    ? "Admin"
+                                                    : "Portfolio" )
+                                                : "Portfolio"
+        									}
+        								</div>
+        							}
+                                    icon={
+                                        window.location.href.includes( "/portfolio" )
+                                        ? ( [ "admin", "superadmin" ].includes( userRole )
+                                            ? <FaThList className="nav-button-icon icon" />
+                                            : <FaBook className="nav-button-icon icon" /> )
+                                        : <FaBook className="nav-button-icon icon" />
+                                        
+                                    }
+        							onClick={(event) => {
+        								/// route("/admin");
+        							}}></Button>
+        					</Link>
+                        </li>
+                        
+                    */
+                }
+                
 				<li className="nav-list-item h-full">
 					<Link
 						className="nav-button"
-						to={`${window.location.href.includes("/portfolio") ? (["admin", "superadmin"].includes(userRole) ? "/admin" : "/") : "/portfolio"}`}>
+						to={'/'}>
 						<Button
 							classes="nav-button"
 							label={
 								<div className="nav-button-text">
-									{
-										window.location.href.includes("/portfolio") ? (["admin", "superadmin"].includes(userRole) ? "Admin" : "Home") : "Portfolio"
-										// localStorage.getItem( "token" ) ? "Admin" : "Portfolio" )
-									}
+									Home
 								</div>
 							}
-							icon={<FaThList className="nav-button-icon icon" />}
+							icon={<FaSwatchbook className="nav-button-icon icon" />}
 							onClick={(event) => {
 								/// route("/admin");
 							}}></Button>
 					</Link>
-				</li>
+                </li>
+                
+				<li className="nav-list-item h-full">
+					<Link
+						className="nav-button"
+						to={'/portfolio'}>
+						<Button
+							classes="nav-button"
+							label={
+								<div className="nav-button-text">
+									Portfolio
+								</div>
+							}
+							icon={<FaBook className="nav-button-icon icon" />}
+							onClick={(event) => {
+								/// route("/admin");
+							}}></Button>
+					</Link>
+                </li>
+                
+                {
+                    ( [ "admin", "superadmin" ].includes( userRole ) ) ? 
+                    <li className="nav-list-item h-full">
+                        <Link
+                            className="nav-button"
+                            to={'/admin'}>
+                            <Button
+                                classes="nav-button"
+                                label={
+                                    <div className="nav-button-text">
+                                        Admin
+                                    </div>
+                                }
+                                icon={<FaThList className="nav-button-icon icon" />}
+                                onClick={(event) => {
+                                    /// route("/admin");
+                                }}></Button>
+                        </Link>
+                    </li> : <></>
+                }
+                
+				<li className="nav-list-item h-full">
+					<a
+						className="nav-button"
+						href={`https://akasha.seangb.com/`}>
+						<Button
+							classes="nav-button"
+							label={
+								<div className="nav-button-text">
+									Akasha
+								</div>
+							}
+							icon={<FaThumbsUp className="nav-button-icon icon" />}
+							onClick={(event) => {
+								/// route("/admin");
+							}}></Button>
+					</a>
+                </li>
+                
 				<li className="nav-list-item h-full">
 					<Button.Dropdown
 						// open={showDropdown}

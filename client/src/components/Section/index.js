@@ -779,16 +779,6 @@ function Text(props) {
     const [textStyle, setTextStyle] = React.useState({});
 
     useEffect(() => {
-        // let scaleStyles = scaleConfig.filter( ( element ) =>
-        // {
-        //     let find = [ "text", scale ].join( '-' );
-        //     if ( element.name === `text-${ scale }` )
-        //     {
-        //         console.log( "element.name === text-${ scale } = ", element.name === find, textStyles, " :: element.style = ", element.style );
-        //         setTextStyle( element.style );
-        //     }
-        //     return element.name === `text-${ scale }`;
-        // } ).style;
         let find = ["text", scale].join("-");
         let s = utils.ao.findOne(scaleConfig, "name", find, "style");
         let scaleStyles = scaleConfig.filter((element) => {
@@ -797,7 +787,6 @@ function Text(props) {
             }
             return element.name === find;
         });
-        /// console.log("Section.Text.js :: scale is now = ", scale, " :: textStyle = ", textStyle, " :: scaleStyles = ", scaleStyles, s);
     }, [scale]);
 
     const textStyles = {
@@ -923,7 +912,7 @@ function Image(props) {
         // backgroundColor: fillercolor,
         border: `${"none"}`,
         borderRadius: `${"0"}px`,
-        padding: `${"0"}`,
+        padding: `${"8"}px`,
         margin: `${"0"}`,
         transition: "width 1s ease-in-out",
         boxShadow: `${boxShadowEnabled ? "2px 2px 2px 2px rgba(0, 0, 0, 0.25)" : "none"}`,

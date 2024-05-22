@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as utils from "../../utilities/index.js";
 
 import "./Input.css";
@@ -129,7 +129,7 @@ function Control(props) {
 	};
 
 	const createField = (type) => {
-		if (debug) console.log("Input.Control.js :: createField", "\n :: props = ", props, "\n :: type = ", type, "\n :: inputProps = ", inputProps);
+		// if (debug) console.log("Input.Control.js :: createField", "\n :: props = ", props, "\n :: type = ", type, "\n :: inputProps = ", inputProps);
 		if (types.validInputTypes.includes(type)) {
 			// Type given is valid, proceed.
 			if (type === "checkbox") {
@@ -145,12 +145,13 @@ function Control(props) {
 						inputProps={inputProps}
 						onChange={onChange}
 						required={required ?? false}
-						disabled={disabled ?? false}
+						disabled={ disabled ?? false }
+						defaultValue={inputProps.defaultValue}
 					/>
 				);
 			} else if (type === "select") {
 				// Render select-specific properties.
-				if (debug) console.log("Input.Control.js :: createField", "\n :: SELECT :: type = ", type, "\n :: inputProps = ", inputProps);
+				// if (debug) console.log("Input.Control.js :: createField", "\n :: SELECT :: type = ", type, "\n :: inputProps = ", inputProps);
 				return (
 					<Input.Select
 						height={50}
@@ -184,6 +185,7 @@ function Control(props) {
 				// if ((type === "text" && value.toString().length > 80) || ()) {
 				let val = value;
 				let areaOverride = false;
+				var rowCount = 1;
 
 				if (utils.ao.has(inputProps, "defaultValue")) {
 					val = inputProps.defaultValue;
@@ -192,28 +194,33 @@ function Control(props) {
 				if (utils.val.isDefined(val)) {
 					if (val.toString().length > 80) {
 						areaOverride = true;
+						// Adjust the row count and height dynamically so it wraps over multiple lines.
 					}
 				}
-				if (type === "textarea" || (type === "text" && areaOverride)) {
+				if (type === "textarea" ) { // || (type === "text" && areaOverride)) {
 					// Render a text area instead.
 					return (
-						<textarea
+						<Input.Textarea
 							// type="text"
-							className={`input-field-control input-field-textarea`}
-							style={inputStyles}
+							classes={`input-field-control input-field-textarea`}
+							inputStyles={ {...inputStyles,
+									minHeight: `${19}px`,
+									resize: "none"
+							}}
 							name={name}
 							key={`textarea-input-${name}-${id}`}
 							id={`textarea-input-${name}-${id}`}
-							{...inputProps}
+							// {...inputProps}
+							inputProps={inputProps}
 							// value={value}
 							// defaultValue={defaultValue}
 							/// placeholder={`${placeholder}`}
 							onChange={onChange}
 							required={required ?? false}
 							disabled={disabled ?? false}
-							wrap={"soft"}
-							rows={4}
-							cols={50}
+							// wrap={"soft"}
+							// rows={4}
+							// cols={50}
 							// onBlur={''}
 							// onFocus={''}
 						/>
@@ -291,7 +298,9 @@ function Select(props) {
 		// if (debug) console.log( "INPUT.SELECT :: isOptionSelected :: ", optionValue, selected, " is selected = ", optionValue ? (
 		// 	( utils.val.isValidArray( selected ) ) ? ( selected.includes( optionValue ) ) : (optionValue === selected)
 		// ) : (false) );
-		return optionValue ? (utils.val.isValidArray(selected) ? selected.includes(optionValue) : optionValue === selected) : false;
+		return (
+			optionValue ? (utils.val.isValidArray(selected) ? selected.includes(optionValue) : optionValue === selected) : false
+		);
 		// if (optionValue) {
 		// 	if ( utils.val.isValidArray( selected ) )
 		// 	{
@@ -687,6 +696,115 @@ function Props(props) {
 }
 Input.Props = Props;
 
+// Updates the height on value update.
+export const useTextareaAutoHeight = (ref) => {
+	useEffect(() => {
+		const listener = () =>
+		{
+			let clientWidth = ref.current.parentElement.clientWidth;
+			let text = ref.current.value.toString();
+			let textLength = text.length;
+			let rowHeight = 24;
+			// let newHeight = Number( ( textLength * ( 13 / 10 ) ) % clientWidth ) * rowHeight;
+			const textRowCount = text ? text.split( "\n" ).length : 0;
+			const rows = textRowCount + 1;
+
+		  	// console.log(
+			//   	"ref.current.scrollHeight = ",
+			//   	ref.current.scrollHeight,
+			//   	"textLength = ", textLength,
+			// 		"clientwidth = ", clientWidth,
+			// 		// "newheight = ", newHeight
+			// 	);
+			
+			// ref.current.style.padding = "0px";
+			// ref.current.style.height = rowHeight + "px";
+			// ref.current.style.removeProperty("height");
+			// ref.current.style.height = rowHeight + ref.current.scrollHeight + "px";
+			// // ref.current.style.height = newHeight + "px";
+			// ref.current.style.removeProperty( "padding" );
+			
+		    // Reset height - important to shrink on delete
+		    // ref.current.style.height = "inherit";
+		    // Set height
+		    ref.current.style.height = `${Math.max(
+				ref.current.scrollHeight,
+				// ref.current.parentElement.clientHeight
+				rowHeight
+		    )}px`;
+	  	};
+	  	ref.current.addEventListener("input", listener);
+	}, [ref]);
+};
+
+const Textarea = ( props ) => {
+	const {
+		// Input-field constructor properties.
+		fieldLayout = "inline", // INLINE | INLINE-REVERSE | BLOCK | BLOCK-REVERSE
+		fieldType = "text", // Default to text type.
+		inputProps,
+		label = "",
+		id = "", // Field ID
+		name = "", // Value ID
+		onChange,
+		disabled = false,
+		required = true,
+		rows = `${4}`,
+		cols = `${50}`,
+		wrap = "",
+		defaultValue = "",
+		placeholder, // = "",
+		// Extra styling.
+		classes = "",
+		styles = {},
+		debug = false,
+	} = props;
+
+	const ref = useRef(null);
+	
+	// console.log( "Textarea resizing :: at start :: ref = ", ref );
+	const inputStyles = {
+		...styles,
+	};
+
+	useTextareaAutoHeight( ref );
+
+	// useEffect(() => {
+	// 	const listener = () => {
+	// 	  	ref.current.style.padding = "0px";
+	// 	  	ref.current.style.height = ref.current.scrollHeight + "px";
+	// 	  	ref.current.style.removeProperty("padding");
+	// 	};
+	// 	ref.current.addEventListener("keydown", listener);
+	// }, [ref]);
+	
+	return (
+		<textarea
+			ref={ ref }
+			// type="text"
+			className={`input-field-control input-field-textarea`}
+			name={name}
+			key={`textarea-input-${name}-${id}`}
+			id={`textarea-input-${name}-${id}`}
+			{...inputProps}
+			// value={value}
+			// defaultValue={defaultValue}
+			placeholder={`${placeholder}`}
+			onChange={onChange}
+			required={required ?? false}
+			disabled={disabled ?? false}
+			wrap={wrap}
+			// rows={rows}
+			// cols={cols}
+			// onBlur={''}
+			// onFocus={''}
+			styles={inputStyles}
+		/>
+	);
+}
+
+Input.Textarea = Textarea;
+
 function InputArea(props) {
 	const {
 		inputProps = {},
@@ -712,6 +830,8 @@ function InputArea(props) {
 		if (debug) console.log("InputArea :: {Props} = ", props);
 	};
 
+	debugReadProps();
+
 	// debugReadProps();
 	return (
 		<Input.Field styles={fieldStyles}>
@@ -720,13 +840,15 @@ function InputArea(props) {
 				name={name}
 				styles={labelStyles}
 			/>
-			<textarea
+			<Input.Textarea
+				// ref={ ref }
 				// type="text"
 				className={`input-field-control input-field-textarea`}
 				name={name}
 				key={`textarea-input-${name}-${id}`}
-				id={`textarea-input-${name}-${id}`}
-				{...inputProps}
+				id={ `textarea-input-${ name }-${ id }` }
+				inputProps={inputProps}
+				// {...inputProps}
 				// value={value}
 				// defaultValue={defaultValue}
 				placeholder={`${placeholder}`}
@@ -734,8 +856,8 @@ function InputArea(props) {
 				required={required ?? false}
 				disabled={disabled ?? false}
 				wrap={wrap}
-				rows={rows}
-				cols={cols}
+				// rows={rows}
+				// cols={cols}
 				// onBlur={''}
 				// onFocus={''}
 				styles={inputStyles}
@@ -1251,7 +1373,7 @@ function Data(props) {
 							);
 						}
 					});
-					datalist.push(<div className="data-input-cell-list">{datacells}</div>);
+					datalist.push(<div className="data-input-cell-list" key={utils.str.generateString( 16 )}>{datacells}</div>);
 				}
 			} else if (["[array]", "[object]"].includes(dataType)) {
 				// Input is an array of objects. In this case, for each key in the objects in the array, we create an input field, arranged in a grid.

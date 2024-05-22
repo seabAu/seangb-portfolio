@@ -29,3 +29,12 @@ export function importFile(filepath) {
         }
     }
 }
+
+// Source: https://gist.github.com/ZeeshanMukhtar1/d313da2c0aaa997c4125fcb2e2ca9c77
+export const checkImageURL = (url) => {
+    if (!url) return false
+    else {
+        const pattern = new RegExp('^https?:\\/\\/.+\\.(png|jpg|jpeg|bmp|gif|webp)$', 'i');
+        return pattern.test(url);
+    }
+};

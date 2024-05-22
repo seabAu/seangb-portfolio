@@ -1,5 +1,5 @@
 import React from "react";
-import { ExportToCsv } from "export-to-csv";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 import * as utils from "../../utilities/index.js";
 import Button from "../Button/index.js";
 
@@ -21,9 +21,9 @@ function TableDownload ( { dataName, tableData, downloadFileType, debug = false 
 
     const download = ( data, filetype ) =>
     {
-		const flattenedData = utils.ao.flattenObjArray(data);
-		const csvExporter = new ExportToCsv(options);
-		csvExporter.generateCsv(flattenedData);
+		//// const flattenedData = utils.ao.flattenObjArray(data);
+		//// const csvExporter = new ExportToCsv(options);
+		//// csvExporter.generateCsv(flattenedData);
 		// if ( debug ) console.log(
 		//     "TableDownload: ",
 		//     "\nData = ",
@@ -37,6 +37,22 @@ function TableDownload ( { dataName, tableData, downloadFileType, debug = false 
 		//     flattenedData.length,
 		//     "elements.",
 		// );
+
+		// Flatten the data to be usable, in the case of deep-nested object arrays.
+		const flattenedData = utils.ao.flattenObjArray( data );
+		
+		// mkConfig merges your options with the defaults
+		// and returns WithDefaults<ConfigOptions>
+		const csvConfig = mkConfig( options );
+		
+		// Converts your Array<Object> to a CsvOutput string based on the configs
+		const csv = generateCsv(csvConfig)(flattenedData);
+		
+		// Add a click handler that will run the `download` function.
+		// `download` takes `csvConfig` and the generated `CsvOutput`
+		// from `generateCsv`.
+		download( csvConfig )( csv );
+	
 	};
 
     return (

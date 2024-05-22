@@ -25,7 +25,7 @@ export const PrettyPrintJson = React.memo(({ data }) => (
 
 // Source: https://1loc.dev/random/generate-a-random-string-from-given-characters/
 // Example call: generateString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-export const generateString = (length, chars) =>
+export const generateString = (length, chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') =>
 	Array(length)
 		.fill("")
 		.map((v) => chars[Math.floor(Math.random() * chars.length)])

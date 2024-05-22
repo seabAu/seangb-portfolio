@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import populate from "mongoose-autopopulate";
 
 // Create a model schema for each of the sections.
 const introSchema = new mongoose.Schema({
@@ -27,7 +28,7 @@ const introSchema = new mongoose.Schema({
         required: true,
     },
 });
-introSchema.plugin(require("mongoose-autopopulate"));
+introSchema.plugin(populate);
 
 const skillSchema = new mongoose.Schema({
     index: {
@@ -67,7 +68,7 @@ const skillSchema = new mongoose.Schema({
         // required: true,
     },
 });
-skillSchema.plugin(require("mongoose-autopopulate"));
+skillSchema.plugin(populate);
 
 const aboutSchema = new mongoose.Schema({
     firstName: {
@@ -127,7 +128,7 @@ const aboutSchema = new mongoose.Schema({
         ],
     },
 });
-aboutSchema.plugin(require("mongoose-autopopulate"));
+aboutSchema.plugin(populate);
 
 const experienceSchema = new mongoose.Schema({
     index: {
@@ -172,7 +173,7 @@ const experienceSchema = new mongoose.Schema({
         required: true,
     },
 });
-experienceSchema.plugin(require("mongoose-autopopulate"));
+experienceSchema.plugin(populate);
 
 const projectSchema = new mongoose.Schema({
     index: {
@@ -187,22 +188,27 @@ const projectSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        default: "",
     },
     context: {
         type: String,
         required: true,
+        default: "",
     },
     description: {
         type: String,
         required: true,
+        default: "",
     },
     image: {
         type: String,
         required: true,
+        default: "https://placehold.co/200x400",
     },
     link: {
         type: String,
         required: true,
+        default: "https://placehold.co/200x400",
     },
     technologies: {
         type: [
@@ -243,7 +249,7 @@ const projectSchema = new mongoose.Schema({
     //     required: true,
     // },
 });
-projectSchema.plugin(require("mongoose-autopopulate"));
+projectSchema.plugin(populate);
 
 const educationSchema = new mongoose.Schema({
     index: {
@@ -284,7 +290,7 @@ const educationSchema = new mongoose.Schema({
         required: true,
     },
 });
-educationSchema.plugin(require("mongoose-autopopulate"));
+educationSchema.plugin(populate);
 
 const contactSchema = new mongoose.Schema({
     name: {
@@ -308,7 +314,7 @@ const contactSchema = new mongoose.Schema({
         required: true,
     },
 });
-contactSchema.plugin(require("mongoose-autopopulate"));
+contactSchema.plugin(populate);
 
 const messageSchema = new mongoose.Schema({
     name: {
@@ -321,7 +327,7 @@ const messageSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
+        required: false,
     },
     company: {
         type: String,
@@ -352,10 +358,33 @@ const messageSchema = new mongoose.Schema({
         required: false,
         default: Date.now,
     },
+}, {
+    // This adds "createdAt" and "updatedAt" timestamps automatically.
+    timestamps: true,
+    _id: true,
+    // plugin: populate
 });
-messageSchema.plugin( require( "mongoose-autopopulate" ) );
+messageSchema.plugin(populate);
 
-module.exports = {
+// export default {
+//     Intro: mongoose.model("intros", introSchema),
+//     About: mongoose.model("abouts", aboutSchema),
+//     Experience: mongoose.model("experiences", experienceSchema),
+//     Project: mongoose.model("projects", projectSchema),
+//     Education: mongoose.model("educations", educationSchema),
+//     Contact: mongoose.model("contacts", contactSchema),
+//     Message: mongoose.model("messages", messageSchema),
+// };
+// 
+export const Intro = mongoose.model("intros", introSchema);
+export const About = mongoose.model("abouts", aboutSchema);
+export const Experience = mongoose.model("experiences", experienceSchema);
+export const Project = mongoose.model("projects", projectSchema);
+export const Education = mongoose.model("educations", educationSchema);
+export const Contact = mongoose.model("contacts", contactSchema);
+export const Message = mongoose.model( "messages", messageSchema );
+
+export default {
     Intro: mongoose.model("intros", introSchema),
     About: mongoose.model("abouts", aboutSchema),
     Experience: mongoose.model("experiences", experienceSchema),

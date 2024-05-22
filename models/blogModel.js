@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import populate from "mongoose-autopopulate";
 
 const blogSchema = new mongoose.Schema({
     categories: {
@@ -14,7 +15,7 @@ const blogSchema = new mongoose.Schema({
         default: [],
     },
 });
-blogSchema.plugin(require("mongoose-autopopulate"));
+blogSchema.plugin(populate);
 
 const imageSchema = new mongoose.Schema({
     label: {
@@ -30,7 +31,7 @@ const imageSchema = new mongoose.Schema({
         default: "",
     },
 });
-imageSchema.plugin(require("mongoose-autopopulate"));
+imageSchema.plugin(populate);
 
 const postSchema = new mongoose.Schema({
     // Post content
@@ -109,7 +110,7 @@ const postSchema = new mongoose.Schema({
         min: 0,
     },
 });
-postSchema.plugin(require("mongoose-autopopulate"));
+postSchema.plugin(populate);
 
 const commentSchema = new mongoose.Schema({
     postId: {
@@ -148,7 +149,7 @@ const commentSchema = new mongoose.Schema({
         min: 0,
     },
 });
-commentSchema.plugin(require("mongoose-autopopulate"));
+commentSchema.plugin(populate);
 
 /*
 
@@ -203,10 +204,14 @@ const interactSchema = new mongoose.Schema({
         min: 0,
     },
 });
-interactSchema.plugin(require("mongoose-autopopulate"));
+interactSchema.plugin(populate);
 
-module.exports = {
-    Blog: mongoose.model("blog", blogSchema),
-    Post: mongoose.model("posts", postSchema),
-    Comment: mongoose.model("comments", commentSchema),
-};
+// module.exports = {
+//     Blog: mongoose.model("blog", blogSchema),
+//     Post: mongoose.model("posts", postSchema),
+//     Comment: mongoose.model("comments", commentSchema),
+// };
+
+export const Blog = mongoose.model("blog", blogSchema);
+export const Post = mongoose.model("posts", postSchema);
+export const Comment = mongoose.model( "comments", commentSchema );

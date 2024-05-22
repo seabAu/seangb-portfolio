@@ -34,16 +34,16 @@ const Tools = ( props ) =>
     const {
         children
     } = props;
-  return (
-      <Section>
-          <Section.Text
-              type="title"
-              content="Tools"
-              scale={`3xl`}
-              separator={true}
-          />
-      </Section>
-  );
+    return (
+        <Section>
+            <Section.Text
+                type="title"
+                content="Tools"
+                scale={`3xl`}
+                separator={true}
+            />
+        </Section>
+    );
 }
 
 export default Tools

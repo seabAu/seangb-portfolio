@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Icons from "./Icons";
+import Section from "../Section";
 function Footer ()
 {
     // Destructure down to where the social media links are located.
@@ -17,8 +18,25 @@ function Footer ()
                 </div>
                 <div className="page-footer-credit">
                     <h1 className="text-white">
+                        
+                        {
+                            /*
+                                <Section.Text
+                                    key={ `section-text-footer-name` }
+                                    type={"text"}
+                                    content={"Sean G Brown 2024"}
+                                    color={`text-highlightColor2` }
+                                    scale={`xs`}
+                                    styles={
+                                        {
+                                            // border: `1px solid green`,
+                                        }
+                                  } />
+                            */
+                        }
+
                         <span className="text-highlightColor2">
-                            Sean G Brown 2023
+                            Sean G Brown 2024
                         </span>
                     </h1>
                 </div>

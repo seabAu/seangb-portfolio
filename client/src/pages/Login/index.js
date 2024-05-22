@@ -205,7 +205,8 @@ function Login() {
 									label={`Sign Up`}
 									onClick={() => {
 										setMode("signup");
-									}}
+									} }
+									appearance={'console'}
 								/>
 							</div>
 						</div>

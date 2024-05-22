@@ -142,7 +142,7 @@ function AdminProjects(props) {
 			if (debug) console.log("AdminProjects :: onFinish :: Before API response :: API.defaults = ", API.defaults, " :: Values being sent = ", values);
 			if (formModalType === `edit` && formModalInitialData) {
 				// Update operation
-				response = await API.post("/api/apps/planner/edit-task", values);
+				response = await API.post("/api/portfolio/update-project", values);
 			} else if (formModalType === "delete") {
 				// Delete operation
 				response = await API.post("/api/portfolio/delete-project", {
@@ -150,7 +150,8 @@ function AdminProjects(props) {
 				});
 			} else {
 				// Add operation
-				response = await API.post("/api/apps/planner/add-task", values);
+				console.log( "Projects :: ADD :: Values = ", values );
+				response = await API.post("/api/portfolio/add-project", values);
 			}
 			if (debug) console.log("AdminProjects :: onFinish :: After API response :: response = ", response);
 			dispatch(SetLoading(false));
@@ -176,11 +177,14 @@ function AdminProjects(props) {
 		} catch (error) {
 			dispatch(SetLoading(false));
 			message.error(error.message);
+		} finally
+		{
+			dispatch(ReloadData(true));
 		}
 	};
 
 	const onSubmit = async (values) => {
-		if (debug) console.log(`AdminProjects :: onSubmit() :: Testing form return data :: values = `, values);
+		if (debug) console.log(`AdminProjects :: onSubmit() :: Testing form return data :: values = `, JSON.stringify( values ) + ", formModalType = ", formModalType );
 		if (formModalType === "add") {
 			// Remove _id field.
 			let valtemp = { ...values };
@@ -190,12 +194,13 @@ function AdminProjects(props) {
 			values = { ...values, _id: formModalInitialData._id };
 		}
 		updateCurrentData(values);
-		if (debug) console.log(`AdminProjects :: onSubmit() :: Submitting to onFinish :: values = `, values);
+		if (debug) console.log(`AdminProjects :: onSubmit() :: Submitting to onFinish :: values = `, JSON.stringify( values ) + ", formModalType = ", formModalType );
 		onFinish(values);
 	};
 
 	const onClone = (values) => {
 		if (utils.val.isObject(values)) {
+			// Remove _id field.
 			let valtemp = { ...values };
 			valtemp = utils.ao.filterKeys(values, ["_id"]);
 			values = valtemp;
@@ -262,6 +267,7 @@ function AdminProjects(props) {
 								icon={<FaPlus />}
 								label={`${formModalType === `edit` ? "Update" : formModalType === `add` ? "Add" : `Submit`}`}
 								onClick={() => {
+									console.log( "Projects :: Form :: FaPlus :: formModalInitialData = ", formModalInitialData );
 									onSubmit(formModalInitialData);
 								}}></Button>
 						</div>
@@ -276,7 +282,9 @@ function AdminProjects(props) {
 						schema={formDataSchema}
 						model={formDataModel}
 						initialData={input}
-						onSubmit={(values) => {
+						onSubmit={ ( values ) =>
+						{
+							console.log( "Projects :: Form :: onSubmit :: values = ", values, " :: ", "formModalInitialData = ", formModalInitialData );
 							onSubmit(values);
 						}}
 						// onChange={(values) => {
@@ -401,90 +409,136 @@ function AdminProjects(props) {
 				enableControls={true}
 				elementControls={adminControls}
 				itemWidth={`25rem`}>
-				{input.map((element) => (
-					<Card classes="text-white shadow ">
-						<Card.Header>
-							<Section.Text
-								classes="text-xl font-bold"
-								type="text"
-								content={element.title}></Section.Text>
-						</Card.Header>
-						<Card.Body>
-							<Section>
-								<Card.Frame
-									src={element.link}
-									title={element.title}
-									styles={{ border: `none` }}
-									height={`400px`}
-									width={`100%`}>
-									<input
-										id="link"
-										className=""
-										type="text"
-										value={element.link}></input>
-								</Card.Frame>
-								<Section.Image
-									classes="grid-card-image-container"
-									content={{ image: element.image, link: element.link }}
-								/>
-								<Section.Text
-									classes="grid-card-body-text"
-									type="text"
-									content={element.description}></Section.Text>
-							</Section>
-							<Section
-								height={`auto`}
-								styles={{
-									position: `relative`,
-									bottom: `0`,
-								}}>
-								{"technologies" in element && (
-									// Get a cell list for the listed technologies used.
-									<Tags
-										dataLabel={"Technologies used:"}
-										dataLabelSize={"2xl"}
-										dataList={element.technologies}
-										dataDisplayKey={"name"}
-										filteringEnabled={false}
-									/>
-								)}
-								<a
-									href={element.link}
-									className="button">
-									See It Here
-								</a>
-							</Section>
-						</Card.Body>
-						<Card.Footer>
-							<div className={`flex justify-end w-full`}>
-								<Button
-									label={`Delete`}
-									icon={<FaTimes />}
-									classes="button admin-button admin-button-red"
-									onClick={() => {
-										onSetDelete(element);
-									}}
-								/>
-								<Button
-									label={`Edit`}
-									classes="button admin-button admin-button-primary"
-									onClick={() => {
-										onSetEdit(element);
-									}}
-								/>
+				{
+					input.map( ( element ) => (
+						<Card classes="text-white shadow">
 
-								<Button
-									icon={<FaCopy className={`button-text button-icon`} />}
-									label={`Clone`}
-									classes="admin-button admin-button-primary bg-primary text-white rounded-sm"
-									onClick={() => {
-										onClone(element);
-									}}
-								/>
-							</div>
-						</Card.Footer>
-					</Card>
-				))}
+							<Card.Header>
+								<Section.Text
+									classes="text-xl font-bold"
+									type="text"
+									content={element.title} />
+							</Card.Header>
+
+							<Card.Body>
+
+								<Section>
+
+	                                {
+	                                    "context" in element &&
+	                                        <Section.Text
+	                                            classes="grid-card-body-text"
+	                                            type="subtitle"
+	                                            scale={ `1xl` }
+	                                            separator={ true } 
+	                                            content={ element.context }
+	                                        />
+	                                }
+	                                    
+									{
+	                                    "description" in element &&
+	                                    <Section.Text
+	                                        classes="grid-card-body-text"
+	                                        type="text"
+	                                        scale={ `1xl` }
+	                                        content={ element.description }></Section.Text>
+	                                }
+
+	                                {
+	                                    "image" in element && utils.file.checkImageURL( element.image ) &&
+											<Section.Image
+												classes="grid-card-image-container"
+												content={ {
+													image: element.image,
+													link: element.link
+												} }
+											/>
+	                                }
+	                                
+									{
+	                                    "title" in element &&
+											<Card.Frame
+												src={element.link}
+												title={element.title}
+												styles={{ border: `none` }}
+												height={`400px`}
+												width={ `100%` }>
+												
+												<input
+													id="link"
+													className=""
+													type="text"
+													value={ element.link } />
+												
+											</Card.Frame>
+	                                }
+
+								</Section>
+
+							</Card.Body>
+							
+							<Card.Footer>
+
+									<Section
+										height={`auto`}
+										styles={{
+											position: `relative`,
+											bottom: `0`,
+										} }>
+										
+										{"technologies" in element && (
+											// Get a cell list for the listed technologies used.
+											<Tags
+												dataLabel={"Technologies used:"}
+												dataLabelSize={"2xl"}
+												dataList={element.technologies}
+												dataDisplayKey={"name"}
+												filteringEnabled={ false }
+												separator={false}
+											/>
+										) }
+										
+										<a
+											href={element.link}
+											className="button">
+											See It Here
+										</a>
+
+									</Section>
+
+							</Card.Footer>
+
+							<Card.Footer>
+								<div className={`flex justify-end w-full`}>
+									<Button
+										label={`Delete`}
+										icon={<FaTimes />}
+										classes="button admin-button admin-button-red"
+										onClick={() => {
+											onSetDelete(element);
+										}}
+									/>
+									<Button
+										label={`Edit`}
+										classes="button admin-button admin-button-primary"
+										onClick={() => {
+											onSetEdit(element);
+										}}
+									/>
+
+									<Button
+										icon={<FaCopy className={`button-text button-icon`} />}
+										label={`Clone`}
+										classes="admin-button admin-button-primary bg-primary text-white rounded-sm"
+										onClick={() => {
+											onClone(element);
+										}}
+									/>
+								</div>
+							</Card.Footer>
+						</Card>
+					) )
+				}
 			</Card.Grid>
 		);
 	};
@@ -503,7 +557,7 @@ function AdminProjects(props) {
 						<Button
 							classes="admin-button bg-primary px-5 py-2 text-white"
 							icon={<FaPlus />}
-							label={`Add Task`}
+							label={`New`}
 							onClick={() => {
 								onSetAdd();
 							}}

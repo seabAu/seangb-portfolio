@@ -761,7 +761,7 @@ const AdminPlanner = (props) => {
 						<Button
 							classes="admin-button bg-primary px-5 py-2 text-white"
 							icon={<FaPlus />}
-							label={`Add Task`}
+							label={`New`}
 							onClick={() => {
 								onSetAdd();
 							}}

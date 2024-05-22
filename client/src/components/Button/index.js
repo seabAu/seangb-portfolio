@@ -142,7 +142,12 @@ function Dropdown(props) {
         let dropdownElements = [];
         if (utils.val.isValidArray(elements, true)) {
             elements.forEach((element, index) => {
-                dropdownElements.push(<li className={`dropdown-item`}>{element}</li>);
+                dropdownElements.push(
+                    <li
+                        key={`button-dromdown-item-${index}`}
+                        className={ `dropdown-item` }
+                    >{ element }</li>
+                );
             });
         }
         return (

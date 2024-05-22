@@ -1,8 +1,10 @@
 // const express = require("express");
 // const app = express();
 // const router = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+// const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcryptjs");
 const debug = false;
 
 // For any routes we want to be private, such as admin-only routing functionality in the backend like add or remove or edit users, then we use this to confirm that the user is logged in and authorized.
@@ -85,4 +87,4 @@ function auth(req, res, next) {
     }
 }
 
-module.exports = auth;
+export default auth;

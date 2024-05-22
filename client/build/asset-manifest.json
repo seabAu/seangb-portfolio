@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "//www.seangb.com/static/css/main.9c5af8e3.css",
+    "main.js": "//www.seangb.com/static/js/main.1304b9f3.js",
+    "static/js/787.d5fa4d18.chunk.js": "//www.seangb.com/static/js/787.d5fa4d18.chunk.js",
+    "index.html": "//www.seangb.com/index.html",
+    "main.9c5af8e3.css.map": "//www.seangb.com/static/css/main.9c5af8e3.css.map",
+    "main.1304b9f3.js.map": "//www.seangb.com/static/js/main.1304b9f3.js.map",
+    "787.d5fa4d18.chunk.js.map": "//www.seangb.com/static/js/787.d5fa4d18.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9c5af8e3.css",
+    "static/js/main.1304b9f3.js"
+  ]
+}

@@ -11,7 +11,7 @@ import axios from "axios";
 // baseURL: 'https://some-domain.com/api/',
 
 // Once on server, replace baseURL block with: process.env.PUBLIC_URL
-
+// console.log( process.env.NODE_ENV );
 export default axios.create({
     baseURL: `${
         process.env.NODE_ENV === "development"

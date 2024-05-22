@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import populate from "mongoose-autopopulate";
 
 const plannerSchema = new mongoose.Schema({
     /// REQUIRED
@@ -25,7 +26,7 @@ const plannerSchema = new mongoose.Schema({
         default: [],
     },
 });
-plannerSchema.plugin(require("mongoose-autopopulate"));
+plannerSchema.plugin(populate);
 
 // create schema
 // authorId: {
@@ -138,7 +139,7 @@ const taskSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
-taskSchema.plugin(require("mongoose-autopopulate"));
+taskSchema.plugin(populate);
 
 const tasksSchema = new mongoose.Schema({
 	workspace: {
@@ -219,10 +220,18 @@ const tasksSchema = new mongoose.Schema({
 	//  	},
 	//  },
 });
-tasksSchema.plugin(require("mongoose-autopopulate"));
+tasksSchema.plugin(populate);
 
-module.exports = {
-    Planner: mongoose.model("planner", plannerSchema),
-    Task: mongoose.model("task", taskSchema),
-    Tasks: mongoose.model("tasks", tasksSchema),
+// module.exports = {
+//     Planner: mongoose.model("planner", plannerSchema),
+//     Task: mongoose.model("task", taskSchema),
+//     Tasks: mongoose.model("tasks", tasksSchema),
+// };
+
+export const Planner = mongoose.model("planner", plannerSchema);
+export const Task = mongoose.model("task", taskSchema);
+export const Tasks = mongoose.model( "tasks", tasksSchema );
+
+export default {
+    Planner, Task, Tasks
 };

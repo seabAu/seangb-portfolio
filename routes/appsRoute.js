@@ -1,244 +1,56 @@
 // All routes used by apps hosted on this site.
-const express = require("express");
-const router = express.Router();
-const auth = require("../middleware/auth");
-const axios = require("axios");
 
-const { Planner, Tasks } = require("../models/appsModel");
+import axios from 'axios';
+import express from 'express';
+const router = express.Router();
+import auth from "../middleware/auth.js";
+import * as C from "../controllers/appsController.js";
 
 // @route GET api/apps/planner/tasks/test
 // @description tests tasks route
 // @access Public
-router.get( '/test', ( req, res ) => res.send( 'task route testing!' ) );
+router.get( '/test', C.Test ); 
 
 // @route GET api/apps/planner/tasks
 // @description Get all tasks
 // @access Public
-router.get( '/', ( req, res ) => {
-    Tasks.find()
-        .then( tasks => res.json( tasks ) )
-        .catch( err => res.status( 404 ).json( {
-            notasksfound: 'No Tasks found'
-        } ) );
-} );
+router.get( '/planner/', auth, C.PlannerGetTasks );
 
 // @route GET api/apps/planner/tasks/:id
 // @description Get single task by id
 // @access Public
-router.get( '/:id', ( req, res ) => {
-    Tasks.findById( req.params.id )
-        .then( task => res.json( task ) )
-        .catch( err => res.status( 404 ).json( {
-            notaskfound: 'No Task found'
-        } ) );
-} );
+router.get( '/planner/:id', C.PlannerGetTask ); 
 
 // @route GET api/apps/planner/tasks
 // @description add/save task
 // @access Public
-router.post( '/', ( req, res ) => {
-    Tasks.create( req.body )
-        .then( task => res.json( {
-            msg: 'Task added successfully'
-        } ) )
-        .catch( err => res.status( 400 ).json( {
-            error: 'Unable to add this task'
-        } ) );
-} );
-
-// @route GET api/apps/planner/tasks/:id
-// @description Update task
-// @access Public
-router.put( '/:id', ( req, res ) => {
-    Tasks.findByIdAndUpdate( req.params.id, req.body )
-        .then( task => res.json( {
-            msg: 'Updated successfully'
-        } ) )
-        .catch( err =>
-            res.status( 400 ).json( {
-                error: 'Unable to update the Database'
-            } )
-        );
-} );
-
-// @route GET api/apps/planner/tasks/:id
-// @description Delete task by id
-// @access Public
-router.delete( '/:id', ( req, res ) => {
-    Tasks.findByIdAndRemove( req.params.id, req.body )
-        .then( task => res.json( {
-            mgs: 'Task entry deleted successfully'
-        } ) )
-        .catch( err => res.status( 404 ).json( {
-            error: 'No such a task'
-        } ) );
-} );
-
-// @route       GET /api/apps/planner/tasks
-// @desc        Get all tasks
-// @access      Public
-router.get("/planner/tasks", async (req, res) => {
-    try {
-        const tasks = await Tasks.find();
-        res.status(200).send({
-            tasks: tasks,
-        });
-        // console.log( "test" );
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+router.post( '/planner', C.PlannerTaskAdd ); 
 
 // @route       POST /api/apps/planner/add-task
 // @desc        Add a new task
 // @access      Public
-router.post( "/planner/add-task", auth, async ( req, res ) =>
-{
-	// console.log("APPS :: PLANNER :: ADD-TASK :: Task schema = ", Tasks.schema.tree);
-    try
-    {
-        const task = new Tasks(req.body);
-		await task.save();
-		// console.log("APPS :: PLANNER :: ADD-TASK", "\n :: req.body = ", req.body, "\n :: res = ", res.body);
-		// If it works, throw a success message.
-		res.send({
-			data: Tasks.schema.tree,
-			success: true,
-			message: "Task added successfully",
-			status: 200,
-        } );
-        
-        // Tasks.create( req.body )
-        //     .then( ( task ) => (
-        //         res.send( {
-        //             data: task,
-        //             success: true,
-        //             message: "Task added successfully",
-        //             status: 200,
-        //         } )
-        //     ) )
-        //     .catch( ( err ) =>
-        //         res.send({
-        //             error: "Unable to add this task",
-        //             data: err,
-        //             success: false,
-        //             message: ["400 Error. Unable to add this task. :: Error = ", err].join(''),
-        //             status: 400,
-        //         })
-        // );
-        
-        // console.log("APPS :: PLANNER :: ADD-TASK", "\n :: req.body = ", req.body, "\n :: res = ", res.body);
-        // If it works, throw a success message.
-    } catch (error) {
-        // res.status(500).send(error);
-        // console.log("APPS :: PLANNER :: ADD-TASK :: 500 ERROR", "\n :: req.body = ", req.body, "\n :: error = ", error);
-    
-        res.send({
-            data: error,
-            success: false,
-            message: "500 Error.",
-            status: 500,
-        });
-    }
-});
+router.post( "/planner/add-task", auth, C.PlannerTaskAdd ); 
 
+// @route GET api/apps/planner/tasks/:id
+// @description Update task
+// @access Public
+router.put( '/planner/:id', C.PlannerTaskUpdate ); 
+
+// @route GET api/apps/planner/tasks/:id
+// @description Delete task by id
+// @access Public
+router.delete( '/planner/:id', C.PlannerTaskDelete ); 
 
 // @route       POST /api/planner/edit-task
 // @desc        Edit a task
 // @access      Private
-router.post( "/planner/edit-task", auth, async ( req, res ) => {
-    try {
-        const task = await Tasks.findOneAndUpdate( {
-                _id: req.body._id
-            },
-            req.body, {
-                new: true
-            },
-        );
-        res.send( {
-            data: task,
-            success: true,
-            message: "Task updated successfully.",
-            status: 200,
-        } );
-    } catch ( error ) {
-        // res.status(500).send(error);
-
-        res.send( {
-            data: error,
-            success: false,
-            message: "500 Error.",
-            status: 500,
-        } );
-    }
-} );
+router.post( "/planner/edit-task", auth, C.PlannerTaskUpdateBody ); 
 
 
 // Delete experience
 // @route       POST /api/planner/delete-task
 // @desc        Delete a task
 // @access      Private
-router.post( "/planner/delete-task", auth, async ( req, res ) => {
-    try {
-        const task = await Tasks.findOneAndDelete( {
-            _id: req.body._id,
-        } );
+router.post( "/planner/delete-task", auth, C.PlannerTaskDeleteBody ); 
 
-        // If it works, throw a success message.
-        res.send({
-            data: task,
-            success: true,
-            message: "Task deleted successfully",
-            status: 200,
-        });
-    } catch ( error ) {
-        // res.status(500).send(error);
-
-        res.send( {
-            data: error,
-            success: false,
-            message: "500 Error.",
-            status: 500,
-        } );
-    }
-} );
-
-const onRoute = ( callPath, callType, callData ) =>
-{
-    
-}
-
-
-
-module.exports = router;
-
-/*  // @route       POST /api/apps/planner/add-task
-    // @desc        Add a new task
-    // @access      Public
-    router.post( "/planner/add-tasks", auth, async ( req, res ) =>
-    {
-        try
-        {
-    		const task = new Tasks(req.body);
-    		await task.save();
-    		// console.log("APPS :: PLANNER :: ADD-TASK", "\n :: req.body = ", req.body, "\n :: res = ", res.body);
-    		// If it works, throw a success message.
-    		res.send({
-    			data: task,
-    			success: true,
-    			message: "Task added successfully",
-    			status: 200,
-    		});
-    	} catch (error) {
-    		// res.status(500).send(error);
-    		// console.log("APPS :: PLANNER :: ADD-TASK :: 500 ERROR", "\n :: req.body = ", req.body, "\n :: error = ", error);
-
-    		res.send({
-    			data: error,
-    			success: false,
-    			message: "500 Error.",
-    			status: 500,
-    		});
-    	}
-    });
-*/
+export default router;

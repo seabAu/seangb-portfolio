@@ -1,14 +1,13 @@
-const express = require("express");
+import express from 'express';
 const router = express.Router();
-const auth = require("../middleware/auth");
+import auth from "../middleware/auth.js";
+import * as C from "../controllers/blogController.js";
 
-const axios = require("axios");
-
-const {
+import {
     Blog,
     Post,
     Comment,
-} = require("../models/blogModel");
+} from "../models/blogModel.js";
 
 const debug = (
     route,
@@ -32,119 +31,39 @@ const debug = (
 // @route       GET /api/blog/
 // @desc        Get all blog related data.
 // @access      Private
-router.get("/", async (req, res) => {
-    try {
-        // Blog contains all the overall config for the blog, like categories and tags.
-        const blog = await Blog.find();
-        const posts = await Post.find();
-        const comments = await Comment.find();
-        res.status(200).send({
-            blog: blog[0],
-            posts: posts,
-            comments: comments,
-        });
-        // console.log( "test" );
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+router.get( "/", C.GetBlog );
 
 // @route       GET /api/blog/categories
 // @desc        Get all blog categories
 // @access      Public
-router.get( "/categories", async ( req, res ) =>
-{
-    
-});
+router.get( "/categories", C.GetCategories );
 
 // @route       GET /api/blog/tags
 // @desc        Get all blog tags
 // @access      Public
-router.get( "/tags", async ( req, res ) =>
-{
-    
-});
+router.get( "/tags", C.GetTags );
 
 // @route       GET /api/blog/filters
 // @desc        Get all blog filters
 // @access      Public
-router.get( "/filters", async ( req, res ) =>
-{
-    
-});
+router.get( "/filters", C.GetFilters );
 
 // * Posts * //
 // @route       GET /api/blog/posts
 // @desc        Get all posts
 // @access      Public
-router.get("/posts", async (req, res) => {
-    try {
-        const posts = await Post.find();
-        res.status(200).send({
-            posts: posts,
-        });
-        // console.log( "test" );
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+router.get( "/posts", C.GetPosts );
 
 // @route       POST /api/blog/add-post
 // @desc        Create a new post
 // @access      Private
-router.post( "/add-post", auth, async ( req, res ) => {
-    try {
-        const post = new Post( req.body );
-        await post.save();
-
-        // If it works, throw a success message.
-        res.send( {
-            data: post,
-            success: true,
-            message: "Post added successfully",
-            status: 200,
-        } );
-    } catch ( error ) {
-        // res.status(500).send(error);
-
-        res.send( {
-            data: error,
-            success: false,
-            message: "500 Error.",
-            status: 500,
-        } );
-    }
-} );
-
+router.post( "/add-post", auth, C.AddPost );
 
 // @route       POST /api/blog/edit-post
 // @desc        Edit a post
 // @access      Private
-router.post( "/edit-post", auth, async ( req, res ) => {
-    try {
-        const post = await Post.findOneAndUpdate( {
-                _id: req.body._id
-            },
-            req.body, {
-                new: true
-            },
-        );
-        res.send( {
-            data: post,
-            success: true,
-            message: "Post updated successfully.",
-            status: 200,
-        } );
-    } catch ( error ) {
-        // res.status(500).send(error);
+router.post( "/edit-post", auth, C.EditPost );
 
-        res.send( {
-            data: error,
-            success: false,
-            message: "500 Error.",
-            status: 500,
-        } );
-    }
-} );
 
-module.exports = router;
+// module.exports = router;
+export default router;

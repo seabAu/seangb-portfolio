@@ -479,6 +479,8 @@ function AdminDashboard() {
 		);
 	};
 
+	console.log( "AdminDashboard :: dataSchema = ", dataSchema );
+
 	return (
 		<div
 			className={`panel-form-container`}
@@ -523,7 +525,8 @@ function AdminDashboard() {
 						contentBoxShadow={true}
 						navBoxShadow={true}
 						// onChange={onChange}
-						style={{ margin: 0 }}>
+						style={ { margin: 0 } }>
+						
 						<div
 							key="0"
 							className="tab-item"

@@ -111,7 +111,7 @@ function Blog() {
             dispatch(ReloadData(false));
             const response = await API.get(`/api/blog/posts`)
                 .then((res) => {
-                    if (debug)
+                    if ( debug ) 
                         console.log("Blog.js :: getPosts :: res = ", res);
                     dispatch(SetBlogData(res.data));
 
@@ -125,7 +125,7 @@ function Blog() {
                     dispatch(ReloadData(false));
                 });
 
-            // console.log( response.data );
+            // if ( debug ) console.log( response.data );
             dispatch(SetBlogData(response.data));
             // Set reloadData flag false.
             /// dispatch(ReloadData(false));
@@ -170,11 +170,11 @@ function Blog() {
     useEffect(() => {
         // On initial mount, fetch posts.
         let postsTemp = getPosts();
-        console.log("Blog.js :: postsTemp: ", postsTemp);
+        if ( debug ) console.log("Blog.js :: postsTemp: ", postsTemp);
     }, []);
 
     useEffect(() => {
-        console.log("Blog.js :: blogData: ", blogData);
+        if ( debug ) console.log("Blog.js :: blogData: ", blogData);
     }, [blogData]);
 
     useEffect(() => {
@@ -210,7 +210,7 @@ function Blog() {
     }, []);
 
     const fetchPromise = (call, fetchOptions = {}) => {
-        console.log("fetchPromise = ", call);
+        if ( debug ) console.log("fetchPromise = ", call);
         return new Promise((resolve, reject) => {
             fetch(call, fetchOptions)
                 .then((response) => response.json())
@@ -230,21 +230,23 @@ function Blog() {
                 Promise.resolve(fetchPromise(call))
                     .then((data) => {
                         postList = data;
-                        console.log("posts = ", data);
+                        if ( debug ) console.log("posts = ", data);
                         if (utils.val.isValidArray(data, true)) {
                             setPostsData(data);
                         }
                     })
                     .then((data) => (postList = data))
-                    .catch((error) =>
-                        console.log(
-                            "Blog :: getting posts onload :: Allsettled error: ",
-                            error,
-                        ),
+                    .catch( ( error ) => {
+                            if ( debug ) 
+                                console.log(
+                                "Blog :: getting posts onload :: Allsettled error: ",
+                                error,
+                            )
+                        }
                     );
                 // .then(() => setIsLoading(false));
             } catch (error) {
-                console.log("error: ", error);
+                if ( debug ) console.log("error: ", error);
             }
             if (utils.val.isValidArray(postList, true)) {
                 setPostsData(postList);

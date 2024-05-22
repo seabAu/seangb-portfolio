@@ -35,31 +35,3 @@ const Header = ( props ) =>
 };
 
 export default Header;
-
-/*
-                    <img
-                        className="page-header-icon"
-                        src={logo}
-                        alt="Icon"
-                        onClick={() => {
-                            toggleSidebar();
-                        }}></img>
-            <Pane
-                elevation={1}
-                display="flex"
-                padding={12}
-                background="tint2"
-                border={true}
-                borderRadius={8}
-                alignItems="center">
-                <Avatar
-                    name="Crime Reports UK"
-                    src={logo}
-                    size={40}
-                    marginRight={12}
-                />
-                <Heading size={600}>
-                    Browse Open Data about Crime and Policing in the UK
-                </Heading>
-            </Pane>
-*/

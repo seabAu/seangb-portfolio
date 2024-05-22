@@ -3,6 +3,7 @@
 /* Header Styling */
 
 .page-header {
+    font-family: var(--font-family-sub);
     position: sticky;
     background-color: var(--color-primary);
     z-index: 1000;
@@ -213,6 +214,8 @@
     font-size: 2.25rem;
     line-height: 2.5rem;
     font-weight: 600;
+    font-family: var(--font-family-sub);
+    font-family: var(--font-family-global2);
     vertical-align: middle;
     flex-direction: row;
     align-items: center;
