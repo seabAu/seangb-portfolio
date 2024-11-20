@@ -1,0 +1,1320 @@
+/* @import '../../vars.css'; */
+
+.button-panel {
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        #323538;
+    border-color: #000 #111 #111;
+    border-style: groove; border-width: 0.125rem; 
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0 1px;
+    height: 1.5rem;
+    max-height: min-content;
+}
+
+/* BASE BUTTON STYLING */
+
+/* * */
+
+/* * */
+
+/* * */
+
+/* * */
+
+.button {
+    /*
+
+    */
+    /* gap: 0.25rem; */
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    vertical-align: middle;
+    height: 2rem;
+    padding: 0px 12px;
+    padding: 0.125em 0.25em;
+    color: rgb(221, 221, 221);
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: var(--color-primary);
+}
+
+.button .button-icon {
+    user-select: none;
+    color: var(--color-button-text);
+    font-size: var(--button-font-size);
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    overflow: hidden;
+    height: 0.75rem;
+    width: 0.75rem;
+}
+
+i.button-icon.icon {
+    width: 2rem;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.button .button-text {
+    font-weight: bold;
+    user-select: none;
+    font-family: 'Julius Sans One', sans-serif;
+    color: var(--color-button-text);
+    font-size: var(--button-font-size);
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.button:hover,
+.button:focus,
+.button.focus {
+    color: rgb(221, 221, 221);
+    outline: none;
+    background-color: rgb(83, 88, 95);
+}
+.button:active,
+.button-dropdown:hover > .toggle,
+.button-dropdown.open > .toggle,
+.button.active {
+    color: rgb(204, 204, 204);
+    border-color: black rgb(17, 17, 17) rgb(17, 17, 17);
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0px 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0px 1px;
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        rgb(50, 53, 56);
+}
+
+/***/
+/***/
+/* BUTTON GROUPING */
+/***/
+/***/
+
+.button-collection {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+.button-group {
+    padding: 0;
+    margin: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 0px;
+    display: inline-block;
+    vertical-align: top;
+    height: 32px;
+    font-size: 0px;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    height: auto;
+    white-space: nowrap;
+    padding: 0.1rem;
+}
+
+.button-rows,
+.buttons-cols {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    height: auto !important;
+}
+
+.button-rows {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+}
+
+.button-cols {
+    flex-direction: row;
+}
+
+/* Group of buttons in flex arrangements styling */
+
+.button-group .button-row,
+.button-group .button-col {
+    padding: 0;
+    margin: 0;
+    border-radius: 0px;
+}
+.button-group.button-row {
+    /* A row of buttons */
+    /* flex-direction: column; */
+    flex-direction: row;
+}
+
+/* Group of groups of buttons styling */
+
+.button-group .button-glassmorphic,
+.button-group .button-neumorphic {
+    padding: 0;
+    margin: 0;
+    border-radius: 0px;
+}
+.button-group > .button {
+    margin-left: -1px;
+    height: inherit;
+    line-height: 30px;
+    padding: 8px 16px;
+}
+.button-group.button-row > .button {
+    margin-left: -1px;
+    height: inherit;
+    line-height: 30px;
+    padding: 0px 16px;
+}
+.button-group.button-col > .button {
+    margin-left: -1px;
+    height: auto;
+    width: auto;
+    line-height: 30px;
+    padding: 16px 8px;
+}
+.button-group > .button:first-child {
+    margin-left: 0px;
+    border-radius: var(--button-group-outer-radius) 0px 0px
+        var(--button-group-outer-radius);
+}
+.button-group > .button:last-child {
+    border-radius: 0px var(--button-group-outer-radius)
+        var(--button-group-outer-radius) 0px;
+}
+.button-group > .button:focus {
+    position: relative;
+    z-index: 1;
+}
+/* Smaller screens */
+
+@media only screen and (max-width: 767px) {
+    .button-group {
+        width: 100%;
+        height: min-content;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-group > .button:first-child {
+        border-radius: var(--button-group-outer-radius)
+            var(--button-group-outer-radius) 0px 0px !important;
+    }
+    .button-group > .button:last-child {
+        border-radius: 0px 0px var(--button-group-outer-radius)
+            var(--button-group-outer-radius) !important;
+    }
+    .button-rows {
+        width: 100%;
+        height: min-content;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-cols {
+        height: 100%;
+        width: min-content;
+        flex-wrap: wrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-col {
+        width: 100%;
+        height: min-content;
+        flex-wrap: wrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-group.button-row > .button:first-child {
+        border-radius: var(--button-group-outer-radius)
+            var(--button-group-outer-radius) 0px 0px !important;
+    }
+    .button-group.button-row > .button:last-child {
+        border-radius: 0px 0px var(--button-group-outer-radius)
+            var(--button-group-outer-radius) !important;
+    }
+    /*
+	.button-group.button-col > .button:first-child {
+		margin-left: 0px;
+		border-radius: var(--button-group-outer-radius) 0px 0px
+			var(--button-group-outer-radius) !important;
+	}
+	.button-group.button-col > .button:last-child {
+		border-radius: 0px var(--button-group-outer-radius)
+			var(--button-group-outer-radius) 0px !important;
+	}
+	*/
+    /*
+		.button-group.button-row > .button:first-child {
+			border-radius: var(--button-group-outer-radius)
+				var(--button-group-outer-radius) 0px 0px;
+		}
+		.button-group.button-row > .button:last-child {
+			border-radius: 0px 0px var(--button-group-outer-radius)
+				var(--button-group-outer-radius);
+		}
+		.button-group.button-col > .button:first-child {
+			margin-left: 0px;
+			border-radius: var(--button-group-outer-radius) 0px 0px
+				var(--button-group-outer-radius);
+		}
+		.button-group.button-col > .button:last-child {
+			border-radius: 0px var(--button-group-outer-radius)
+				var(--button-group-outer-radius) 0px;
+		}
+
+    .button-rows {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-cols {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex: 1 1 auto;
+    }
+	*/
+}
+
+/* Bigger screens */
+
+@media only screen and (min-width: 768px) {
+    .button-group {
+        width: 100%;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        flex: 1 1 auto;
+    }
+    .button-group > .button:first-child {
+        margin-left: 0px;
+        border-radius: var(--button-group-outer-radius) 0px 0px
+            var(--button-group-outer-radius) !important;
+    }
+    .button-group > .button:last-child {
+        border-radius: 0px var(--button-group-outer-radius)
+            var(--button-group-outer-radius) 0px !important;
+    }
+    .button-rows {
+        width: 100%;
+        height: min-content;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+    .button-rows .button-group {
+        width: 100%;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        flex: 1 1 auto;
+    }
+    .button-cols .button-group {
+        height: 100%;
+        width: min-content;
+        flex-wrap: wrap;
+        flex-direction: column !important;
+    }
+    .button-group.button-col {
+        width: min-content;
+        height: 100%;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .button-group.button-col > .button:first-child {
+        border-radius: var(--button-group-outer-radius)
+            var(--button-group-outer-radius) 0px 0px !important;
+    }
+    .button-group.button-col > .button:last-child {
+        border-radius: 0px 0px var(--button-group-outer-radius)
+            var(--button-group-outer-radius) !important;
+    }
+    .button-group.button-row > .button:first-child {
+        margin-left: 0px;
+        border-radius: var(--button-group-outer-radius) 0px 0px
+            var(--button-group-outer-radius) !important;
+    }
+    .button-group.button-row > .button:last-child {
+        border-radius: 0px var(--button-group-outer-radius)
+            var(--button-group-outer-radius) 0px !important;
+    }
+
+    /*
+    .button-rows {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex: 1 1 auto;
+    }
+    .button-cols {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+	*/
+}
+.button-group .button {
+    height: auto;
+}
+.button-group.button-col {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: stretch;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.button-group.button-col .button {
+    padding: auto;
+    margin: 0 !important;
+    height: 1rem;
+}
+/***/
+/***/
+/* BUTTON VARIANTS */
+/***/
+/***/
+
+/***/
+/***/
+/* GLASSMORPHIC */
+/***/
+/***/
+
+.button-glassmorphic {
+    cursor: pointer;
+    /* 
+            position: relative; 
+            display: inline-block;
+            padding: var(--button-glass-padding);
+            background: rgba(255, 255, 255, .05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .2);
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            border-radius: var(--button-glass-border-rounding);
+            */
+    padding: 0.25rem 0.5rem;
+    padding: 0rem !important;
+    border: none;
+    border-width: 0px;
+    border-style: dotted;
+    border-radius: var(--button-glass-border-rounding);
+    background: none;
+    opacity: 1;
+    transition: all 0.1s ease-in-out;
+    transition-delay: 0s;
+    backdrop-filter: blur(15px);
+    background-clip: content-box;
+    box-shadow:
+        rgba(255, 255, 255, 0.0980392) 0px 1px inset,
+        rgba(0, 0, 0, 0.298039) 0px -1px 3px inset,
+        rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+}
+.button-glassmorphic:hover {
+    opacity: 0.8;
+}
+.button-glassmorphic::before {
+    content: '';
+    position: absolute;
+    /* 
+            left: 50%; 
+            border-radius: 10px;
+            transform: translate(-50%, -50%);
+            */
+    width: 0%;
+    height: 0%;
+    border-radius: inherit;
+    background: #f00;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    transition-delay: 0s;
+}
+.button-glassmorphic:hover::before {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+}
+.button-glassmorphic:hover::before {
+    bottom: auto;
+}
+.button-glassmorphic::before,
+.button-glassmorphic::after {
+    background: #f00;
+    content: '';
+    position: absolute;
+    /* 
+    */
+    width: 0%;
+    height: 0%;
+    border-radius: inherit;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    transition-delay: 0s;
+}
+.button-glassmorphic .button-text::before,
+.button-glassmorphic .button-text::after {
+    transform: skewX(40deg) translateX(200%);
+    opacity: 1;
+}
+.button-glassmorphic:hover .button-text::before,
+.button-glassmorphic:hover .button-text::after {
+    transform: skewX(40deg) translateX(200%);
+    opacity: 1;
+}
+.button-glassmorphic .button-text {
+    color: #fff;
+    font-size: var(--button-glass-font-size);
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    overflow: hidden;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    transition-delay: 0s;
+    backdrop-filter: blur(15px);
+    background-clip: content-box;
+    user-select: none;
+    padding: 0.125rem 0.75rem !important;
+    z-index: 1;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+}
+.button-glassmorphic:hover .button-text {
+    filter: blur(0.05rem);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+}
+.button-glassmorphic .button-text::before,
+.button-glassmorphic .button-icon::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    transform: skewX(40deg) translateX(0);
+    transition-delay: 0s;
+    transition: all 0.25s ease-out;
+}
+.button-glassmorphic .button-icon {
+    width: auto;
+    height: 100%;
+}
+/***/
+/***/
+/* NEUMORPHIC */
+/***/
+/***/
+
+.button-neumorphic {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
+    border-radius: 3px;
+    box-shadow:
+        rgba(255, 255, 255, 0.0980392) 0px 1px inset,
+        rgba(0, 0, 0, 0.298039) 0px -1px 3px inset,
+        rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: linear-gradient(
+            rgba(255, 255, 255, 0.0784314),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0) 51%,
+            rgba(0, 0, 0, 0.247059)
+        )
+        padding-box rgb(70, 74, 79);
+}
+
+/* CONTROL BUTTONS (Header row controls) */
+
+.button-controls {
+    background-color: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        #323538;
+    border-color: #000 #111 #111;
+    border-style: groove; border-width: 0.125rem; 
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0 1px;
+    height: 1.5rem;
+    max-height: min-content;
+}
+
+.button-controls.button-col {
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.button-controls.button-col .button {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0;
+}
+
+.posts-container .button-controls,
+.button-controls {
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        #323538;
+    border-color: #000 #111 #111;
+    border-style: groove; border-width: 0.125rem; 
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 1.5rem;
+    max-height: 100%;
+    min-height: min-content;
+    width: 100%;
+}
+
+.button-controls .button-control {
+    align-self: center;
+    backdrop-filter: blur(30px);
+    background-color: linear-gradient(#50545b, #35383d) #464a4f;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #111 #111 #000;
+    border-radius: 3px;
+    border-style: outset;
+    border-width: 1px;
+    color: #ddd;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 0.8;
+    padding: 0.125rem 0.25rem;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.8) 0 1px;
+    text-transform: capitalize;
+    text-transform: uppercase;
+    transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.button-control {
+    align-self: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #111 #111 #000;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    border-style: outset;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 700;
+    line-height: normal;
+    padding: 0.125rem 0.125rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    height: auto;
+}
+
+.button-control:hover .button-text {
+    color: rgba(148, 163, 185, 0.963);
+}
+
+.button-control .button-text {
+    font-size: 0.65rem;
+    height: 100%;
+    opacity: 1;
+    padding: 2px !important;
+    text-align: center;
+    width: 100%;
+}
+
+.button-control:active,
+.button-control.active {
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        #323538;
+    border-color: #000 #111 #111;
+    border-style: groove; border-width: 0.125rem; 
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0 1px;
+    color: #ccc;
+}
+
+.button-control:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: #aaa;
+}
+
+.button-control:hover,
+.button-control:focus,
+.button-control.focus {
+    background-color: #53585f;
+    border-style: solid;
+    color: #ddd;
+    outline: none;
+}
+
+/* GLOW (On Hover) */
+
+/* * */
+
+/* * */
+
+/* * */
+
+/* * */
+
+.button.button-glow.button-primary::before,
+.button.button-glow.button-primary::after {
+    background: var(--button-color-primary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-primary),
+        var(--button-glass-glowshadow-md) var(--button-color-primary),
+        var(--button-glass-glowshadow-lg) var(--button-color-primary),
+        var(--button-glass-glowshadow-xl) var(--button-color-primary);
+}
+.button.button-glow.button-secondary::before,
+.button.button-glow.button-secondary::after {
+    background: var(--button-color-secondary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-secondary),
+        var(--button-glass-glowshadow-md) var(--button-color-secondary),
+        var(--button-glass-glowshadow-lg) var(--button-color-secondary),
+        var(--button-glass-glowshadow-xl) var(--button-color-secondary);
+}
+.button.button-glow.button-tertiary::before,
+.button.button-glow.button-tertiary::after {
+    background: var(--button-color-tertiary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-tertiary),
+        var(--button-glass-glowshadow-md) var(--button-color-tertiary),
+        var(--button-glass-glowshadow-lg) var(--button-color-tertiary),
+        var(--button-glass-glowshadow-xl) var(--button-color-tertiary);
+}
+.button.button-glow.button-quaternary::before,
+.button.button-glow.button-quaternary::after {
+    background: var(--button-color-quaternary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-quaternary),
+        var(--button-glass-glowshadow-md) var(--button-color-quaternary),
+        var(--button-glass-glowshadow-lg) var(--button-color-quaternary),
+        var(--button-glass-glowshadow-xl) var(--button-color-quaternary);
+}
+.button.button-glow::before,
+.button.button-glow::after {
+    content: '';
+    transition-delay: 0s;
+    transition: all 0.1s ease-out;
+}
+.button.button-glow:hover::before {
+    background: var(--button-color-primary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-primary),
+        var(--button-glass-glowshadow-md) var(--button-color-primary);
+}
+.button.button-glow:focus::before {
+    background: var(--button-color-primary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-primary),
+        var(--button-glass-glowshadow-md) var(--button-color-primary),
+        var(--button-glass-glowshadow-lg) var(--button-color-primary);
+}
+.button.button-glow:active::before {
+    background: var(--button-color-primary);
+    box-shadow:
+        var(--button-glass-glowshadow-sm) var(--button-color-primary),
+        var(--button-glass-glowshadow-md) var(--button-color-primary),
+        var(--button-glass-glowshadow-lg) var(--button-color-primary),
+        var(--button-glass-glowshadow-xl) var(--button-color-primary);
+}
+
+/* Button Styling from Utilities.css */
+/*
+.button {
+    font-weight: bold;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    vertical-align: middle;
+    height: 2rem;
+    padding: 0px 12px;
+    font-size: 12px;
+    color: rgb(221, 221, 221);
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.8) 0px 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px inset, rgba(0, 0, 0, 0.298039) 0px -1px 3px inset, rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: linear-gradient( rgba(255, 255, 255, 0.0784314), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 51%, rgba(0, 0, 0, 0.247059)) padding-box rgb(70, 74, 79);
+}
+.button:hover, .button:focus, .button.focus {
+    color: rgb(221, 221, 221);
+    outline: none;
+    background-color: rgb(83, 88, 95);
+}
+.button:active, .button-dropdown:hover>.toggle, .button-dropdown.open>.toggle, .button.active {
+    color: rgb(204, 204, 204);
+    border-color: black rgb(17, 17, 17) rgb(17, 17, 17);
+    box-shadow: rgba(0, 0, 0, 0.247059) 0px 1px 2px inset, rgba(255, 255, 255, 0.0784314) 0px 1px;
+    background: linear-gradient( rgba(0, 0, 0, 0.0980392), transparent 50%, rgba(255, 255, 255, 0.0666667)) rgb(50, 53, 56);
+}
+a.button {
+    line-height: 110px;
+    text-decoration: none;
+}
+.button-round {
+    padding: 0px 16px;
+    border-radius: 16px;
+}
+.button-blue {
+    background-color: rgb(34, 101, 161);
+}
+.button-blue:hover, .button-blue:focus, .button-blue.focus {
+    background-color: rgb(38, 114, 182);
+}
+.button-blue:active, .button-blue.active {
+    background-color: rgb(27, 80, 127);
+}
+.button-green {
+    background-color: rgb(63, 118, 54);
+}
+.button-green:hover, .button-green:focus, .button-green.focus {
+    background-color: rgb(72, 135, 62);
+}
+.button-green:active, .button-green.active {
+    background-color: rgb(48, 90, 41);
+}
+.button-red {
+    background-color: rgb(141, 45, 43);
+}
+.button-red:hover, .button-red:focus, .button-red.focus {
+    background-color: rgb(161, 51, 49);
+}
+.button-red:active, .button-red.active {
+    background-color: rgb(110, 35, 33);
+}
+.button-purple {
+    background-color: rgb(113, 66, 142);
+}
+.button-purple:hover, .button-purple:focus, .button-purple.focus {
+    background-color: rgb(127, 74, 159);
+}
+.button-purple:active, .button-purple.active {
+    background-color: rgb(91, 53, 114);
+}
+.button-group {
+    display: inline-block;
+    vertical-align: top;
+    height: 32px;
+    font-size: 0px;
+    white-space: nowrap;
+}
+.button-group>.button {
+    margin-left: -1px;
+    height: inherit;
+    line-height: 30px;
+    padding: 0px 16px;
+    border-radius: 0px;
+}
+.button-group>.button:first-child {
+    margin-left: 0px;
+    border-radius: 3px 0px 0px 3px;
+}
+.button-group>.button:last-child {
+    border-radius: 0px 3px 3px 0px;
+}
+.button-group>.button:focus {
+    position: relative;
+    z-index: 1;
+}
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    vertical-align: middle;
+    height: auto;
+    white-space: nowrap;
+}
+.button-group .button {
+    height: auto;
+}
+.button-group.button-column {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: stretch;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.button-group.button-column .button {
+    padding: auto;
+    margin: 0 !important;
+    height: 1rem;
+}
+.button-group.button-column>.button:first-child {
+    margin-left: 0px;
+    border-radius: 3px 3px 0px 0px;
+}
+.button-group.button-column>.button:last-child {
+    border-radius: 0px 0px 3px 3px;
+}
+.button-dropdown {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 32px;
+    font-size: 0px;
+    white-space: nowrap;
+}
+.button-dropdown>.button {
+    position: relative;
+    z-index: 1;
+    height: inherit;
+    line-height: 30px;
+    padding: 0px 12px;
+    border-radius: 3px 0px 0px 3px;
+}
+.button-dropdown>.toggle {
+    width: 31px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 0px;
+    line-height: 0;
+    font-family: serif;
+    color: transparent;
+    border-left-width: 0px;
+    border-radius: 0px 3px 3px 0px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.button-dropdown>.toggle::before, .button-dropdown>.toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -1px 0px 0px -5px;
+    width: 0px;
+    height: 0px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent;
+}
+.button-dropdown>.toggle::after {
+    margin-top: -2px;
+    border-top-color: rgb(200, 200, 200);
+}
+.button-dropdown:hover>.dropdown, .button-dropdown.open>.dropdown {
+    display: block;
+}
+.button-dropdown:hover>.button, .button-dropdown.open>.button {
+    border-bottom-left-radius: 0px;
+}
+.button-dropdown:hover>.toggle, .button-dropdown.open>.toggle {
+    border-bottom-right-radius: 0px;
+}
+.button-prev, .button-next {
+    position: relative;
+    height: 32px;
+    width: 32px;
+    padding: 0px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 0px;
+    line-height: 0;
+    font-family: serif;
+    color: transparent;
+}
+.button-prev::before, .button-next::before, .button-prev::after, .button-next::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    width: 0px;
+    height: 0px;
+    border: 5px outset transparent;
+}
+.button-prev::before, .button-next::before {
+    margin-top: -4px;
+}
+.button-prev::before, .button-prev::after {
+    left: 50%;
+    margin-left: -10px;
+    border-right-width: 8px;
+    border-right-style: solid;
+    border-right-color: rgba(0, 0, 0, 0.8);
+}
+.button-prev::after {
+    border-right-color: rgb(200, 200, 200);
+}
+.button-next::before, .button-next::after {
+    right: 50%;
+    margin-right: -10px;
+    border-left-width: 8px;
+    border-left-style: solid;
+    border-left-color: rgba(0, 0, 0, 0.8);
+}
+.button-next::after {
+    border-left-color: rgb(200, 200, 200);
+}
+*/
+
+/* DROPDOWN STYLING */
+.dropdown-container {
+    float: left;
+    width: 385px;
+    margin-right: 20px;
+}
+.dropdown-container > p {
+    margin-bottom: 25px;
+    text-align: center;
+}
+.dropdown-container > p .button + .button {
+    margin-left: 24px;
+}
+.dropdown-container .button-dropdown {
+    float: right;
+}
+.dropdown-container .button-group {
+    float: left;
+    clear: left;
+    margin-bottom: 28px;
+}
+/* 
+.dropdown {
+    position: relative;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    right: 0px;
+    margin-top: -1px;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: rgb(51, 51, 51);
+    width: 100%;
+    font-size: 0.65rem;
+    max-width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: rgb(51, 51, 51);
+}
+*/
+
+/* Custom arrow - could be an image, SVG, icon font, etc. */
+/*
+.dropdown:after {
+    background: none;
+    color: #bbb;
+    content: "\25BC";
+    font-size: var(--input-text-size);
+    padding: 0;
+    position: absolute;
+    right: 1em;
+    top: 1.2em;
+    bottom: 0.3em;
+    z-index: 1;
+    pointer-events: none;
+}
+.dropdown {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+*/
+/* This hack makes the select behind the arrow clickable in some browsers */
+.button-full {
+    height: 100%;
+}
+.dropdown {
+    height: 100%;
+    width: 100%;
+    font-size: 0.65rem;
+    max-width: 100%;
+    position: relative;
+    /* box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; */
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.dropdown:hover {
+    border: 0px solid #888;
+}
+.dropdown.dropdown-active {
+    box-shadow: inset rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    /* box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.8); */
+    background-color: var(--color-quaternary);
+    height: 100%;
+}
+.dropdown .dropdown-menu {
+    height: 0;
+    z-index: -1000;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    opacity: 0;
+}
+.dropdown .dropdown-menu .dropdown-item {
+    height: 0;
+}
+.dropdown.dropdown-active .dropdown-menu {
+    top: auto;
+    z-index: 100;
+}
+.dropdown.dropdown-active .dropdown-menu {
+    z-index: 100;
+    display: block;
+    opacity: 1;
+    height: -moz-fit-content;
+    height: fit-content;
+    top: 100%;
+    /* right: 0; */
+    position: absolute;
+    list-style: none;
+}
+.dropdown.dropdown-active .dropdown-menu .dropdown-item {
+    height: fit-content;
+    min-width: 8rem;
+}
+
+.dropdown.dropdown-active .dropdown-menu .dropdown-item .button {
+    height: fit-content;
+    padding: 0.5rem;
+}
+
+.dropdown-toggle {
+    height: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    /* padding: 0.125rem 0.25rem; */
+    margin: 0;
+    /* height: 100%; */
+    /* width: 100%; */
+    color: #d7d7d7;
+    /* background-color: inherit; */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.65rem;
+    align-items: center;
+    transition: all 0.025s;
+    /* position: relative; */
+    /* top: 30%; */
+    /* left: 7.5%; */
+}
+
+.dropdown-toggle:after {
+    background: none;
+    color: #bbb;
+    content: '\25BC';
+    font-size: var(--input-text-size);
+    position: relative;
+    /* right: 0rem; */
+    /* top: 50%; */
+    /* bottom: 50%; */
+    padding: 0.125rem;
+    z-index: 1;
+    pointer-events: none;
+}
+.dropdown-menu {
+    opacity: 0;
+    /* height: 0; */
+    position: absolute;
+    /* right: 0; */
+    padding: 0;
+    margin: 0;
+    font-size: 0.65rem;
+    box-shadow: rgba(0, 0, 0, 1) 0px 1px 2px;
+}
+.dropdown.dropdown-right .dropdown-menu {
+    left: 0;
+}
+
+.dropdown.dropdown-center .dropdown-menu {
+    right: 0;
+    left: 0;
+}
+
+.dropdown.dropdown-left .dropdown-menu {
+    right: 0;
+}
+
+/* Smaller screens */
+
+@media only screen and (max-width: 767px) {
+    .dropdown {
+        height: 100%;
+        width: 100%;
+    }
+    .dropdown-toggle {
+        position: relative;
+        height: 1.5rem;
+    }
+    ul.dropdown-menu {
+        position: absolute;
+    }
+}
+/* Bigger screens */
+
+@media only screen and (min-width: 768px) {
+    .dropdown {
+        height: 100%;
+        width: 100%;
+    }
+    .dropdown-toggle {
+        height: 100%;
+    }
+    ul.dropdown-menu {
+        position: fixed;
+    }
+}
+/*
+.dropdown-menu:hover, .dropdown-toggle:hover+.dropdown-menu {
+    opacity: 1;
+    height: fit-content;
+}
+.dropdown-menu.dropdown-menu-active {
+    display: block;
+    opacity: 1.0;
+}
+*/
+.dropdown > li > a,
+.dropdown > li > button {
+    display: block;
+    line-height: 30px;
+    padding: 0px 12px;
+    color: rgb(198, 198, 198);
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.8) 0px 1px;
+    box-shadow: rgba(255, 255, 255, 0.0470588) 0px 0px 0px 1px inset;
+}
+/*
+.dropdown>li>a:hover, .dropdown>li>a:focus,
+.dropdown>li>button:hover, .dropdown>li>button:focus
+ {
+    outline: none;
+    background: rgb(61, 61, 61);
+}
+*/
+.dropdown > li > a:hover,
+.dropdown > li > a:focus,
+.dropdown > li > button:hover,
+.dropdown > li > button:focus {
+    outline: none;
+    background: rgb(61, 61, 61);
+}
+.dropdown > li + li {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(17, 17, 17);
+}
+.dropdown > li:last-child > a,
+.dropdown > li:last-child > button {
+    border-radius: 0px 0px 2px 2px;
+}
+
+.button.close-button {
+    gap: 0.25rem;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    vertical-align: middle;
+    aspect-ratio: 1/1;
+    padding: 0;
+    max-height: 2rem !important;
+    color: rgb(221, 221, 221);
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: var(--color-primary);
+}
+
+/* Places the button hovering in the top right corner of a given element.  */
+.close-button,
+.button-pos-corner {
+    color: white;
+    position: relative;
+    top: 0.25rem;
+    right: 0rem;
+    z-index: 1000;
+    align-items: end;
+    justify-self: end;
+    /* height: 1.25rem; */
+}
+
+.close-button .button-text {
+    color: var(--color-button-text);
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-decoration: none;
+}

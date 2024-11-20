@@ -1,0 +1,63 @@
+/* @import '../../vars.css'; */
+
+
+.loader-text-progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.loader-progress-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+.loader-progress-message {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+.loader-progress-message-container {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+.loader-progress-message-container, .loader-progress-bar-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    width: 100%;
+}
+
+/* Progress Bar Styling (from Bootstrap CDN */
+
+@-webkit-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+@-o-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}

@@ -1,0 +1,255 @@
+/* @import '../../../vars.css'; */
+
+/* Task Table-List Styling */
+
+.tasks-container, .tasks-content {
+    display: block;
+    display: flex;
+    height: 100%;
+    min-height: auto;
+    max-height: 100%;
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: stretch;
+    transition: width 1s ease-in-out 0s;
+}
+
+.tasks-content {
+    padding: 0.25rem 1rem;
+    margin: 0rem;
+}
+
+.task-container {
+    display: flex;
+    border: 1px solid var(--color-quaternary);
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
+}
+.task-content, .task-details {
+    display: flex;
+    /* border: 1px solid var(--color-quaternary); */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.task-detail {
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    height: 2.5rem;
+    border: 1px solid var(--color-quinary);
+    color: var(--color-highlightColor2);
+    display: grid;
+    align-content: stretch;
+    align-items: center;
+    justify-items: stretch;
+}
+
+.task-detail.task-detail-select .input-field-select {
+    height: 100%;
+    line-height: 1rem;
+    width: 100%;
+    vertical-align: middle;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgb(17 17 17 / 12%) rgb(17 17 17 / 10%) #00000038;
+    border-radius: 3px;
+    box-sizing: border-box;
+    /* box-shadow: rgba(255, 255, 255, 0.0784314) 0px 1px inset, rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.247059) 0px -1px 2px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 2px;
+    background: linear-gradient(rgba(255, 255, 255, 0.0784314), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 51%, rgba(0, 0, 0, 0.247059)) rgb(70, 74, 79); 
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
+    background: var(--color-body);
+    */
+    font-size: 100%;
+    font-weight: 100;
+}
+
+.task-detail.task-detail-timestamp .input-field-date {
+    width: 100%;
+    vertical-align: middle;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgb(17 17 17 / 12%) rgb(17 17 17 / 10%) #00000038;
+    border-radius: 3px;
+    box-sizing: border-box;
+    /* 
+    box-shadow: rgba(255, 255, 255, 0.0784314) 0px 1px inset, rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.247059) 0px -1px 2px inset, rgba(0, 0, 0, 0.0980392) 0px 1px 2px;
+    background: linear-gradient(rgba(255, 255, 255, 0.0784314), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 51%, rgba(0, 0, 0, 0.247059)) rgb(70, 74, 79);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4); 
+    background: var(--color-body);
+    */
+    user-select: none;
+    outline: none;
+}
+
+.task-detail-input {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.task-detail-input.input-field-date {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+.task-detail-label {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    padding: 0;
+    margin: auto;
+}
+
+.task-options {
+    width: 2rem;
+    width: min-content;
+}
+
+.task-controls {
+    width: 2rem;
+    width: min-content;
+}
+
+.task-controls .button, 
+.task-controls .button .button-icon {
+    /* height: auto; */
+    width: auto;
+    transition: all 1s ease-in-out 0s;
+    transform: rotateZ(0deg);
+}
+
+.task-controls .button.dropdown-button-active .button-icon {
+    /* height: auto; */
+    transform: rotateZ(-90deg);
+}
+
+.task-options .button-controls.button-col .button, 
+.task-options .button-controls.button-col .button .button-icon {
+    width: auto;
+    height: auto;
+}
+
+.button-controls.button-col {
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.button-controls.button-col .button {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0;
+}
+/* Task Dropdown Areas Styling */
+.task-dropdown {
+    height: 0%;
+    max-height: 0%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    color: var(--color-highlightColor2);
+    transition: 0.5s all cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: -10;
+}
+.task-dropdown.dropdown-active {
+    height: 100%;
+    max-height: 100%;
+    z-index: 10;
+}
+
+.task-dropdown .task-dropdown-detail {
+    height: 0;
+    opacity: 0.0;
+    color: var(--color-highlightColor2);
+    transition: 0.3s all cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.task-dropdown.dropdown-active .task-dropdown-detail {
+    height: auto;
+    opacity: 1.0;
+    color: var(--color-highlightColor2);
+}
+
+.task-dropdown-detail {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-width: 0.125rem;
+    border-style: inset;
+    border-color: #33333333;
+}
+
+.subtask-list, .note-list {
+
+}
+
+
+/* LIST STYLING */
+
+.subtask-list, 
+.note-list {
+    list-style: disc;
+}
+.subtask-list .subtask-list-item, 
+.note-list .note-list-item {
+    list-style: disc;
+    display: list-item;
+}
+.note-list .note-list-item::marker, 
+.subtask-list .subtask-list-item::marker {
+    color: var(--color-text);
+}
+
+.note-list .note-list-item::before, 
+.subtask-list .subtask-list-item::before {
+    content: "";
+}
+.note-list .note-list-item::after, 
+.subtask-list .subtask-list-item::after {
+    content: "";
+}
+
+.subtask-list .subtask-list-item .list-item-text,
+.note-list .note-list-item .list-item-text {
+    color: var(--color-text);
+    text-shadow: var(--text-shadow-params);
+    line-height: 1.0rem;
+    font-size: 0.75rem;
+    line-break: auto;
+}
+.subtask-list .subtask-list-item .list-item-text.list-item-title,
+.note-list .note-list-item .list-item-text.list-item-title {
+    line-height: 1.25rem;
+    font-variant: petite-caps;
+}

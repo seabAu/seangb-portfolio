@@ -1,0 +1,205 @@
+
+.image {
+    
+}
+
+/* GALLERY :: BASIC GRID */
+.image-grid {
+    --image-item-width: 20rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1rem;
+    grid: repeat(auto-fit, 1fr) / auto-flow 1fr;
+    grid: repeat(auto-flow, minmax(var(--image-item-width), 1fr)) / repeat(auto-flow, minmax(var(--image-item-width), 1fr));
+    grid: repeat(auto-fill, minmax(var(--image-item-width), 1fr)) / repeat(auto-fill, minmax(var(--image-item-width), 1fr));
+    grid: repeat(auto-fit, minmax(var(--image-item-width), 1fr)) / repeat(auto-fit, minmax(var(--image-item-width), 1fr));
+}
+
+.image-grid-item {
+    padding: 0.0rem;
+    display: flex;
+    flex: 1 1 100%;
+    align-items: left;
+    flex-direction: column;
+    /* background-color: var(--color-tertiary); */
+    /* color: var(--color-text); */
+    transition: 300ms all cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.image-grid .grid-card {
+    flex: 1 0 auto;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: column;
+}
+
+/* GALLERY :: MASONRY GRID */
+
+/* Container */
+.masonry-container {
+  --column-count-small: 1;
+  --column-count-medium: 2;
+  --column-count-large: 3;
+  --column-gap: 0.125rem;
+  padding: var(--column-gap);
+}
+
+/* Columns */
+.masonry-columns {
+  column-gap: var(--column-gap);
+  column-count: var(--column-count-small);
+  column-width: calc(1 / var(--column-count-small) * 100%);
+}
+
+@media only screen and (min-width: 640px) {
+  .masonry-columns {
+    column-count: var(--column-count-medium);
+    column-width: calc(1 / var(--column-count-medium) * 100%);
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .masonry-columns {
+    column-count: var(--column-count-large);
+    column-width: calc(1 / var(--column-count-large) * 100%);
+  }
+}
+
+/* Bricks */
+.masonry-brick {
+  width: 100%;
+  height: auto;
+  margin: var(--column-gap) 0;
+  display: block;
+  gap: 0.5rem;
+}
+
+.masonry-brick {
+    width: fit-content;
+    height: fit-content;
+    margin: var(--column-gap) 0;
+    display: block;
+    border: 0px solid red;
+    align-content: space-around;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+}
+
+.masonry-brick:first-child {
+  margin: 0 0 var(--column-gap);
+}
+
+/* GALLERY :: MOSAIC GRID */
+
+.image-grid {
+    display: grid;
+    grid-gap: 10px;
+    padding: 10px;
+}
+.image-grid-item {
+    position: relative;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+}
+.image-grid-item:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.image-grid-item .body img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    /* Ensures the image retains its aspect ratio */
+    max-height: 100%;
+    /* Ensures the image does not stretch beyond its container */
+    aspect-ratio: initial;
+}
+.image-card-footer,
+.image-card-header {
+    padding: 10px;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+.dark-mode .footer,
+.dark-mode .header {
+    background-color: #555;
+}
+.image-card-body {
+    padding: 10px;
+}
+.image-card-body img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    /* Ensures the image retains its aspect ratio */
+    max-height: 100%;
+    /* Ensures the image does not stretch beyond its container */
+}
+.card-info-field {
+    background-color: #ddd;
+    box-shadow: inset 0 0 10px #000;
+    padding: 5px;
+    font-size: small;
+}
+@media (min-width: 1200px) {
+    .image-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 767px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Image Lightbox Modal styling */
+
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+.lightbox-modal-content {
+    margin: 10% auto;
+    width: 80%;
+    max-width: 600px;
+}
+.lightbox-modal-footer,
+.lightbox-modal-header {
+    padding: 10px;
+    color: white;
+    background-color: #333;
+}
+.lightbox-modal-body {
+    padding: 20px;
+    background-color: white;
+}
+.lightbox-close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}

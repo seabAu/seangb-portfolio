@@ -1,0 +1,129 @@
+/* @import '../../vars.css'; */
+
+/*
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #131419;
+}
+*/
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #131419;
+}
+.form-login {
+    position: absolute;
+    max-width: max-content;
+    min-width: min-content;
+    width: auto;
+    padding: 1rem 1rem 2rem;
+    background: #131419;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: var(--boxshadowSmooth);
+}
+.form-login h2.form-label {
+    color: #c7c7c7;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+}
+
+/* Container for all input fields */
+
+.form-login .form-inputs {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+/* Container for one set of input elements related to one another; like a label and a field. */
+
+.form-login .form-inputs .input-group {
+    margin-top: 1rem;
+}
+
+/* Input Label Styling */
+
+.form-login .form-inputs .input-group label.input-label {
+    display: block;
+    color: #868686;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+/* Input Field Styling */
+
+.form-login .form-inputs .input-group input.input-field {
+    width: 100%;
+    height: 2rem;
+    background: #131419;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    color: #fff;
+    font-size: 0.8rem;
+    color: #546de5;
+    box-shadow: var(--boxshadowInset);
+    box-shadow: var(--boxshadowFlat);
+}
+.form-login .form-inputs .input-group input.input-field:active, .form-login .form-inputs .input-group input.input-field:focus {
+    background: #131419;
+    font-size: 0.8rem;
+    color: #546de5;
+    box-shadow: var(--boxshadowInset);
+}
+.form-login .form-inputs .input-group input.input-field:hover {
+    background: #151822;
+    outline: #5500FF;
+    color: #fff;
+    font-size: 0.75rem;
+}
+.form-login .form-inputs .input-group input::placeholder {
+    color: #555;
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+/* Submit button */
+
+.form-login .form-inputs .input-group input[type="submit"].form-button, button.form-button {
+    width: 100%;
+    height: 2rem;
+    background: #131419;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    color: #fff;
+    font-size: 0.8rem;
+    color: #546de5;
+    box-shadow: var(--boxshadowInset);
+    box-shadow: var(--boxshadowFlat);
+}
+.form-login .form-inputs .input-group input[type="submit"].form-button, button.form-button {
+    margin-top: 1rem;
+    box-shadow: var(--boxshadow);
+}
+.form-login .form-inputs .input-group input[type="submit"].form-button:hover, button.form-button:hover {
+    box-shadow: var(--boxshadowFlat);
+}
+.form-login .form-inputs .input-group input[type="submit"].form-button:active, button.form-button:active {
+    color: #c44569;
+    margin-top: 1rem;
+    box-shadow: var(--boxshadowInset) !important;
+}
+.forget {
+    margin-top: 2rem;
+    color: #555;
+}
+.forget a {
+    color: #c44569;
+    text-decoration: none;
+}

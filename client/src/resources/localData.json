@@ -1,0 +1,1723 @@
+{
+    "intro": {
+        "_id": "63d9a5f2c9711b9a9aef271b",
+        "welcomeText": "Hello, I am ",
+        "firstName": "Sean",
+        "lastName": "G Brown",
+        "caption": "Electrical engineer, Front End Developer, CyberSecurity, IT Support",
+        "description": "From Electrical Engineering to Full-Stack Web Development, I bring a unique skill set and passion for learning to every project.",
+        "lottieURL": "https://assets6.lottiefiles.com/packages/lf20_qjryhqec/data.json"
+    },
+    "about": {
+        "_id": "640db67de82b80679720db0b",
+        "firstName": "Sean",
+        "lastName": "G Brown",
+        "lottieURL": "https://assets6.lottiefiles.com/packages/lf20_qjryhqec/data.json",
+        "statement": "From electrical engineering to full-stack web development, I bring a unique skill set and passion for learning to every project.",
+        "summary": "I am an experienced Electrical Engineer and Full-Stack Web Developer with a passion for continuous learning and improving my skills to build bigger, faster, and better. Offering expertise in designing motor control centers, VFDs, control and instrumentation, and power transmission systems with a focus around hydropower and other renewables, as well as front-end and back-end web development, cybersecurity risk management, IT, and server administration. Always staying up-to-date with the latest technologies and constantly expanding skills to deliver efficient and effective solutions to complex problems.",
+        "description": [
+            "I am a versatile engineer and web developer with a passion for learning and problem-solving. With a degree in electrical engineering and five years of experience designing motor control, VFDs, control and instrumentation, and power transmission systems, I have a solid foundation in engineering principles and technical expertise.",
+            "In my free time, I taught myself a variety of programming languages and quickly applied these skills to secure a remote job during the pandemic lockdowns. Over the past three years, my role has expanded to include front-end development, back-end development, cybersecurity risk management, and even handling administrative tasks on Microsoft Azure and Microsoft Admin 365.",
+            "My portfolio showcases my proficiency in a broad range of front-end and full-stack web development technologies, including React, Vue, MongoDB, Mongoose, NodeJS, ExpressJS, Apache, MySQL, Wordpress, PHP, Codeigniter, HTML5, CSS3, and C#. I also have experience in cybersecurity risk management, including vulnerability assessments, penetration testing, threat analysis, and security awareness training.",
+            "Whether it's designing complex electrical systems, building user-friendly web applications, or ensuring the security and integrity of digital systems, I take pride in delivering high-quality work that meets the needs of my clients. I am excited to bring my diverse skill set and experience to a new position and tackle new challenges."
+        ],
+        "description1": [
+            "I am a versatile engineer and web developer with a passion for learning and problem-solving. With a degree in electrical engineering and five years of experience designing motor control, VFDs, control and instrumentation, and power transmission systems, I have a solid foundation in engineering principles and technical expertise. During my five years in the field, I gained an appreciation for design work more broadly, and I found myself drawn to the world of programming and began to explore and teach myself a variety of languages in my free time, first as a hobby, but eventually leading me to pursue a career in web development.",
+            "When the pandemic and subsequent lockdowns caused most engineering projects to be either halted or cancelled and engineering positions were scarce, I leveraged my newly acquired skills and found a remote job that allowed me to continue developing my programming abilities.",
+            "Over the last three years, my skillset has grown from front-end design using Wordpress, PHP, Codeigniter, HTML5, CSS3, and some C# to a full-stack designer with proficiency in React, Vue, MongoDB, Mongoose, NodeJS, ExpressJS, Apache, MySQL, and others. I have also taken on additional responsibilities in cybersecurity risk management and administrative tasks on Microsoft Azure and Microsoft Admin 365, further expanding my expertise.",
+            "As a continuous learner, I always stay up-to-date with the latest technologies and strive to deliver efficient and effective solutions to complex problems. Whether it's designing electrical systems or developing web applications, my goal is to use my skills and expertise to create innovative and impactful solutions."
+        ],
+        "description2": [],
+        "certifications": [
+            "Engineer-in-Training (EIT) in California",
+            "CPR/First Aid",
+            "OSHA-10 Hour Certified",
+            "HAM Radio Technician"
+        ],
+        "achievements": [
+            "Eagle Scout (BSA)"
+        ],
+        "skills": [
+            {
+                "_id": "6449f2a18b0ca980450b2da5",
+                "index": 0,
+                "showIndex": 0,
+                "enabled": true,
+                "name": "HTML5",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development"
+                ],
+                "proficiency": 7,
+                "years": 6
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2da6",
+                "index": 1,
+                "showIndex": 1,
+                "enabled": true,
+                "name": "CSS3",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development"
+                ],
+                "proficiency": 6,
+                "years": 6
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2da7",
+                "index": 2,
+                "showIndex": 2,
+                "enabled": true,
+                "name": "SCSS",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "CSS Frameworks"
+                ],
+                "proficiency": 6,
+                "years": 6
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2da8",
+                "index": 3,
+                "showIndex": 3,
+                "enabled": true,
+                "name": "JQuery",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2da9",
+                "index": 4,
+                "showIndex": 4,
+                "enabled": true,
+                "name": "JavaScript",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Back End Development"
+                ],
+                "proficiency": 7,
+                "years": 6
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2daa",
+                "index": 5,
+                "showIndex": 5,
+                "enabled": true,
+                "name": "React",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks",
+                    "React Modules"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dab",
+                "index": 6,
+                "showIndex": 6,
+                "enabled": true,
+                "name": "React-DOM",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks",
+                    "React Modules"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dac",
+                "index": 7,
+                "showIndex": 7,
+                "enabled": true,
+                "name": "React-Components",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks",
+                    "React Modules"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dad",
+                "index": 8,
+                "showIndex": 8,
+                "enabled": true,
+                "name": "Async-Fetch",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Back End Development",
+                    "APIs",
+                    "Javascript Frameworks"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dae",
+                "index": 9,
+                "showIndex": 9,
+                "enabled": true,
+                "name": "Mapbox-GL",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks",
+                    "Mapbox",
+                    "Geolocation"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2daf",
+                "index": 10,
+                "showIndex": 10,
+                "enabled": true,
+                "name": "Mapbox-GL-Draw",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "Javascript Frameworks",
+                    "Mapbox",
+                    "Geolocation"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db0",
+                "index": 11,
+                "showIndex": 11,
+                "enabled": true,
+                "name": "NodeJS",
+                "category": "Web Development",
+                "tags": [
+                    "MERN Stack",
+                    "Full Stack Development",
+                    "Javascript Frameworks",
+                    "Back End Development"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db1",
+                "index": 12,
+                "showIndex": 12,
+                "enabled": true,
+                "name": "ExpressJS",
+                "category": "Web Development",
+                "tags": [
+                    "MERN Stack",
+                    "Full Stack Development",
+                    "Javascript Frameworks",
+                    "Back End Development"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db2",
+                "index": 13,
+                "showIndex": 13,
+                "enabled": true,
+                "name": "MongoDB",
+                "category": "Web Development",
+                "tags": [
+                    "MERN Stack",
+                    "Full Stack Development",
+                    "Javascript Frameworks",
+                    "Back End Development",
+                    "Databases"
+                ],
+                "proficiency": 1,
+                "years": 1
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db3",
+                "index": 14,
+                "showIndex": 14,
+                "enabled": true,
+                "name": "Mongoose",
+                "category": "Web Development",
+                "tags": [
+                    "MERN Stack",
+                    "Full Stack Development",
+                    "Javascript Frameworks",
+                    "Back End Development"
+                ],
+                "proficiency": 1,
+                "years": 1
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db4",
+                "index": 15,
+                "showIndex": 15,
+                "enabled": true,
+                "name": "C#",
+                "category": "Application Development",
+                "tags": [
+                    "Unity",
+                    "Web Applications",
+                    "PC Applications"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db5",
+                "index": 16,
+                "showIndex": 16,
+                "enabled": true,
+                "name": "Python",
+                "category": "Application Development",
+                "tags": [
+                    "Web Applications",
+                    "PC Applications",
+                    "Statistics",
+                    "Web Scraping"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db6",
+                "index": 17,
+                "showIndex": 17,
+                "enabled": true,
+                "name": "Django",
+                "category": "Application Development",
+                "tags": [
+                    "Web Applications",
+                    "Python Frameworks"
+                ],
+                "proficiency": 1,
+                "years": 1
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db7",
+                "index": 18,
+                "showIndex": 18,
+                "enabled": true,
+                "name": "Flask",
+                "category": "Application Development",
+                "tags": [
+                    "Web Applications",
+                    "Python Frameworks"
+                ],
+                "proficiency": 1,
+                "years": 1
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db8",
+                "index": 19,
+                "showIndex": 19,
+                "enabled": true,
+                "name": "PHP",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2db9",
+                "index": 20,
+                "showIndex": 20,
+                "enabled": true,
+                "name": "Wordpress",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "PHP Frameworks"
+                ],
+                "proficiency": 6,
+                "years": 6
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dba",
+                "index": 21,
+                "showIndex": 21,
+                "enabled": true,
+                "name": "Codeigniter",
+                "category": "Web Development",
+                "tags": [
+                    "Front End Development",
+                    "PHP Frameworks"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dbb",
+                "index": 22,
+                "showIndex": 22,
+                "enabled": true,
+                "name": "MySQL",
+                "category": "Web Development",
+                "tags": [
+                    "Back End Development",
+                    "Databases"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dbc",
+                "index": 23,
+                "showIndex": 23,
+                "enabled": true,
+                "name": "Apache",
+                "category": "Web Development",
+                "tags": [
+                    "Back End Development",
+                    "Administration",
+                    "Databases"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dbd",
+                "index": 24,
+                "showIndex": 24,
+                "enabled": true,
+                "name": "Azure",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Admin",
+                    "Administration",
+                    "Azure Platform"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dbe",
+                "index": 25,
+                "showIndex": 25,
+                "enabled": true,
+                "name": "AWS EC2",
+                "category": "Web Development",
+                "tags": [
+                    "Amazon Platforms",
+                    "Web Hosting",
+                    "Administration",
+                    "Databases"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dbf",
+                "index": 26,
+                "showIndex": 26,
+                "enabled": true,
+                "name": "Sharepoint",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Admin",
+                    "Sharepoint Platform",
+                    "Administration"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc0",
+                "index": 27,
+                "showIndex": 27,
+                "enabled": true,
+                "name": "Microsoft Admin 365",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Admin",
+                    "Azure Platform",
+                    "Administration"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc1",
+                "index": 28,
+                "showIndex": 28,
+                "enabled": true,
+                "name": "Microsoft Teams",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Admin"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc2",
+                "index": 29,
+                "showIndex": 29,
+                "enabled": true,
+                "name": "Power BI",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Power Platform"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc3",
+                "index": 30,
+                "showIndex": 30,
+                "enabled": true,
+                "name": "Power Apps",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Power Platform"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc4",
+                "index": 31,
+                "showIndex": 31,
+                "enabled": true,
+                "name": "Power Automate",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Power Platform"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc5",
+                "index": 32,
+                "showIndex": 32,
+                "enabled": true,
+                "name": "Monday",
+                "category": "Productivity Tools",
+                "tags": [
+                    "Productivity",
+                    "Organizational"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc6",
+                "index": 33,
+                "showIndex": 33,
+                "enabled": true,
+                "name": "GIT",
+                "category": "Web Development",
+                "tags": [
+                    "CI/CD",
+                    "Project Management",
+                    "Document Control"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc7",
+                "index": 34,
+                "showIndex": 34,
+                "enabled": true,
+                "name": "SVN Project Management",
+                "category": "Web Development",
+                "tags": [
+                    "CI/CD",
+                    "Project Management",
+                    "Document Control"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc8",
+                "index": 35,
+                "showIndex": 35,
+                "enabled": true,
+                "name": "Microsoft Office 365",
+                "category": "Web Development",
+                "tags": [
+                    "Microsoft Platforms",
+                    "Microsoft Office",
+                    "Productivity"
+                ],
+                "proficiency": 10,
+                "years": 10
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dc9",
+                "index": 36,
+                "showIndex": 36,
+                "enabled": true,
+                "name": "Adobe Creative Suite",
+                "category": "Design",
+                "tags": [
+                    "Adobe Software",
+                    "2D Design Software"
+                ],
+                "proficiency": 7,
+                "years": 7
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dca",
+                "index": 37,
+                "showIndex": 37,
+                "enabled": true,
+                "name": "Adobe Photoshop",
+                "category": "Design",
+                "tags": [
+                    "Adobe Software",
+                    "2D Design Software"
+                ],
+                "proficiency": 7,
+                "years": 7
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dcb",
+                "index": 38,
+                "showIndex": 38,
+                "enabled": true,
+                "name": "Adobe After Effects",
+                "category": "Design",
+                "tags": [
+                    "Adobe Software",
+                    "2D Design Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dcc",
+                "index": 39,
+                "showIndex": 39,
+                "enabled": true,
+                "name": "Substance Painter",
+                "category": "Design",
+                "tags": [
+                    "Design Software",
+                    "2D Design Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dcd",
+                "index": 40,
+                "showIndex": 40,
+                "enabled": true,
+                "name": "Canva",
+                "category": "Design",
+                "tags": [
+                    "Design Software",
+                    "2D Design Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dce",
+                "index": 41,
+                "showIndex": 41,
+                "enabled": true,
+                "name": "Litmus",
+                "category": "Design",
+                "tags": [
+                    "Mail"
+                ],
+                "proficiency": 2,
+                "years": 2
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dcf",
+                "index": 42,
+                "showIndex": 42,
+                "enabled": true,
+                "name": "Mailchimp",
+                "category": "Design",
+                "tags": [
+                    "Mail"
+                ],
+                "proficiency": 3,
+                "years": 3
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd0",
+                "index": 43,
+                "showIndex": 43,
+                "enabled": true,
+                "name": "Mailchimp",
+                "category": "Design",
+                "tags": [
+                    "Mail"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd1",
+                "index": 44,
+                "showIndex": 44,
+                "enabled": true,
+                "name": "Google Analytics",
+                "category": "Web Development",
+                "tags": [
+                    "Web Analytics",
+                    "Administration"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd2",
+                "index": 45,
+                "showIndex": 45,
+                "enabled": true,
+                "name": "Motor Systems Design",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd3",
+                "index": 46,
+                "showIndex": 46,
+                "enabled": true,
+                "name": "Wiring Diagrams",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Engineering Documentation"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd4",
+                "index": 47,
+                "showIndex": 47,
+                "enabled": true,
+                "name": "Schematic Diagrams",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Engineering Documentation"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd5",
+                "index": 48,
+                "showIndex": 48,
+                "enabled": true,
+                "name": "Electrical Cut-sheets",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Engineering Documentation"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd6",
+                "index": 49,
+                "showIndex": 49,
+                "enabled": true,
+                "name": "Hydropower Design",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering"
+                ],
+                "proficiency": 5,
+                "years": 5
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd7",
+                "index": 50,
+                "showIndex": 50,
+                "enabled": true,
+                "name": "AutoCAD",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "CAD Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd8",
+                "index": 51,
+                "showIndex": 51,
+                "enabled": true,
+                "name": "AutoCAD Electrical",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "CAD Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dd9",
+                "index": 52,
+                "showIndex": 52,
+                "enabled": true,
+                "name": "Revit",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "CAD Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dda",
+                "index": 53,
+                "showIndex": 53,
+                "enabled": true,
+                "name": "NEC Code Compliance",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "NEC Code"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2ddb",
+                "index": 54,
+                "showIndex": 54,
+                "enabled": true,
+                "name": "Protective Relaying",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "NEC Code"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2ddc",
+                "index": 55,
+                "showIndex": 55,
+                "enabled": true,
+                "name": "SKM Power Tools",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "CAD Software"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2ddd",
+                "index": 56,
+                "showIndex": 56,
+                "enabled": true,
+                "name": "Controls and Instrumentation",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Controls and Instrumentation"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2dde",
+                "index": 57,
+                "showIndex": 57,
+                "enabled": true,
+                "name": "Motor Control Centers, Starters, VFDs",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Motor Design",
+                    "Industrial Engineering",
+                    "Controls and Instrumentation"
+                ],
+                "proficiency": 4,
+                "years": 4
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2ddf",
+                "index": 58,
+                "showIndex": 58,
+                "enabled": true,
+                "name": "Remote I/O and PLC Controls ",
+                "category": "Electrical Engineering",
+                "tags": [
+                    "Industrial Engineering",
+                    "Power Engineering",
+                    "Controls and Instrumentation"
+                ],
+                "proficiency": 4,
+                "years": 4
+            }
+        ],
+        "social": [
+            {
+                "_id": "6449f2a18b0ca980450b2de0",
+                "site": "email",
+                "url": "mailto:sean.george.brown@gmail.com",
+                "icon": "ri-mail-line"
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2de1",
+                "site": "linkedin",
+                "url": "https://www.linkedin.com/in/sean-brown-116b4b79/",
+                "icon": "ri-linkedin-box-line"
+            },
+            {
+                "_id": "6449f2a18b0ca980450b2de2",
+                "site": "github",
+                "url": "https://github.com/seabAu",
+                "icon": "ri-github-line"
+            }
+        ]
+    },
+    "experiences": [
+        {
+            "_id": "640ff316e82b80679720db18",
+            "title": "Technical Developer",
+            "period": "June 2020 - Present",
+            "company": "Sibylline, Ltd.",
+            "location": "London, UK (Remote)",
+            "duties": [
+                "Developed, managed, and maintained entire front-end online presence; assisting with branding and image",
+                "Performed day-to-day Tier I and Tier II IT and Helpdesk tasks such as resolving hardware and software issues customer service",
+                "Designed responsive UIX of several internal utilities deployed to employees to improve ease of workflow",
+                "Supported development of back-end technologies",
+                "Protected company from phishing attacks and other security threats",
+                "Ensured company is secure and educated employees on personal and professional security",
+                "Built Power BI, Power Apps, and Power Automate applications within the Microsoft Power Platform",
+                "Managed Azure, SharePoint, Teams, and other intranet services",
+                "Performed day-to-day Tier II IT and Helpdesk tasks such as resolving hardware and software issues"
+            ],
+            "description": "Multifaceted role: Front End Developer, CyberSecurity, IT",
+            "index": 0,
+            "showIndex": 0,
+            "enabled": true,
+            "startdate": "6/1/2020",
+            "enddate": "3/1/2023"
+        },
+        {
+            "_id": "640ff316e82b80679720db19",
+            "title": "Electrical Engineering Design Associate II",
+            "period": "March 2018 - May 2020",
+            "company": "Industrial TurnAround Corporation",
+            "location": "Raleigh, NC",
+            "duties": [
+                "Requesting information from clients (RFIs) and made site visits to gather necessary data for design processes",
+                "Designed power cabling and routing as needed for motors, pumps, conveyors, compressors, fans, heaters, etc.",
+                "Sized cables, conduits, trays appropriately in compliance with NEC guidelines",
+                "Utilized SKM Powertools for calculating Arc Flash",
+                "Coordinated with other disciplines; integrating structural Gas into power plans and I & C controls signals into cable schedules and block diagrams",
+                "Produced deliverables for clients; created and revised AutoCAD drawings, coordinated with other disciplines by integrating structural GAs into power plans and I & C controls signals into cable schedules and block diagrams",
+                "Met the unique needs of a wide variety of clients, involving providing engineered designs for conveyors, motors, pumps, cable raceway, conduit, power feeder and branch circuits, VFDs, panels, junction boxes, etc.",
+                "Delivered one-line power diagrams for Allen-Bradley (ABB) and Rockwell MCCs, Switchgear and Switchboards and other feeder devices, schematics, wiring diagrams, cable schedules, scope of work and design specifications, lighting calculations, power / lighting / grounding plan drawings, and all related calculation documentation"
+            ],
+            "description": "Worked as part of a team to design motor control, substation, power transmission, and other industrial facilities.",
+            "index": 1,
+            "showIndex": 1,
+            "enabled": true,
+            "startdate": "3/1/2018",
+            "enddate": "5/1/2020"
+        },
+        {
+            "_id": "640ff316e82b80679720db1a",
+            "title": "Field Engineer",
+            "period": "June 2017 - August 2017",
+            "company": "Industrial Tests, Inc.",
+            "location": "Rocklin, CA",
+            "duties": [
+                "Performed NETA 70E A & M testing on switchyard electrical equipment and control room equipment, primarily but not limited to: insulation resistance testing, high potential testing, continuity testing, and mechanical inspection of terminations and enclosure.",
+                "Diagnosed failed tests for points of failure and making repairs or recommendations."
+            ],
+            "description": "Performed on-site inspection and maintenance for a variety of facilities with a team of technicians and other engineers, primarily substations and industrial equipment.",
+            "index": 2,
+            "showIndex": 2,
+            "enabled": true,
+            "startdate": "6/1/2017",
+            "enddate": "8/1/2017"
+        },
+        {
+            "_id": "640ff316e82b80679720db1b",
+            "title": "Hydropower EIT Electrical Engineer",
+            "period": "January 2016 - June 2017",
+            "company": "Aerotek - Contract with HDR, Inc.",
+            "location": "Sacramento, CA",
+            "duties": [
+                "Applied NEC standards for cable, conduit, cable tray, circuit breaker, motor, and transformer sizing",
+                "Optimized the feeder and branch circuit cabling for all power and control devices per power supply needs",
+                "Produced an extensive cable-conduit schedule by accurately interpreting I/O signals from existing schematics",
+                "Revised existing drawings and created new schematics, ready-to-build wiring diagrams and panel drawings",
+                "Contributed to project planning and budgeting and demonstrated leadership capabilities where appropriate",
+                "Assisted in modernizing the protective relaying schemes for both the low and high voltage sides of the plant",
+                "Created time-saving excel-based tools for applying NEC Code to over 2",
+                "000 cables, conduits, and cable trays",
+                "Trained for designing Switchgear, MCC, and PLC schematics"
+            ],
+            "description": "Worked as part of a team to design hydropower facilities.",
+            "index": 3,
+            "showIndex": 3,
+            "enabled": true,
+            "startdate": "1/1/2016",
+            "enddate": "6/1/2017"
+        },
+        {
+            "_id": "643b9a8e2d7214e99df83699",
+            "title": "Hydropower EIT Electrical Engineer",
+            "period": "January 2016 - June 2017",
+            "company": "Aerotek - Contract with HDR, Inc.",
+            "location": "Sacramento, CA",
+            "duties": [
+                "Applied NEC standards for cable, conduit, cable tray, circuit breaker, motor, and transformer sizing",
+                "Optimized the feeder and branch circuit cabling for all power and control devices per power supply needs",
+                "Produced an extensive cable-conduit schedule by accurately interpreting I/O signals from existing schematics",
+                "Revised existing drawings and created new schematics, ready-to-build wiring diagrams and panel drawings",
+                "Contributed to project planning and budgeting and demonstrated leadership capabilities where appropriate",
+                "Assisted in modernizing the protective relaying schemes for both the low and high voltage sides of the plant",
+                "Created time-saving excel-based tools for applying NEC Code to over 2",
+                "000 cables, conduits, and cable trays",
+                "Trained for designing Switchgear, MCC, and PLC schematics"
+            ],
+            "description": "Worked as part of a team to design hydropower facilities.",
+            "index": 3,
+            "showIndex": 3,
+            "enabled": true,
+            "startdate": "1/1/2016",
+            "enddate": "6/1/2017"
+        },
+        {
+            "_id": "6445ecbed993794573d63b9f",
+            "index": 3,
+            "showIndex": 3,
+            "enabled": true,
+            "title": "Hydropower EIT Electrical Engineer",
+            "period": "January 2016 - June 2017",
+            "startdate": "1/1/2016",
+            "enddate": "6/1/2017",
+            "company": "Aerotek - Contract with HDR, Inc.",
+            "description": "Worked as part of a team to design hydropower facilities.",
+            "duties": [
+                "Applied NEC standards for cable, conduit, cable tray, circuit breaker, motor, and transformer sizing",
+                "Optimized the feeder and branch circuit cabling for all power and control devices per power supply needs",
+                "Produced an extensive cable-conduit schedule by accurately interpreting I/O signals from existing schematics",
+                "Revised existing drawings and created new schematics, ready-to-build wiring diagrams and panel drawings",
+                "Contributed to project planning and budgeting and demonstrated leadership capabilities where appropriate",
+                "Assisted in modernizing the protective relaying schemes for both the low and high voltage sides of the plant",
+                "Created time-saving excel-based tools for applying NEC Code to over 2",
+                "000 cables, conduits, and cable trays",
+                "Trained for designing Switchgear, MCC, and PLC schematics"
+            ],
+            "location": "Sacramento, CA",
+            "__v": 0
+        }
+    ],
+    "projects": [
+        {
+            "_id": "640d8737e82b80679720daf9",
+            "index": 0,
+            "showIndex": 0,
+            "enabled": true,
+            "title": "MERN Based Professional Portfolio",
+            "context": "",
+            "description": "A professional portfolio built in the MERN stack.",
+            "image": "''",
+            "link": "https://www.seangb.com/",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e23",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e24",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e25",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "React",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e26",
+                    "index": 3,
+                    "showIndex": 3,
+                    "enabled": true,
+                    "name": "Node.js",
+                    "category": "Web Development",
+                    "tags": [
+                        "MERN Stack",
+                        "Full Stack Development",
+                        "Javascript Frameworks",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e27",
+                    "index": 4,
+                    "showIndex": 4,
+                    "enabled": true,
+                    "name": "Express",
+                    "category": "Web Development",
+                    "tags": [
+                        "MERN Stack",
+                        "Full Stack Development",
+                        "Javascript Frameworks",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e28",
+                    "index": 5,
+                    "showIndex": 5,
+                    "enabled": true,
+                    "name": "MongoDB",
+                    "category": "Web Development",
+                    "tags": [
+                        "MERN Stack",
+                        "Full Stack Development",
+                        "Javascript Frameworks",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e29",
+                    "index": 5,
+                    "showIndex": 5,
+                    "enabled": true,
+                    "name": "Mongoose",
+                    "category": "Web Development",
+                    "tags": [
+                        "MERN Stack",
+                        "Full Stack Development",
+                        "Javascript Frameworks",
+                        "Back End Development"
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "640d8737e82b80679720dafa",
+            "index": 1,
+            "showIndex": 1,
+            "enabled": true,
+            "title": "UK Crime Reports Dashboard",
+            "context": "",
+            "description": "A dashboard built in React making use of the UK Crime API. You can search for crime reports in the UK using a variety of options: Selecting a police force jurisdiction, a neighborhood or list of neighborhoods, or by choosing specific coordinates or area using Mapbox. All results are displayed in a custom-built datatable, and can be downloaded as JSON or CSV. If the results received from the API contain location data, you can also view them in a map rendering where those reports occurred. ",
+            "image": "https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png",
+            "link": "https://codepen.io/sgbn23/embed/preview/gOdvwqw?default-tab=result",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e2a",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e2b",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e2c",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "CSS3",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e2d",
+                    "index": 3,
+                    "showIndex": 3,
+                    "enabled": true,
+                    "name": "React",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Javascript Frameworks",
+                        "React Modules"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e2e",
+                    "index": 4,
+                    "showIndex": 4,
+                    "enabled": true,
+                    "name": "React-DOM",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Javascript Frameworks",
+                        "React Modules"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e2f",
+                    "index": 5,
+                    "showIndex": 5,
+                    "enabled": true,
+                    "name": "React-Components",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Javascript Frameworks",
+                        "React Modules"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e30",
+                    "index": 6,
+                    "showIndex": 6,
+                    "enabled": true,
+                    "name": "Async-Fetch",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development",
+                        "APIs",
+                        "Javascript Frameworks"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e31",
+                    "index": 7,
+                    "showIndex": 7,
+                    "enabled": true,
+                    "name": "Mapbox-GL",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Javascript Frameworks",
+                        "Mapbox",
+                        "Geolocation"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e32",
+                    "index": 8,
+                    "showIndex": 8,
+                    "enabled": true,
+                    "name": "Mapbox-GL-Draw",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Javascript Frameworks",
+                        "Mapbox",
+                        "Geolocation"
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "640d8737e82b80679720dafb",
+            "index": 2,
+            "showIndex": 2,
+            "enabled": true,
+            "title": "QR Code Generator",
+            "context": "",
+            "description": "A basic application that accepts a URL and returns a QR code you can use on your phone. It allows you to download the QR code image to use anywhere you need.",
+            "image": "https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png",
+            "link": "https://codepen.io/sgbn23/embed/preview/RwBXGBa?default-tab=result",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e33",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e34",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e35",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "QRCodeAPI",
+                    "category": "Web Development",
+                    "tags": [
+                        "Back End Development",
+                        "APIs"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e36",
+                    "index": 3,
+                    "showIndex": 3,
+                    "enabled": true,
+                    "name": "CSS3",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "640d8737e82b80679720dafc",
+            "index": 3,
+            "showIndex": 3,
+            "enabled": true,
+            "title": "Tasknote App",
+            "context": "",
+            "description": "Task list that incorporates local storage for saving your tasks, a notetaking area underneath each task, and the ability to add, edit, move, and delete any part of the UI.",
+            "image": "https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png",
+            "link": "https://codepen.io/sgbn23/embed/preview/dyqbvXa?default-tab=result",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e37",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e38",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e39",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "CSS3",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "640d8737e82b80679720dafd",
+            "index": 4,
+            "showIndex": 4,
+            "enabled": true,
+            "title": "Doodlegrid",
+            "context": "",
+            "description": "Simple app that lets you draw random colors around on a grid. but the drawing slowly fades over time!",
+            "image": "https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png",
+            "link": "https://codepen.io/sgbn23/embed/preview/vYaovdE?default-tab=result",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e3a",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e3b",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e3c",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "CSS3",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "643b9a392d7214e99df83680",
+            "index": 4,
+            "showIndex": 4,
+            "enabled": true,
+            "title": "Doodlegrid",
+            "context": "",
+            "description": "Simple app that lets you draw random colors around on a grid. but the drawing slowly fades over time!",
+            "image": "https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png",
+            "link": "https://codepen.io/sgbn23/embed/preview/vYaovdE?default-tab=result",
+            "technologies": [
+                {
+                    "_id": "6449f2a18b0ca980450b2e3d",
+                    "index": 0,
+                    "showIndex": 0,
+                    "enabled": true,
+                    "name": "HTML5",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e3e",
+                    "index": 1,
+                    "showIndex": 1,
+                    "enabled": true,
+                    "name": "JavaScript",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development",
+                        "Back End Development"
+                    ]
+                },
+                {
+                    "_id": "6449f2a18b0ca980450b2e3f",
+                    "index": 2,
+                    "showIndex": 2,
+                    "enabled": true,
+                    "name": "CSS3",
+                    "category": "Web Development",
+                    "tags": [
+                        "Front End Development"
+                    ]
+                }
+            ]
+        }
+    ],
+    "educations": [
+        {
+            "_id": "63dc927bd87521bd40020d05",
+            "index": 0,
+            "showIndex": 0,
+            "enabled": true,
+            "degree": "A.S. Arts & Sciences",
+            "major": "N/A",
+            "date": "June 2012",
+            "location": "Bellevue College, Bellevue, WA",
+            "image": "https://s.bellevuecollege.edu/bc-og-default.jpg",
+            "link": "https://www.bellevuecollege.edu/",
+            "subjects": []
+        },
+        {
+            "_id": "63dc927bd87521bd40020d03",
+            "index": 1,
+            "showIndex": 1,
+            "enabled": true,
+            "degree": "B.S. Electrical Engineering",
+            "major": "Power",
+            "date": "May 2015",
+            "location": "Washington State University, Pullman, WA",
+            "image": "https://s.bellevuecollege.edu/bc-og-default.jpg",
+            "link": "https://www.bellevuecollege.edu/",
+            "subjects": []
+        },
+        {
+            "_id": "63dc927bd87521bd40020d04",
+            "index": 2,
+            "showIndex": 2,
+            "enabled": true,
+            "degree": "A.S. Sciences (Physics & Engineering)",
+            "major": "N/A",
+            "date": "June 2012",
+            "location": "Bellevue College, Bellevue, WA",
+            "image": "https://s3.wp.wsu.edu/uploads/sites/2797/2018/04/campus-entrance-fall.jpg",
+            "link": "https://wsu.edu/",
+            "subjects": []
+        },
+        {
+            "_id": "643b9a872d7214e99df83696",
+            "index": 2,
+            "showIndex": 2,
+            "enabled": true,
+            "degree": "A.S. Sciences (Physics & Engineering)",
+            "major": "N/A",
+            "date": "June 2012",
+            "location": "Bellevue College, Bellevue, WA",
+            "image": "https://s3.wp.wsu.edu/uploads/sites/2797/2018/04/campus-entrance-fall.jpg",
+            "link": "https://wsu.edu/",
+            "subjects": [
+                "Subject",
+                "Subject",
+                "Subject",
+                "Subject",
+                "asdf",
+                "asdfasdf"
+            ]
+        },
+        {
+            "_id": "640db67de82b80679720db0b",
+            "index": 11,
+            "showIndex": 11,
+            "enabled": true,
+            "degree": "123",
+            "major": "123",
+            "date": "123",
+            "location": "123",
+            "image": "123",
+            "link": "1321231",
+            "subjects": [],
+            "__v": 0
+        },
+        {
+            "_id": "643bad5e9f31178734acf228",
+            "index": 1,
+            "showIndex": 213,
+            "enabled": false,
+            "degree": "as",
+            "major": "as",
+            "date": "a",
+            "location": "a",
+            "image": "a",
+            "link": "a",
+            "subjects": [
+                "asdfasdf",
+                "asdfasdf"
+            ],
+            "__v": 0
+        },
+        {
+            "_id": "6445eee1b42d6dc8eb8bf602",
+            "index": 2,
+            "showIndex": 5,
+            "enabled": true,
+            "degree": "sd",
+            "major": "fsdf",
+            "date": "gsadf",
+            "location": "asdg",
+            "image": "sdf",
+            "link": "asgfdasdf",
+            "subjects": [
+                "dsfsadfdf",
+                "asdfasdfas",
+                "sdgsdafsdf"
+            ],
+            "__v": 0
+        }
+    ],
+    "contact": {
+        "_id": "63d9a640c9711b9a9aef2725",
+        "name": "Sean Brown",
+        "email": "sean.george.brown@gmail.com",
+        "phone": "9166160102",
+        "age": "32",
+        "location": "North Carolina, USA"
+    },
+    "messages": [
+        {
+            "_id": "63e5e0b8d87521bd40020d49",
+            "name": "Sample",
+            "email": "Sample",
+            "phone": "Sample",
+            "company": "Sample",
+            "subject": "Sample",
+            "message": "Sample",
+            "age": "Sample",
+            "location": "Sample",
+            "preference": "Sample",
+            "timestamp": "2023-04-27T03:57:21.515Z"
+        },
+        {
+            "_id": "63ec61e42513fef76a6d97e1",
+            "name": "asdfasdf",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "afasdfas",
+            "company": "adsfasdf",
+            "subject": "asdfasdf",
+            "message": "asdfasdf",
+            "__v": 0,
+            "timestamp": "2023-04-27T03:57:21.515Z"
+        },
+        {
+            "_id": "63ed863360763a31a765a5ea",
+            "name": "Sean Brown",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "9166160102",
+            "company": "aaaaaaaa",
+            "subject": "aaaaaaaaaaa",
+            "message": "aaaaaaaaaaaa",
+            "__v": 0,
+            "timestamp": "2023-04-27T03:57:21.515Z"
+        },
+        {
+            "_id": "640e083cd86f4ad1cff77c84",
+            "name": "Test",
+            "email": "dsfasdf@asdfasdf.com",
+            "phone": "sdfgsdgf",
+            "company": "asdfasdq",
+            "subject": "sdfgsdfg",
+            "message": "sdfgsdfg",
+            "__v": 0,
+            "timestamp": "2023-04-27T03:57:21.516Z"
+        },
+        {
+            "_id": "6413f146e95804b9ecae246e",
+            "name": "Sean Brown",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "9166160102",
+            "company": "fasdf",
+            "subject": "asdfasdf",
+            "message": "asfsd",
+            "__v": 0,
+            "timestamp": "2023-04-27T03:57:21.516Z"
+        },
+        {
+            "_id": "641402bed3e2918393cd74dc",
+            "name": "Sean Brown",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "9166160102",
+            "company": "asdfas",
+            "subject": "asdf",
+            "message": "asdf",
+            "__v": 0,
+            "timestamp": "2023-04-27T03:57:21.516Z"
+        },
+        {
+            "_id": "642619732db3fba3348874dc",
+            "name": "Sean Brown",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "9166160102",
+            "company": "dasdf",
+            "subject": "asdfasdf",
+            "message": "sadfasdfasdfs",
+            "timestamp": "2023-03-30T23:21:23.183Z",
+            "__v": 0
+        },
+        {
+            "_id": "64261a38bb704aa75d91f424",
+            "name": "sdfgdfg",
+            "email": "dsfgsdfg@dfgsadf.com",
+            "phone": "asdfasd",
+            "company": "asdfasdf",
+            "subject": "asdfaswdf",
+            "message": "fasdfasdf",
+            "timestamp": "2023-03-30T23:24:40.940Z",
+            "__v": 0
+        },
+        {
+            "_id": "64261e03f2eed6ccc45cb972",
+            "name": "Sean Brown",
+            "email": "sean.george.brown@gmail.com",
+            "phone": "9166160102",
+            "company": "asd",
+            "subject": "asd",
+            "message": "fdfgsdfgdfsgsdfg",
+            "timestamp": "2023-03-30T23:40:51.114Z",
+            "__v": 0
+        }
+    ]
+}

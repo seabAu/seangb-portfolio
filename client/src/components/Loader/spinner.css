@@ -1,0 +1,67 @@
+/*
+<div class="container">
+   <div class="spinner"></div>
+</div>
+*/
+
+html, body {
+   display: block; 
+   margin: 0;
+   padding: 0; 
+   height: 100%; 
+   background: radial-gradient( circle, #fff 0%, #aaa 100% ); 
+}
+
+.container { 
+   display: flex; 
+   align-items: center; 
+   justify-contents: center; 
+   margin: auto; 
+   padding: 0; 
+   width: 100%; 
+   height: 100%; 
+}
+
+.spinner, 
+.spinner:before, 
+.spinner:after {
+   display: block; 
+   margin: 0;
+   padding: 0; 
+   width: 80px; 
+   height: 80px; 
+   border-radius: 50%;
+   box-sizing: border-box; 
+   backface-visibility: none;
+}
+
+.spinner {
+   position: relative;
+   margin: auto;
+   box-shadow: inset 0 0 0 5px rgba( 0, 0, 0, 0.05 ); 
+   animation: spinner 1s linear infinite; 
+   
+   &:before,
+   &:after {
+      content: ""; 
+      position: absolute;
+      margin: 0; 
+      border: 5px solid transparent;
+      left: 0; 
+      top: 0; 
+   }
+   &:before {
+      border-top-color: darkorchid;
+      animation: spinner 2s linear infinite; 
+   }
+   &:after {
+      border-right-color: darkorchid;
+      animation: spinner 2s linear .6s infinite; 
+   }
+}
+
+@keyframes spinner {
+   0% { transform: rotate( 0deg ); }
+   30% { transform: rotate( 180deg ); }
+   100% { transform: rotate( 360deg ); }
+}

@@ -1,0 +1,214 @@
+let defaultPost = {
+    // Post content
+    author: "",
+    title: "",
+    imageUrl: "",
+    imageLink: "",
+    content: "",
+    // Post Timestamps
+    timestampPosted: Date.now(),
+    timestampUpdated: Date.now(),
+    // Allows for customized styling for specific posts, if provided.
+    options: [],
+    // Post categorization
+    categories: [],
+    tags: [],
+    // Post Interactions
+    views: 0,
+    comments: [],
+    likes: 0,
+    dislikes: 0,
+};
+
+let dummyPosts = [
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png",
+        imageLink: "https://www.seangb.com/",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png",
+        imageLink:
+            "https://codepen.io/sgbn23/embed/preview/gOdvwqw?default-tab=result",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/8cc5ce3f29f54beb0d97b3b01251106b.png",
+        imageLink:
+            "https://codepen.io/sgbn23/embed/preview/gOdvwqw?default-tab=result",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/8845dbb8862e940502a25cb8ded0da9f.png",
+        imageLink:
+            "https://codepen.io/sgbn23/embed/preview/RwBXGBa?default-tab=result",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/41379b56a68ac28e0ede55313ae14989.png",
+        imageLink:
+            "https://codepen.io/sgbn23/embed/preview/dyqbvXa?default-tab=result",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+    {
+        // Post content
+        author: "Sean Brown",
+        title: "A blog title",
+        topic: "Post topic",
+        content:
+            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, atque? Saepe molestias deserunt quisquam nesciunt perferendis tempora, consequatur quam, in eaque illo, numquam tenetur corporis velit! Totam hic nostrum odit praesentium et autem quo tenetur qui dignissimos quas tempore repudiandae magni non, ut reiciendis nemo facere, vel nam! Sit minus possimus accusamus aut nobis tempore quia nulla minima deleniti eum nihil numquam nostrum iure omnis quae dolorum ipsam totam, officia odit. Voluptatibus velit iste nesciunt eos iusto temporibus error repellat nostrum, rerum aut consequuntur optio laboriosam voluptatum quibusdam ab beatae nobis quos minima adipisci harum vel consequatur sequi vero vitae.",
+        imageUrl: "https://i.gyazo.com/f33a2e2fba9eba4d09ec6a568a13a35d.png",
+        imageLink:
+            "https://codepen.io/sgbn23/embed/preview/vYaovdE?default-tab=result",
+        // Post Timestamps
+        timestampPosted: Date.now(),
+        timestampUpdated: Date.now(),
+        // Allows for customized styling for specific posts, if provided.
+        options: ["edit", "delete", "update"],
+        // Post categorization
+        categories: ["dev", "testing"],
+        tags: ["text", "images"],
+        // Post Interactions
+        views: 56,
+        comments: [
+            {
+                userId: 3487592647,
+                title: "Comment title",
+                content: "Comment content",
+            },
+        ],
+        likes: 1,
+        dislikes: 2,
+    },
+];
+
+
+
+
+
+
+
+
+
+
+

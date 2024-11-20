@@ -1,0 +1,256 @@
+/* @import '../../vars.css'; */
+
+.sidebar {
+    width: var(--sidebar-width-collapsed);
+    position: fixed;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+
+    background-color: var(--color-tertiary);
+    background: linear-gradient(75deg, #6d78ff22, #00ffb822);
+    border-right: 1px solid #434343;
+
+    -webkit-transition: width 0.05s linear;
+    transition: width 0.05s linear;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    z-index: 1000;
+
+    justify-content: space-between !important;
+    box-shadow: var(--bshadow-xl);
+}
+
+/* Sidebar styling variants */
+.sidebar.sidebar-glassmorphic {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
+    border-width: 0px;
+    border-style: dotted;
+    background: none;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+    backdrop-filter: blur(15px);
+    background-clip: content-box;
+    box-shadow:
+        rgba(255, 255, 255, 0.0980392) 0px 1px inset,
+        rgba(0, 0, 0, 0.298039) 0px -1px 3px inset,
+        rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    transition: all 0.1s ease-in-out;
+    transition-delay: 0s;
+}
+
+.sidebar.sidebar-neumorphic {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(17, 17, 17) rgb(17, 17, 17) black;
+    box-shadow:
+        rgba(255, 255, 255, 0.0980392) 0px 1px inset,
+        rgba(0, 0, 0, 0.298039) 0px -1px 3px inset,
+        rgba(255, 255, 255, 0.0784314) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.14902) 0px 1px 2px;
+    background: linear-gradient(
+            rgba(255, 255, 255, 0.0784314),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0) 51%,
+            rgba(0, 0, 0, 0.247059)
+        )
+        padding-box rgb(70, 74, 79);
+}
+
+/* CONTROL BUTTONS (Header row controls) */
+
+.sidebar.sidebar-controls {
+    background-color: linear-gradient(
+            rgba(0, 0, 0, 0.0980392),
+            transparent 50%,
+            rgba(255, 255, 255, 0.0666667)
+        )
+        #323538;
+    border-color: #000 #111 #111;
+    border-style: inset;
+    box-shadow:
+        rgba(0, 0, 0, 0.247059) 0 1px 2px inset,
+        rgba(255, 255, 255, 0.0784314) 0 1px;
+}
+
+.sidebar::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(0.4rem);
+    opacity: 0.7;
+    z-index: -1;
+}
+
+.sidebar:hover,
+.sidebar.sidebar-expanded {
+    width: var(--sidebar-width-expanded);
+    overflow: visible;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-footer {
+    bottom: 0;
+    height: var(--footer-height);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    position: absolute;
+    border-top: 1px double gray;
+    width: 100%;
+    align-self: center;
+    vertical-align: middle;
+    left: 0;
+    right: 0;
+}
+
+.sidebar-nav {
+    gap: 0.125em;
+}
+
+.sidebar > ul.sidebar-nav {
+    padding: 8px 0;
+}
+
+.sidebar-nav li.sidebar-nav-item {
+    position: revert;
+    display: flex;
+    width: fit-content;
+    padding: 4px 0px;
+}
+
+.sidebar-nav li.sidebar-nav-item > .nav-item-link {
+    position: relative;
+    display: flex;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #999;
+    font-family: arial;
+    font-size: 1.125em;
+    text-decoration: none;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    transition: all 0.1s linear;
+    padding-right: 0.25em;
+    flex: 1 1 100%;
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+}
+
+.nav-icon {
+    position: relative;
+    display: table-cell;
+    width: var(--sidebar-width-collapsed);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    /* margin: 6px 0px; */
+}
+
+.nav-text {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 190px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: bold;
+    user-select: none;
+    font-family: 'Julius Sans One', sans-serif;
+    color: var(--color-button-text);
+    font-size: var(--button-font-size);
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.sidebar > .logout {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.no-touch .scrollable.hover {
+    overflow-y: hidden;
+}
+.no-touch .scrollable.hover:hover {
+    overflow-y: auto;
+    overflow: visible;
+}
+.nav-item-link:focus,
+.nav-item-link:hover {
+    text-decoration: none;
+}
+
+.sidebar-nav {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.sidebar-nav li.sidebar-nav-item,
+.sidebar-nav ul.sidebar-nav-item {
+    outline: 0;
+    margin: 0;
+    /* padding: 0; */
+}
+
+.sidebar-nav ul,
+.sidebar-nav li.sidebar-nav-item {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.dashboard-page nav.dashboard-menu ul.sidebar-nav li.active .nav-item-link,
+.dropdown-menu > .active > .nav-item-link,
+.dropdown-menu > .active > .nav-item-link:focus,
+.dropdown-menu > .active > .nav-item-link:hover,
+.dropdown-menu > li.sidebar-nav-item > .nav-item-link:focus,
+.dropdown-menu > li.sidebar-nav-item > .nav-item-link:hover,
+.sidebar li.sidebar-nav-item:hover > .nav-item-link,
+.no-touch
+    .dashboard-page
+    nav.dashboard-menu
+    ul.sidebar-nav
+    li.sidebar-nav-item:hover
+    .nav-item-link,
+.sidebar-nav li.sidebar-nav-item.active > .nav-item-link {
+    color: #fff;
+    background-color: #000000;
+}
+.area {
+    float: left;
+    background: #e2e2e2;
+    width: 100%;
+    height: 100%;
+}
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    src:
+        local('Titillium WebLight'),
+        local('TitilliumWeb-Light'),
+        url('http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff')
+            format('woff');
+}
